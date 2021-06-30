@@ -1,21 +1,20 @@
 import React, { FC } from 'react';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
+import message from 'antd/lib/message';
 import { KeyOutlined } from '@ant-design/icons';
 import { LoginBox } from './styled/login-box';
 import { request } from '@/utility/request';
 import { LoginProp } from './props';
-import { useEffect } from 'react';
 
 const { Item } = Form;
 const { Password } = Input;
 
 const Login: FC<LoginProp> = (props) => {
-	useEffect(() => {
-		console.log(props.auth);
-	}, []);
+	const { dispatch } = props;
 
 	const onLoginFormFinish = (values: any) => {
 		request({
@@ -25,16 +24,21 @@ const Login: FC<LoginProp> = (props) => {
 		}).then((res: any) => {
 			if (res.success) {
 				const { uid, role, token } = res.data;
+				message.success('登录成功');
 				//todo:可将角色、用户等数据存入model
 				sessionStorage.setItem('user_token', token);
 				sessionStorage.setItem('uid', uid);
 				sessionStorage.setItem('role', role);
 				sessionStorage.setItem('username', values.username);
 
-				(props as any).dispatch({
+				dispatch({
 					type: 'auth/setAuth',
 					payload: { uid, role, username: values.username }
 				});
+				dispatch(routerRedux.push('/default'));
+			} else {
+				message.destroy();
+				message.warn('登录失败，用户或密码不正确');
 			}
 		});
 	};

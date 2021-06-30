@@ -1,6 +1,7 @@
 import { AuthStoreState } from "@/model/auth";
+import { StoreComponent } from "@/schema/model-type";
 
-interface LoginProp {
+interface LoginProp extends StoreComponent {
 
     auth: AuthStoreState;
 }

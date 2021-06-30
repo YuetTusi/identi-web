@@ -4,6 +4,7 @@ import { Router, Route, Switch } from 'dva/router';
 import localeCN from 'antd/es/locale/zh_CN';
 import ConfigProvider from 'antd/lib/config-provider';
 import Login from '@/view/login';
+import Default from '@/view/default';
 import { NotFound } from '@/view/warn';
 
 /**
@@ -17,7 +18,9 @@ const createRouter = (api?: RouterAPI) => {
 		<ConfigProvider locale={localeCN} componentSize="small">
 			<Router history={history}>
 				<Switch>
+					<Route path="/" exact={true} component={Default} />
 					<Route path="/login" component={Login} />
+					<Route path="/default" component={Default} />
 					<Route component={NotFound} />
 				</Switch>
 			</Router>

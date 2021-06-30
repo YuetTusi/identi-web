@@ -1,3 +1,4 @@
 import NotFound from './not-found';
+import NotLogin from './not-login';
 
-export { NotFound };
+export { NotFound, NotLogin };
