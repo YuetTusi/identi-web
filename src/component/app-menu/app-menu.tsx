@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { Link, withRouter } from 'dva/router';
 import Menu from 'antd/lib/menu';
 import { StoreComponent } from '@/schema/model-type';
 import { AppMenuStoreState, ResourceItem } from '@/model/app-menu';
@@ -15,10 +15,8 @@ interface AppMenuProp extends Partial<StoreComponent> {
  * 主菜单
  */
 const AppMenu: FC<AppMenuProp> = (props) => {
-	const { location } = props;
+	const { pathname } = props.location!;
 	const { data } = props.appMenu;
-
-	console.log(props);
 
 	const renderMenu = () =>
 		data.map((i) => (
@@ -38,13 +36,15 @@ const AppMenu: FC<AppMenuProp> = (props) => {
 
 	return (
 		<div>
-			<Menu defaultOpenKeys={['/permission']} style={{ width: '200px' }} mode="inline">
+			<Menu
+				selectedKeys={[pathname]}
+				defaultOpenKeys={['/permission']}
+				style={{ width: '200px' }}
+				mode="inline">
 				{renderMenu()}
 			</Menu>
 		</div>
 	);
 };
 
-// export default AppMenu;
-
-export default connect((state: any) => ({ appMenu: state.appMenu }))(AppMenu);
+export default withRouter(connect((state: any) => ({ appMenu: state.appMenu }))(AppMenu));

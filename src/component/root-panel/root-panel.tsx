@@ -15,6 +15,7 @@ const RootPanel: FC<RootPanelProp> = (props) => {
 	// 	let token = sessionStorage.getItem('user_token');
 	// 	setIsLogin(token !== null);
 	// }, []);
+
 	return (
 		<div>
 			{sessionStorage.getItem('user_token') === null ? (
