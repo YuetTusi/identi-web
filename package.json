@@ -26,6 +26,7 @@
 	"dependencies": {
 		"antd": "^4.16.6",
 		"axios": "^0.21.1",
+		"dayjs": "^1.10.6",
 		"dva": "^2.6.0-beta.22",
 		"dva-immer": "^1.0.0",
 		"react": "^17.0.2",

@@ -1,7 +1,10 @@
 import { Dispatch } from 'dva';
+import dayjs from 'dayjs';
+import { ColumnsType } from 'antd/lib/table';
+import { Resource } from '@/schema/resource';
 
 const getColumns = (dispatch: Dispatch) => {
-	const columns = [
+	const columns: ColumnsType<Resource> = [
 		{
 			title: '名称',
 			dataIndex: 'name',
@@ -33,23 +36,33 @@ const getColumns = (dispatch: Dispatch) => {
 			title: 'id',
 			dataIndex: 'id',
 			key: 'id',
-            width: 280
+			width: 280
 		},
 		{
 			title: '父级id',
 			dataIndex: 'pid',
 			key: 'pid',
-            width: 280
+			width: 280
 		},
 		{
 			title: '创建时间',
 			dataIndex: 'create_time',
-			key: 'create_time'
+			key: 'create_time',
+			align: 'center',
+			width: 160,
+			render(value: any) {
+				return dayjs(value).format('YYYY-MM-DD HH:mm:ss');
+			}
 		},
 		{
 			title: '更新时间',
 			dataIndex: 'update_time',
-			key: 'update_time'
+			key: 'update_time',
+            align: 'center',
+			width: 160,
+			render(value: any) {
+				return dayjs(value).format('YYYY-MM-DD HH:mm:ss');
+			}
 		}
 	];
 	return columns;

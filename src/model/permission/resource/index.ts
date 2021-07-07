@@ -10,14 +10,34 @@ interface ResourceStoreState {
     /**
      * 资源表数据
      */
-    data: Resource[]
+    data: Resource[],
+    /**
+     * 当前页
+     */
+    pageIndex: number,
+    /**
+     * 页尺寸
+     */
+    pageSize: number,
+    /**
+     * 记录总数
+     */
+    total: number,
+    /**
+     * 读取状态
+     */
+    loading: boolean
 }
 
 
 let model: Model = {
     namespace: 'resource',
     state: {
-        data: []
+        data: [],
+        pageIndex: 1,
+        pageSize: 1,
+        total: 20,
+        loading: false
     },
     reducers,
     effects

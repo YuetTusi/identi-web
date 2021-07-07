@@ -15,17 +15,34 @@ export default {
     *queryResource({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
         const { condition, pageIndex, pageSize } = payload;
-
+        yield put({ type: 'setLoading', payload: true });
         try {
             const { code, data }: RequestReslut<{ data: Resource[], total: number }> = yield call(request, { url: 'resource', method: 'POST', data: { condition, pageIndex, pageSize } });
+
             if (code === 0) {
                 yield put({ type: 'setData', payload: data.data });
+                yield put({
+                    type: 'setPage', payload: {
+                        pageIndex,
+                        pageSize,
+                        total: data.total
+                    }
+                });
             } else {
                 yield put({ type: 'setData', payload: [] });
+                yield put({
+                    type: 'setPage', payload: {
+                        pageIndex: 1,
+                        pageSize: 20,
+                        total: 0
+                    }
+                });
             }
         } catch (error) {
             message.destroy();
             message.error(`查询失败`);
+        } finally {
+            yield put({ type: 'setLoading', payload: false });
         }
     }
 };
