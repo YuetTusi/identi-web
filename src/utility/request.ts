@@ -37,10 +37,32 @@ function setInterceptor(instance: AxiosInstance) {
 }
 
 /**
+ * request()方法返回数据格式
+ */
+interface RequestReslut<T = any> {
+    /**
+     * 状态值
+     */
+    code: number,
+    /**
+     * 结果
+     */
+    data: T,
+    /**
+     * 错误对象
+     */
+    error: Error | null,
+    /**
+     * 其它
+     */
+    [extraProp: string]: any
+}
+
+/**
  * 封装ajax请求
  */
 function request(options = {}) {
     return instance.request<any, AxiosResponse<any>>(options);
 }
 
-export { request };
+export { request, RequestReslut };
