@@ -1,5 +1,6 @@
 import { NotLogin } from '@/view/warn';
 import React, { FC } from 'react';
+import AppMenu from '../app-menu';
 import { RootPanelProp } from './props';
 
 /**
@@ -15,7 +16,16 @@ const RootPanel: FC<RootPanelProp> = (props) => {
 	// 	setIsLogin(token !== null);
 	// }, []);
 	return (
-		<div>{sessionStorage.getItem('user_token') === null ? <NotLogin /> : props.children}</div>
+		<div>
+			{sessionStorage.getItem('user_token') === null ? (
+				<NotLogin />
+			) : (
+				<>
+					<AppMenu/>
+					{props.children}
+				</>
+			)}
+		</div>
 	);
 };
 

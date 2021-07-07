@@ -19,6 +19,10 @@ export default {
                         type: 'setAuth',
                         payload: { uid, role, username }
                     });
+                    dispatch({
+                        type: 'appMenu/queryMenuByUserId',
+                        payload: { id: uid }
+                    });
                 }
             });
         }

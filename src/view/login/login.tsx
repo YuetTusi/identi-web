@@ -28,12 +28,16 @@ const Login: FC<LoginProp> = (props) => {
 				//todo:可将角色、用户等数据存入model
 				sessionStorage.setItem('user_token', token);
 				sessionStorage.setItem('uid', uid);
-				sessionStorage.setItem('role', role);
+				sessionStorage.setItem('role', JSON.stringify(role));
 				sessionStorage.setItem('username', values.username);
 
 				dispatch({
 					type: 'auth/setAuth',
 					payload: { uid, role, username: values.username }
+				});
+				dispatch({
+					type: 'appMenu/queryMenuByUserId',
+					payload: { id: uid }
 				});
 				dispatch(routerRedux.push('/default'));
 			} else {
