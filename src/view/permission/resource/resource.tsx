@@ -3,9 +3,11 @@ import React, { FC, useEffect, MouseEvent } from 'react';
 import { connect } from 'dva';
 import Button from 'antd/lib/button';
 import { SearchOutlined } from '@ant-design/icons';
+
 import Table from 'antd/lib/table';
+import SearchForm from './search-form';
 import { getColumns } from './columns';
-import { Prop } from './props';
+import { FormValue, Prop } from './props';
 
 /**
  * 资源查看页
@@ -18,18 +20,18 @@ const Resource: FC<Prop> = (props) => {
 		dispatch({
 			type: 'resource/queryResource',
 			payload: {
-				condition: null,
+				condition: {},
 				pageIndex: 1,
 				pageSize: 20
 			}
 		});
 	}, []);
 
-	const onSearchClick = (event: MouseEvent<HTMLButtonElement>) => {
+	const onSearchFormSubmit = (data: FormValue) => {
 		dispatch({
 			type: 'resource/queryResource',
 			payload: {
-				condition: null,
+				condition: data,
 				pageIndex: 1,
 				pageSize: 20
 			}
@@ -47,14 +49,13 @@ const Resource: FC<Prop> = (props) => {
 		});
 	};
 
+	// console.log(resource.total);
+	// console.log(resource.pageSize);
 	return (
 		<RootPanel>
 			<div>资源查看</div>
 			<div>
-				<Button onClick={onSearchClick} type="primary">
-					<SearchOutlined />
-					<span>查询</span>
-				</Button>
+				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
 			</div>
 			<Table
 				pagination={{

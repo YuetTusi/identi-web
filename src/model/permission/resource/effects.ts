@@ -1,7 +1,7 @@
 
 import { AnyAction } from 'redux';
 import { EffectsCommandMap } from "dva";
-import { request, RequestReslut } from '@/utility/request';
+import { request, RequestResult } from '@/utility/request';
 import { Resource } from '@/schema/resource';
 import message from 'antd/lib/message';
 
@@ -17,7 +17,7 @@ export default {
         const { condition, pageIndex, pageSize } = payload;
         yield put({ type: 'setLoading', payload: true });
         try {
-            const { code, data }: RequestReslut<{ data: Resource[], total: number }> = yield call(request, { url: 'resource', method: 'POST', data: { condition, pageIndex, pageSize } });
+            const { code, data }: RequestResult<{ data: Resource[], total: number }> = yield call(request, { url: 'resource', method: 'POST', data: { condition, pageIndex, pageSize } });
 
             if (code === 0) {
                 yield put({ type: 'setData', payload: data.data });

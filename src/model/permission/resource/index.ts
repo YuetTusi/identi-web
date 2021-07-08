@@ -35,8 +35,8 @@ let model: Model = {
     state: {
         data: [],
         pageIndex: 1,
-        pageSize: 1,
-        total: 20,
+        pageSize: 20,
+        total: 0,
         loading: false
     },
     reducers,

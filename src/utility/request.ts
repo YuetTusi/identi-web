@@ -39,7 +39,7 @@ function setInterceptor(instance: AxiosInstance) {
 /**
  * request()方法返回数据格式
  */
-interface RequestReslut<T = any> {
+interface RequestResult<T = any> {
     /**
      * 状态值
      */
@@ -61,8 +61,8 @@ interface RequestReslut<T = any> {
 /**
  * 封装ajax请求
  */
-function request(options = {}) {
-    return instance.request<any, AxiosResponse<any>>(options);
+function request<T>(options = {}) {
+    return instance.request<any, RequestResult<T>>(options);
 }
 
-export { request, RequestReslut };
+export { request, RequestResult };
