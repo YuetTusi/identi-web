@@ -1,12 +1,14 @@
 import React, { FC, lazy, Suspense } from 'react';
 import { RouterAPI } from 'dva';
 import { Router, Route, Switch } from 'dva/router';
+import { registerModel } from '@/utility/register-model';
 import localeCN from 'antd/es/locale/zh_CN';
 import ConfigProvider from 'antd/lib/config-provider';
 import Login from '@/view/login';
 import Default from '@/view/default';
 import RootPanel from '@/component/root-panel';
 import { NotFound } from '@/view/warn';
+import resourceModel from '@/model/permission/resource';
 
 /**
  * 路由配置
@@ -14,7 +16,7 @@ import { NotFound } from '@/view/warn';
  * @returns
  */
 const createRouter = (api?: RouterAPI) => {
-	const { history } = api!;
+	const { app, history } = api!;
 
 	return (
 		<ConfigProvider locale={localeCN} componentSize="small">
@@ -81,6 +83,9 @@ const createRouter = (api?: RouterAPI) => {
 							const NextView = lazy<FC<any>>(
 								() => import('@/view/permission/resource')
 							);
+
+							registerModel(app, resourceModel);
+
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel authority={['admin']}>
