@@ -52,7 +52,7 @@ const Resource: FC<Prop> = (props) => {
 	// console.log(resource.total);
 	// console.log(resource.pageSize);
 	return (
-		<RootPanel>
+		<>
 			<div>资源查看</div>
 			<div>
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
@@ -68,7 +68,7 @@ const Resource: FC<Prop> = (props) => {
 				dataSource={resource.data}
 				loading={resource.loading}
 				bordered={true}></Table>
-		</RootPanel>
+		</>
 	);
 };
 
