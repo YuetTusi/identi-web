@@ -9,6 +9,7 @@ import Default from '@/view/default';
 import RootPanel from '@/component/root-panel';
 import { NotFound } from '@/view/warn';
 import resourceModel from '@/model/permission/resource';
+import roleModel from '@/model/permission/role';
 
 /**
  * 路由配置
@@ -68,6 +69,7 @@ const createRouter = (api?: RouterAPI) => {
 						path="/permission/role"
 						render={() => {
 							const NextView = lazy<FC<any>>(() => import('@/view/permission/role'));
+							registerModel(app, roleModel);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel authority={['admin']}>

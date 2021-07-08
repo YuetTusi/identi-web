@@ -9,7 +9,7 @@ const RootContainer = styled.div`
 const TopBox = styled.div`
 	width: auto;
 	height: 100px;
-	border-bottom: 1px solid pink;
+	border-bottom: 1px solid #7ee04d;
 `;
 
 const MainBox = styled.div`
@@ -27,7 +27,7 @@ const ContentBox = styled.div`
 
 const FooterBox = styled.div`
 	width: auto;
-	border-top: 1px solid pink;
+	border-top: 1px solid #7ee04d;
 `;
 
 export { RootContainer, TopBox, MainBox, LeftBox, ContentBox, FooterBox };
