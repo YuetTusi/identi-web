@@ -2,12 +2,11 @@ import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'dva';
 import message from 'antd/lib/message';
 import Table from 'antd/lib/table';
-import { AntModalOverWrite } from '@/component/styled/overwrite';
 import { Role as RoleEntity } from '@/schema/role';
 import { getRoleColumns } from './columns';
 import ResourceModal from './component/resource-modal';
 import { Prop } from './props';
-import { request, RequestResult } from '@/utility/request';
+import { request } from '@/utility/request';
 
 const defaultPageSize = 20;
 let roleId: string = '';

@@ -43,18 +43,14 @@ const getRoleColumns = (dispatch: Dispatch, showResourceHandle: (id: string) => 
 			align: 'center',
 			width: 90,
 			render(value: string, record: Role) {
-				if (record.name === 'admin') {
-					return <span>鉴权资源</span>;
-				} else {
-					return (
-						<a
-							onClick={() => {
-								showResourceHandle(value);
-							}}>
-							鉴权资源
-						</a>
-					);
-				}
+				return (
+					<a
+						onClick={() => {
+							showResourceHandle(value);
+						}}>
+						鉴权资源
+					</a>
+				);
 			}
 		}
 	];
