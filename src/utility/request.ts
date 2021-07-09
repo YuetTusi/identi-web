@@ -7,7 +7,7 @@ const instance = setInterceptor(
     axios.create({
         baseURL,
         timeout: 3000,
-        // headers: {},
+        // headers: { 'Content-Type': 'application/json;charset=utf8' }
         // withCredentials: true
     })
 );
@@ -61,7 +61,7 @@ interface RequestResult<T = any> {
 /**
  * 封装ajax请求
  */
-function request<T>(options = {}) {
+function request<T = any>(options = {}) {
     return instance.request<any, RequestResult<T>>(options);
 }
 

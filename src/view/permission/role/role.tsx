@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'dva';
-import Button from 'antd/lib/button';
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import message from 'antd/lib/message';
 import Table from 'antd/lib/table';
 import { AntModalOverWrite } from '@/component/styled/overwrite';
 import { Role as RoleEntity } from '@/schema/role';
 import { getRoleColumns } from './columns';
 import ResourceModal from './component/resource-modal';
 import { Prop } from './props';
+import { request, RequestResult } from '@/utility/request';
 
 const defaultPageSize = 20;
 let roleId: string = '';
@@ -39,7 +39,7 @@ const Role: FC<Prop> = (props) => {
 			payload: {
 				condition: {},
 				pageIndex: pageIndex,
-				pageSize: pageSize ?? 20
+				pageSize: pageSize ?? defaultPageSize
 			}
 		});
 	};
@@ -51,6 +51,39 @@ const Role: FC<Prop> = (props) => {
 	const showResourceHandle = (id: string) => {
 		roleId = id;
 		setResourceModalVisible(true);
+	};
+
+	/**
+	 * 更新角色分配的资源
+	 * @param data 用户勾选的资源结点
+	 */
+	const updateResourceByRoleId = async (data: ITreeNode[]) => {
+		const resourceId = data.map((item) => item.id);
+		if (resourceId.length === 0) {
+			message.destroy();
+			message.info('请选择鉴权资源');
+		} else {
+			const { data } = await request<{ success: boolean }>({
+				url: `role/resource/${roleId}`,
+				method: 'PUT',
+				data: { resourceId }
+			});
+			message.destroy();
+			if (data.success) {
+				message.success('鉴权资源更新成功');
+				setResourceModalVisible(false);
+				dispatch({
+					type: 'role/queryRole',
+					payload: {
+						condition: {},
+						pageIndex: 1,
+						pageSize: defaultPageSize
+					}
+				});
+			} else {
+				message.error('鉴权资源更新失败');
+			}
+		}
 	};
 
 	return (
@@ -71,10 +104,7 @@ const Role: FC<Prop> = (props) => {
 			<ResourceModal
 				visible={resourceModalVisible}
 				id={roleId}
-				onOk={(data: ITreeNode) => {
-					console.log(data);
-					setResourceModalVisible(false);
-				}}
+				onOk={updateResourceByRoleId}
 				onCancel={() => setResourceModalVisible(false)}
 			/>
 		</>
