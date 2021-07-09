@@ -1,4 +1,5 @@
 const path = require('path');
+const { ProvidePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let config = {
@@ -62,6 +63,10 @@ let config = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, './template/default.html')
+		}),
+		new ProvidePlugin({
+			$: 'jQuery',
+			jQuery: 'jQuery'
 		})
 	]
 };

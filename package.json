@@ -10,6 +10,7 @@
 	"author": "yuet",
 	"license": "ISC",
 	"devDependencies": {
+		"@types/jquery": "^3.5.6",
 		"@types/react": "^17.0.11",
 		"@types/react-dom": "^17.0.8",
 		"@types/styled-components": "^5.1.10",
@@ -25,11 +26,13 @@
 		"webpack-dev-server": "^3.11.2"
 	},
 	"dependencies": {
+		"@ztree/ztree_v3": "^3.5.46",
 		"antd": "^4.16.6",
 		"axios": "^0.21.1",
 		"dayjs": "^1.10.6",
 		"dva": "^2.6.0-beta.22",
 		"dva-immer": "^1.0.0",
+		"jquery": "^1.12.4",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"styled-components": "^5.3.0"

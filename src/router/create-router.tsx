@@ -69,7 +69,6 @@ const createRouter = (api?: RouterAPI) => {
 						path="/permission/role"
 						render={() => {
 							const NextView = lazy<FC<any>>(() => import('@/view/permission/role'));
-							registerModel(app, roleModel);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel authority={['admin']}>
@@ -85,9 +84,6 @@ const createRouter = (api?: RouterAPI) => {
 							const NextView = lazy<FC<any>>(
 								() => import('@/view/permission/resource')
 							);
-
-							registerModel(app, resourceModel);
-
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel authority={['admin']}>

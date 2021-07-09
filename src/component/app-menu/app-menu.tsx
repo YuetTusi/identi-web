@@ -26,13 +26,15 @@ const AppMenu: FC<AppMenuProp> = (props) => {
 		));
 
 	const renderChildren = (data: ResourceItem[]) =>
-		data.map((i) => (
-			<Item key={i.key}>
-				<Link to={i.key} replace={true}>
-					{i.name}
-				</Link>
-			</Item>
-		));
+		data === null || data === undefined
+			? null
+			: data.map((i) => (
+					<Item key={i.key}>
+						<Link to={i.key} replace={true}>
+							{i.name}
+						</Link>
+					</Item>
+			  ));
 
 	return (
 		<div>

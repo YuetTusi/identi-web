@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { ColumnsType } from 'antd/lib/table';
 import { Role } from '@/schema/role';
 
-const getColumns = (dispatch: Dispatch) => {
+const getRoleColumns = (dispatch: Dispatch, showResourceHandle: (id: string) => void) => {
 	const columns: ColumnsType<Role> = [
 		{
 			title: '名称',
@@ -43,11 +43,22 @@ const getColumns = (dispatch: Dispatch) => {
 			align: 'center',
 			width: 90,
 			render(value: string, record: Role) {
-				return <a onClick={() => console.log(value)}>鉴权资源</a>;
+				if (record.name === 'admin') {
+					return <span>鉴权资源</span>;
+				} else {
+					return (
+						<a
+							onClick={() => {
+								showResourceHandle(value);
+							}}>
+							鉴权资源
+						</a>
+					);
+				}
 			}
 		}
 	];
 	return columns;
 };
 
-export { getColumns };
+export { getRoleColumns };
