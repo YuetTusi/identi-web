@@ -9,6 +9,7 @@ import {
 	RootContainer,
 	TopBox
 } from '../styled/container';
+import WebHeader from '../web-header';
 import { RootPanelProp } from './props';
 
 /**
@@ -17,6 +18,7 @@ import { RootPanelProp } from './props';
  */
 const allow = (authority: string[]) => {
 	const val = sessionStorage.getItem('role');
+	// debugger;
 	if (val === null) {
 		return false;
 	} else {
@@ -51,7 +53,9 @@ const RootPanel: FC<RootPanelProp> = (props) => {
 		} else if (allow(authority)) {
 			return (
 				<RootContainer>
-					<TopBox>头</TopBox>
+					<TopBox>
+						<WebHeader />
+					</TopBox>
 					<MainBox>
 						<LeftBox>
 							<AppMenu />

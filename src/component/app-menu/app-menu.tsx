@@ -40,7 +40,7 @@ const AppMenu: FC<AppMenuProp> = (props) => {
 		<div>
 			<Menu
 				selectedKeys={[pathname]}
-				defaultOpenKeys={['/permission']}
+				defaultOpenKeys={['/', '/permission']}
 				style={{ width: '200px' }}
 				mode="inline">
 				{renderMenu()}

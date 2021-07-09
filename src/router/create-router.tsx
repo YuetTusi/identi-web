@@ -23,7 +23,20 @@ const createRouter = (api?: RouterAPI) => {
 		<ConfigProvider locale={localeCN} componentSize="small">
 			<Router history={history}>
 				<Switch>
-					<Route path="/" exact={true} component={Default} />
+					<Route
+						path="/"
+						exact={true}
+						render={() => {
+							const NextView = lazy<FC<any>>(() => import('@/view/default'));
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel authority={['admin', 'identifier']}>
+										<NextView />
+									</RootPanel>
+								</Suspense>
+							);
+						}}
+					/>
 					<Route path="/login" component={Login} />
 					<Route
 						path="/default"
@@ -31,7 +44,7 @@ const createRouter = (api?: RouterAPI) => {
 							const NextView = lazy<FC<any>>(() => import('@/view/default'));
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
-									<RootPanel authority={['identifier']}>
+									<RootPanel authority={['admin', 'identifier']}>
 										<NextView />
 									</RootPanel>
 								</Suspense>
@@ -45,7 +58,20 @@ const createRouter = (api?: RouterAPI) => {
 							const NextView = lazy<FC<any>>(() => import('@/view/permission/user'));
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
-									<RootPanel authority={['admin']}>
+									<RootPanel authority={['admin', 'identifier']}>
+										<NextView />
+									</RootPanel>
+								</Suspense>
+							);
+						}}
+					/>
+					<Route
+						path="/permission/case"
+						render={() => {
+							const NextView = lazy<FC<any>>(() => import('@/view/permission/case'));
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel authority={['admin', 'identifier']}>
 										<NextView />
 									</RootPanel>
 								</Suspense>
@@ -58,7 +84,7 @@ const createRouter = (api?: RouterAPI) => {
 							const NextView = lazy<FC<any>>(() => import('@/view/permission/user'));
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
-									<RootPanel authority={['admin']}>
+									<RootPanel authority={['admin', 'identifier']}>
 										<NextView />
 									</RootPanel>
 								</Suspense>
@@ -71,7 +97,7 @@ const createRouter = (api?: RouterAPI) => {
 							const NextView = lazy<FC<any>>(() => import('@/view/permission/role'));
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
-									<RootPanel authority={['admin']}>
+									<RootPanel authority={['admin', 'identifier']}>
 										<NextView />
 									</RootPanel>
 								</Suspense>
@@ -86,7 +112,7 @@ const createRouter = (api?: RouterAPI) => {
 							);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
-									<RootPanel authority={['admin']}>
+									<RootPanel authority={['admin', 'identifier']}>
 										<NextView />
 									</RootPanel>
 								</Suspense>
