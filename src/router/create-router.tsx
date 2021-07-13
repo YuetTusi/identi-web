@@ -1,15 +1,11 @@
 import React, { FC, lazy, Suspense } from 'react';
 import { RouterAPI } from 'dva';
 import { Router, Route, Switch } from 'dva/router';
-import { registerModel } from '@/utility/register-model';
 import localeCN from 'antd/es/locale/zh_CN';
 import ConfigProvider from 'antd/lib/config-provider';
-import Login from '@/view/login';
-import Default from '@/view/default';
 import RootPanel from '@/component/root-panel';
+import Login from '@/view/login';
 import { NotFound } from '@/view/warn';
-import resourceModel from '@/model/permission/resource';
-import roleModel from '@/model/permission/role';
 
 /**
  * 路由配置
@@ -17,7 +13,7 @@ import roleModel from '@/model/permission/role';
  * @returns
  */
 const createRouter = (api?: RouterAPI) => {
-	const { app, history } = api!;
+	const { history } = api!;
 
 	return (
 		<ConfigProvider locale={localeCN} componentSize="small">
@@ -37,11 +33,12 @@ const createRouter = (api?: RouterAPI) => {
 							);
 						}}
 					/>
-					<Route path="/login" component={Login} />
 					<Route
 						path="/default"
 						render={() => {
-							const NextView = lazy<FC<any>>(() => import('@/view/default'));
+							const NextView = lazy<FC<Record<string, any>>>(
+								() => import('@/view/default')
+							);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel authority={['admin', 'identifier']}>
@@ -51,6 +48,7 @@ const createRouter = (api?: RouterAPI) => {
 							);
 						}}
 					/>
+					<Route path="/login" component={Login} />
 					<Route
 						path="/permission"
 						exact={true}

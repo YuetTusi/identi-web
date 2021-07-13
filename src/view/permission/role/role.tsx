@@ -13,7 +13,6 @@ let roleId: string = '';
 
 const Role: FC<Prop> = (props) => {
 	const { dispatch, role } = props;
-	let ztree: any = null;
 	const [resourceModalVisible, setResourceModalVisible] = useState<boolean>(false);
 
 	useEffect(() => {
