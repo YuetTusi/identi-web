@@ -5,4 +5,32 @@ interface Prop extends StoreComponent {
     user: UserStoreState
 }
 
-export { Prop };
+/**
+ * 表单属性
+ */
+interface SearchFormProp {
+
+    /**
+     * 查询表单提交
+     * @param data 表单
+     */
+    onSearchFormSubmit: (data: FormValue) => void
+}
+
+interface FormValue {
+    /**
+     * 用户名
+     */
+    username: string
+}
+
+/**
+ * 操作类型
+ */
+enum ActionType {
+    Edit,
+    DEL,
+    ROLE
+}
+
+export { Prop, SearchFormProp, FormValue, ActionType };

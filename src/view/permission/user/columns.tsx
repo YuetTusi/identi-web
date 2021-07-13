@@ -3,8 +3,9 @@ import { Dispatch } from 'dva';
 import dayjs from 'dayjs';
 import { ColumnsType } from 'antd/lib/table';
 import { User } from '@/schema/user';
+import { ActionType } from './props';
 
-const getColumns = (dispatch: Dispatch) => {
+const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: ActionType) => void) => {
 	const columns: ColumnsType<User> = [
 		{
 			title: 'id',
@@ -64,8 +65,26 @@ const getColumns = (dispatch: Dispatch) => {
 			key: 'id',
 			align: 'center',
 			width: 60,
-			render(value: string) {
-				return <a>角色</a>;
+			render(value: string, record: User) {
+				if (record.username === 'admin') {
+					return <span>角色</span>;
+				} else {
+					return <a onClick={() => onActionClick(record, ActionType.ROLE)}>角色</a>;
+				}
+			}
+		},
+		{
+			title: '删除',
+			dataIndex: 'id',
+			key: 'id',
+			align: 'center',
+			width: 60,
+			render(value: string, record: User) {
+				if (record.username === 'admin') {
+					return <span>删除</span>;
+				} else {
+					return <a onClick={() => onActionClick(record, ActionType.DEL)}>删除</a>;
+				}
 			}
 		}
 	];

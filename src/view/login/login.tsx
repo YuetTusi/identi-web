@@ -49,18 +49,6 @@ const Login: FC<LoginProp> = (props) => {
 
 	return (
 		<LoginBox>
-			<button
-				type="button"
-				onClick={() => {
-					request({
-						url: '/',
-						method: 'get'
-					}).then((res: any) => {
-						console.log(res);
-					});
-				}}>
-				test
-			</button>
 			<Form onFinish={onLoginFormFinish}>
 				<Item
 					label="用户"
