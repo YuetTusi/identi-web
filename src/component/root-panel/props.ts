@@ -1,7 +1,10 @@
-interface RootPanelProp {
+import { AppMenuStoreState } from "@/model/app-menu";
+import { StoreComponent } from "@/schema/model-type";
+
+interface RootPanelProp extends StoreComponent {
     /**
-     * 授权角色
+     * AppMenuStore
      */
-    authority: string[]
+    appMenu: AppMenuStoreState
 }
 export { RootPanelProp };

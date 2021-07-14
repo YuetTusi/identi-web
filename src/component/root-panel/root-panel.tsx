@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import { Base64 } from 'js-base64';
-import { NotLogin } from '@/view/warn';
+import React, { PropsWithChildren } from 'react';
+import { connect } from 'dva';
+import { withRouter } from 'dva/router';
+import { NotAllow, NotLogin } from '@/view/warn';
 import AppMenu from '../app-menu';
 import {
 	ContentBox,
@@ -11,47 +12,29 @@ import {
 	TopBox
 } from '../styled/container';
 import WebHeader from '../web-header';
+import { helper } from '@/utility/helper';
 import { RootPanelProp } from './props';
-
-/**
- * 当前登录用户是否允许访问
- * @param authority 当前页角色
- */
-const allow = (authority: string[]) => {
-	const val = sessionStorage.getItem('role');
-	// debugger;
-	if (val === null) {
-		return false;
-	} else {
-		let has = false;
-		try {
-			const auth: string[] = JSON.parse(Base64.decode(val));
-			for (let i = 0, l = auth.length; i < l; i++) {
-				if (authority.includes(auth[i])) {
-					has = true;
-					break;
-				}
-			}
-			return has;
-		} catch (error) {
-			return false;
-		}
-	}
-};
 
 /**
  * 视图根组件
  * 用于验证登录，若用户token不存在则提示
  * @returns
  */
-const RootPanel: FC<RootPanelProp> = (props) => {
-	const { authority } = props;
+const RootPanel = (props: PropsWithChildren<RootPanelProp>) => {
+	const { appMenu } = props;
+	const { pathname } = props.location;
 	const notLogin = sessionStorage.getItem('user_token') === null;
+	let allow = true;
+	if (appMenu.data.length !== 0) {
+		allow = helper.hasRoute(appMenu.data, pathname);
+	}
 
 	const renderView = () => {
 		if (notLogin) {
 			return <NotLogin />;
-		} else if (allow(authority)) {
+		} else if (!allow) {
+			return <NotAllow />;
+		} else {
 			return (
 				<RootContainer>
 					<TopBox>
@@ -66,12 +49,10 @@ const RootPanel: FC<RootPanelProp> = (props) => {
 					<FooterBox>脚</FooterBox>
 				</RootContainer>
 			);
-		} else {
-			return <div>无权限访问</div>;
 		}
 	};
 
 	return renderView();
 };
 
-export default RootPanel;
+export default withRouter(connect((state: any) => ({ appMenu: state.appMenu }))(RootPanel));

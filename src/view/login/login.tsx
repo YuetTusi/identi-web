@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
+import debounce from 'lodash/debounce';
 import { Base64 } from 'js-base64';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
@@ -17,37 +18,46 @@ const { Password } = Input;
 const Login: FC<LoginProp> = (props) => {
 	const { dispatch } = props;
 
-	const onLoginFormFinish = (values: any) => {
-		request({
-			url: '/login',
-			method: 'post',
-			data: { username: values.username, password: values.password }
-		}).then((res: any) => {
-			if (res.success) {
-				const { uid, role, token } = res.data;
-
-				message.success('登录成功');
-				//todo:可将角色、用户等数据存入model
-				sessionStorage.setItem('user_token', token);
-				sessionStorage.setItem('uid', uid);
-				sessionStorage.setItem('role', Base64.encode(JSON.stringify(role)));
-				sessionStorage.setItem('username', values.username);
-
-				dispatch({
-					type: 'auth/setAuth',
-					payload: { uid, role, username: values.username }
-				});
-				dispatch({
-					type: 'appMenu/queryMenuByUserId',
-					payload: { id: uid }
-				});
-				dispatch(routerRedux.push('/default'));
-			} else {
+	const onLoginFormFinish = debounce(
+		(values: any) => {
+			request({
+				url: '/login',
+				method: 'post',
+				data: { username: values.username, password: values.password }
+			}).then((res: any) => {
 				message.destroy();
-				message.warn('登录失败，用户或密码不正确');
-			}
-		});
-	};
+				if (res.success) {
+					const { uid, role, token } = res.data;
+
+					if (role.length === 0) {
+						message.warn('此用户无权限访问');
+					} else {
+						message.success('登录成功');
+						//todo:可将角色、用户等数据存入model
+						sessionStorage.setItem('user_token', token);
+						sessionStorage.setItem('uid', uid);
+						sessionStorage.setItem('role', Base64.encode(JSON.stringify(role)));
+						sessionStorage.setItem('username', values.username);
+
+						dispatch({
+							type: 'auth/setAuth',
+							payload: { uid, role, username: values.username }
+						});
+						dispatch({
+							type: 'appMenu/queryMenuByUserId',
+							payload: { id: uid }
+						});
+						dispatch(routerRedux.push('/default'));
+					}
+				} else {
+					message.destroy();
+					message.warn('登录失败，用户或密码不正确');
+				}
+			});
+		},
+		500,
+		{ leading: true, trailing: false }
+	);
 
 	return (
 		<LoginBox>

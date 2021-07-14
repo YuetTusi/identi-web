@@ -1,6 +1,7 @@
 import { Model } from 'dva';
 import reducers from './reducers';
 import effects from './effects';
+import subscriptions from './subscriptions';
 
 interface AppMenuStoreState {
     data: ResourceItem[]
@@ -46,7 +47,8 @@ let model: Model = {
         data: []
     },
     reducers,
-    effects
+    effects,
+    subscriptions
 };
 
 export { AppMenuStoreState, ResourceItem };
