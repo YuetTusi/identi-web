@@ -1,5 +1,6 @@
-import { NotLogin } from '@/view/warn';
 import React, { FC } from 'react';
+import { Base64 } from 'js-base64';
+import { NotLogin } from '@/view/warn';
 import AppMenu from '../app-menu';
 import {
 	ContentBox,
@@ -24,7 +25,7 @@ const allow = (authority: string[]) => {
 	} else {
 		let has = false;
 		try {
-			const auth: string[] = JSON.parse(val);
+			const auth: string[] = JSON.parse(Base64.decode(val));
 			for (let i = 0, l = auth.length; i < l; i++) {
 				if (authority.includes(auth[i])) {
 					has = true;

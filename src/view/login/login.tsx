@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
+import { Base64 } from 'js-base64';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
@@ -24,11 +25,12 @@ const Login: FC<LoginProp> = (props) => {
 		}).then((res: any) => {
 			if (res.success) {
 				const { uid, role, token } = res.data;
+
 				message.success('登录成功');
 				//todo:可将角色、用户等数据存入model
 				sessionStorage.setItem('user_token', token);
 				sessionStorage.setItem('uid', uid);
-				sessionStorage.setItem('role', JSON.stringify(role));
+				sessionStorage.setItem('role', Base64.encode(JSON.stringify(role)));
 				sessionStorage.setItem('username', values.username);
 
 				dispatch({

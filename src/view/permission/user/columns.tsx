@@ -8,11 +8,6 @@ import { ActionType } from './props';
 const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: ActionType) => void) => {
 	const columns: ColumnsType<User> = [
 		{
-			title: 'id',
-			dataIndex: 'id',
-			key: 'id'
-		},
-		{
 			title: '用户名',
 			dataIndex: 'username',
 			key: 'username'
