@@ -78,8 +78,24 @@ const createRouter = (api?: RouterAPI) => {
 					/>
 					<Route
 						path="/permission/user"
+						exact={true}
 						render={() => {
 							const NextView = lazy<FC<any>>(() => import('@/view/permission/user'));
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel authority={['admin', 'identifier']}>
+										<NextView />
+									</RootPanel>
+								</Suspense>
+							);
+						}}
+					/>
+					<Route
+						path="/permission/user/add"
+						render={() => {
+							const NextView = lazy<FC<any>>(
+								() => import('@/view/permission/user/add')
+							);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel authority={['admin', 'identifier']}>

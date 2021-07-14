@@ -1,15 +1,17 @@
 import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import { UserAddOutlined } from '@ant-design/icons/lib/icons';
 import Button from 'antd/lib/button';
 import Table from 'antd/lib/table';
 import message from 'antd/lib/message';
+import { request } from '@/utility/request';
 import { User as UserEntity } from '@/schema/user';
 import { getColumns } from './columns';
 import { ActionType, FormValue, Prop } from './props';
 import SearchForm from './search-form';
 import RoleModal from './role-modal';
-import { request } from '@/utility/request';
+import { SearchBox } from './styled/layout-box';
 
 let actionUser: UserEntity | undefined;
 const defaultPageSize = 20;
@@ -96,13 +98,15 @@ const User: FC<Prop> = (props) => {
 	return (
 		<>
 			<div>用户管理</div>
-			<div>
+			<SearchBox>
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
-				<Button onClick={() => {}} type="primary">
+				<Button
+					onClick={() => dispatch(routerRedux.push('/permission/user/add'))}
+					type="primary">
 					<UserAddOutlined />
 					<span>添加</span>
 				</Button>
-			</div>
+			</SearchBox>
 			<Table<UserEntity>
 				pagination={{
 					onChange: onPageChange,

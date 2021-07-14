@@ -1,3 +1,5 @@
+import { BaseEntity } from "./base-entity";
+
 /**
  * 资源表
  */

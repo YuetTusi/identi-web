@@ -1,3 +1,4 @@
+import { BaseEntity } from "./base-entity";
 
 /**
  * 用户表
@@ -32,11 +33,6 @@ class User extends BaseEntity {
      * 描述
      */
     public desc?: string;
-
-
-    constructor() {
-        super();
-    }
 }
 
 export { User };

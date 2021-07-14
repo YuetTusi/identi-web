@@ -5,47 +5,15 @@ import Select from 'antd/lib/select';
 import message from 'antd/lib/message';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import Modal from 'antd/lib/modal';
-import { request, RequestResult } from '@/utility/request';
+import { request } from '@/utility/request';
 import { User } from '@/schema/user';
 import { useEffect } from 'react';
 import { Role } from '@/schema/role';
+import { RoleFormBox } from '../styled/layout-box';
+import { FormValue, RoleModalProp } from './props';
 
 const { Item, useForm } = Form;
 const { Option } = Select;
-
-interface RoleModalProp {
-	/**
-	 * 是否可见
-	 */
-	visible: boolean;
-	/**
-	 * 当前用户
-	 */
-	data?: User;
-	/**
-	 * 保存handle
-	 * @param id 用户id
-	 * @param roleId 用户所选角色id
-	 */
-	onOk: (id: string, roleId: string[]) => void;
-
-	/**
-	 * 取消handle
-	 */
-	onCancel: () => void;
-}
-
-/**
- * 表单
- */
-interface FormValue {
-	/**
-	 * 所选角色id
-	 */
-	roles: string[];
-}
-
-//a7b5ee69-d8ae-11eb-a03f-79a5cf1d245f
 
 /**
  * 更新角色modal
@@ -123,17 +91,20 @@ const RoleModal: FC<RoleModalProp> = (props) => {
 			]}
 			onCancel={onCancel}
 			visible={visible}
-			title={`编辑角色（${data?.username ?? ''}）`}
+			title={`设置角色${data?.username ? `（${data.username}）` : ''}`}
+			width={600}
 			destroyOnClose={true}
 			maskClosable={false}
 			centered={true}>
-			<Form form={form}>
-				<Item label="角色" name="roles">
-					<Select placeholder="请选择拥有角色" mode="multiple">
-						{bindOption(roleData)}
-					</Select>
-				</Item>
-			</Form>
+			<RoleFormBox>
+				<Form form={form}>
+					<Item label="角色" name="roles">
+						<Select placeholder="请选择拥有角色" mode="multiple">
+							{bindOption(roleData)}
+						</Select>
+					</Item>
+				</Form>
+			</RoleFormBox>
 		</Modal>
 	);
 };

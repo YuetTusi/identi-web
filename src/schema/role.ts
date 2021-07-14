@@ -1,4 +1,4 @@
-import { Resource } from "./resource";
+import { BaseEntity } from "./base-entity";
 
 /**
  * 角色表
@@ -17,10 +17,6 @@ class Role extends BaseEntity {
      * 角色描述
      */
     public desc?: string;
-    /**
-     * 分配的资源
-     */
-    public resource?: Resource[]
 
     constructor() {
         super();
