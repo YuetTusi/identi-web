@@ -1,6 +1,7 @@
 import React, { FC, MouseEvent } from 'react';
 import { v4 as newId } from 'uuid';
 import dayjs from 'dayjs';
+import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import Button from 'antd/lib/button';
 import SaveOutlined from '@ant-design/icons/SaveOutlined';
@@ -40,37 +41,41 @@ const Add: FC<AddProp> = (props) => {
 	 * 表单提交
 	 * @param event
 	 */
-	const onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault();
-		const values = await form.validateFields();
-		let entity = new User();
-		entity.id = newId();
-		entity.username = values.username;
-		entity.password = values.password;
-		entity.realname = values.realname;
-		entity.mail = values.mail;
-		entity.mobile = values.mobile;
-		entity.desc = values.desc;
-		entity.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
-		entity.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
-		message.destroy();
-		try {
-			const { code, data } = await request<number>({
-				url: 'user',
-				method: 'POST',
-				data: { form: entity }
-			});
-			if (code === 0 && data > 0) {
-				message.success('添加成功');
-				form.resetFields();
-				window.location.hash = '/permission/user';
-			} else {
-				message.error('添加失败');
+	const onSubmit = debounce(
+		async (event: MouseEvent<HTMLButtonElement>) => {
+			event.preventDefault();
+			const values = await form.validateFields();
+			let entity = new User();
+			entity.id = newId();
+			entity.username = values.username;
+			entity.password = values.password;
+			entity.realname = values.realname;
+			entity.mail = values.mail;
+			entity.mobile = values.mobile;
+			entity.desc = values.desc;
+			entity.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+			entity.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+			message.destroy();
+			try {
+				const { code, data } = await request<number>({
+					url: 'user',
+					method: 'POST',
+					data: { form: entity }
+				});
+				if (code === 0 && data > 0) {
+					message.success('添加成功');
+					form.resetFields();
+					window.location.hash = '/permission/user';
+				} else {
+					message.error('添加失败');
+				}
+			} catch (error) {
+				message.error(`添加失败：${error.message}`);
 			}
-		} catch (error) {
-			message.error(`添加失败：${error.message}`);
-		}
-	};
+		},
+		500,
+		{ leading: true, trailing: false }
+	);
 
 	return (
 		<>
@@ -129,7 +134,10 @@ const Add: FC<AddProp> = (props) => {
 					rules={[{ pattern: Mail, message: '请输入正确的邮件格式' }]}>
 					<Input maxLength={200} />
 				</Item>
-				<Item name="mobile" label="手机/电话" rules={[{ pattern: OnlyNumber, message: '请输入数字' }]}>
+				<Item
+					name="mobile"
+					label="手机/电话"
+					rules={[{ pattern: OnlyNumber, message: '请输入数字' }]}>
 					<Input maxLength={50} />
 				</Item>
 				<Item name="realname" label="真实姓名">

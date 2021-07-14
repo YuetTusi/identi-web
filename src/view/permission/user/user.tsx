@@ -5,6 +5,7 @@ import { UserAddOutlined } from '@ant-design/icons/lib/icons';
 import Button from 'antd/lib/button';
 import Table from 'antd/lib/table';
 import message from 'antd/lib/message';
+import Modal from 'antd/lib/modal';
 import { request } from '@/utility/request';
 import { User as UserEntity } from '@/schema/user';
 import { getColumns } from './columns';
@@ -60,11 +61,55 @@ const User: FC<Prop> = (props) => {
 		});
 	};
 
+	/**
+	 * 删除用户
+	 * @param data 用户
+	 */
+	const delUser = (data: UserEntity) => {
+		const { id, username } = data;
+		Modal.confirm({
+			onOk() {
+				request<{ success: boolean }>({
+					url: `user/${id}`,
+					method: 'DELETE'
+				})
+					.then(({ code, data }) => {
+						message.destroy();
+						if (code === 0 && data.success) {
+							message.success('删除成功');
+							dispatch({
+								type: 'user/queryUser',
+								payload: {
+									condition: data,
+									pageIndex: 1,
+									pageSize: defaultPageSize
+								}
+							});
+						} else {
+							message.success('删除失败');
+						}
+					})
+					.catch((err) => {
+						message.success(`删除失败：${err.message}`);
+					});
+			},
+			title: '删除',
+			content: `确认删除用户「${username}」？`,
+			centered: true,
+			okText: '是',
+			cancelText: '否'
+		});
+	};
+
+	/**
+	 * 列动作handle
+	 * @param data 用户
+	 * @param type 类型
+	 */
 	const onActionClick = (data: UserEntity, type: ActionType) => {
 		switch (type) {
-			case ActionType.Edit:
-				break;
 			case ActionType.DEL:
+				delUser(data);
 				break;
 			case ActionType.ROLE:
 				actionUser = data;

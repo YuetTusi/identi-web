@@ -18,7 +18,7 @@ export default {
         yield put({ type: 'setLoading', payload: true });
         try {
             const { code, data, error }: RequestResult<{ data: Role[], total: number }> =
-                yield call(request, { url: 'role', method: 'POST', data: { condition, pageIndex, pageSize } });
+                yield call(request, { url: 'role/list', method: 'POST', data: { condition, pageIndex, pageSize } });
 
             if (code === 0) {
                 yield put({ type: 'setData', payload: data.data });

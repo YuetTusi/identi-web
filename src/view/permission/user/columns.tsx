@@ -67,7 +67,7 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			width: 60,
 			render(value: string, record: User) {
 				if (record.username === 'admin') {
-					return <span>角色</span>;
+					return <span style={{ cursor: 'not-allowed' }}>角色</span>;
 				} else {
 					return <a onClick={() => onActionClick(record, ActionType.ROLE)}>角色</a>;
 				}
@@ -81,7 +81,7 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			width: 60,
 			render(value: string, record: User) {
 				if (record.username === 'admin') {
-					return <span>删除</span>;
+					return <span style={{ cursor: 'not-allowed' }}>删除</span>;
 				} else {
 					return <a onClick={() => onActionClick(record, ActionType.DEL)}>删除</a>;
 				}
