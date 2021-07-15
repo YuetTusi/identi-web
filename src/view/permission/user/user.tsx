@@ -2,6 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { UserAddOutlined } from '@ant-design/icons/lib/icons';
+import Breadcrumb from 'antd/lib/breadcrumb';
+import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
 import Table from 'antd/lib/table';
 import message from 'antd/lib/message';
@@ -142,7 +144,9 @@ const User: FC<Prop> = (props) => {
 
 	return (
 		<>
-			<div>用户管理</div>
+			<Breadcrumb>
+				<BreadcrumbItem>用户管理</BreadcrumbItem>
+			</Breadcrumb>
 			<SearchBox>
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
 				<Button

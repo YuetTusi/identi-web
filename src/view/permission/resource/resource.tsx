@@ -1,8 +1,7 @@
-import RootPanel from '@/component/root-panel';
-import React, { FC, useEffect, MouseEvent } from 'react';
+import React, { FC, useEffect } from 'react';
 import { connect } from 'dva';
-import Button from 'antd/lib/button';
-import { SearchOutlined } from '@ant-design/icons';
+import Breadcrumb from 'antd/lib/breadcrumb';
+import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 
 import Table from 'antd/lib/table';
 import SearchForm from './search-form';
@@ -53,7 +52,9 @@ const Resource: FC<Prop> = (props) => {
 	// console.log(resource.pageSize);
 	return (
 		<>
-			<div>资源查看</div>
+			<Breadcrumb>
+				<BreadcrumbItem>资源查看</BreadcrumbItem>
+			</Breadcrumb>
 			<div>
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
 			</div>

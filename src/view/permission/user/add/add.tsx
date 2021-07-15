@@ -1,8 +1,11 @@
 import React, { FC, MouseEvent } from 'react';
+import { Link } from 'dva/router';
 import { v4 as newId } from 'uuid';
 import dayjs from 'dayjs';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
+import Breadcrumb from 'antd/lib/breadcrumb';
+import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
 import SaveOutlined from '@ant-design/icons/SaveOutlined';
 import Form from 'antd/lib/form';
@@ -13,6 +16,7 @@ import { User } from '@/schema/user';
 import { Mail, OnlyNumber } from '@/utility/regex';
 import { SearchBox } from '../styled/layout-box';
 import { AddFormValue, AddProp } from './props';
+
 const { Item, useForm } = Form;
 const { Password } = Input;
 
@@ -79,7 +83,12 @@ const Add: FC<AddProp> = (props) => {
 
 	return (
 		<>
-			<div>添加用户</div>
+			<Breadcrumb>
+				<BreadcrumbItem>
+					<Link to="/permission/user">用户管理</Link>
+				</BreadcrumbItem>
+				<BreadcrumbItem>添加用户</BreadcrumbItem>
+			</Breadcrumb>
 			<hr />
 			<SearchBox>
 				<div></div>

@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'dva';
+import Breadcrumb from 'antd/lib/breadcrumb';
+import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import message from 'antd/lib/message';
 import Table from 'antd/lib/table';
 import { Role as RoleEntity } from '@/schema/role';
@@ -86,7 +88,9 @@ const Role: FC<Prop> = (props) => {
 
 	return (
 		<>
-			<div>角色管理</div>
+			<Breadcrumb>
+				<BreadcrumbItem>角色管理</BreadcrumbItem>
+			</Breadcrumb>
 			<Table<RoleEntity>
 				pagination={{
 					onChange: onPageChange,
