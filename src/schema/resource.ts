@@ -6,10 +6,6 @@ import { BaseEntity } from "./base-entity";
 class Resource extends BaseEntity {
 
     /**
-     * 主键
-     */
-    public id: string = '';
-    /**
      * 父级ID
      */
     public pid: string = '';

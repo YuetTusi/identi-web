@@ -1,0 +1,5 @@
+interface AddProp {
+
+}
+
+export { AddProp };

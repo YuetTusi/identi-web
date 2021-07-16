@@ -3,6 +3,10 @@
  */
 class BaseEntity {
     /**
+     * 主键PK
+     */
+    id: string = '';
+    /**
      * 创建时间
      */
     public create_time?: string;

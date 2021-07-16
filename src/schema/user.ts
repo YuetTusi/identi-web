@@ -6,10 +6,6 @@ import { BaseEntity } from "./base-entity";
 class User extends BaseEntity {
 
     /**
-     * 主键
-     */
-    public id: string = '';
-    /**
      * 用户名
      */
     public username: string = '';

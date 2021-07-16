@@ -65,8 +65,39 @@ const createRouter = (api?: RouterAPI) => {
 					/>
 					<Route
 						path="/permission/case"
+						exact={true}
 						render={() => {
 							const NextView = lazy<FC<any>>(() => import('@/view/permission/case'));
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel>
+										<NextView />
+									</RootPanel>
+								</Suspense>
+							);
+						}}
+					/>
+					<Route
+						path="/permission/case/add"
+						render={() => {
+							const NextView = lazy<FC<any>>(
+								() => import('@/view/permission/case/add')
+							);
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel>
+										<NextView />
+									</RootPanel>
+								</Suspense>
+							);
+						}}
+					/>
+					<Route
+						path="/permission/case/edit/:id"
+						render={() => {
+							const NextView = lazy<FC<any>>(
+								() => import('@/view/permission/case/edit')
+							);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel>
