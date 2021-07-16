@@ -1,4 +1,6 @@
 import { ResourceItem } from "@/model/app-menu";
+import { DictCategory } from "@/schema/dict";
+import { request } from "./request";
 
 const helper = {
 
@@ -16,6 +18,23 @@ const helper = {
      */
     hasRoute(menu: ResourceItem[], pathname: string) {
         return JSON.stringify(menu).includes(pathname);
+    },
+    /**
+     * 查询字典数据
+     * @param category 字典分类
+     */
+    async getDict(category: DictCategory) {
+        try {
+            const { code, data } = await request<{ name: string, value: string }[]>({ url: `dict/${category}`, method: 'GET' });
+            if (code === 0) {
+                return data;
+            } else {
+                return [];
+            }
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
     }
 };
 
