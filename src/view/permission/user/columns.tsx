@@ -69,6 +69,20 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			}
 		},
 		{
+			title: '重置密码',
+			dataIndex: 'id',
+			key: 'id',
+			align: 'center',
+			width: 90,
+			render(value: string, record: User) {
+				if (record.username === 'admin') {
+					return <span style={{ cursor: 'not-allowed' }}>重置密码</span>;
+				} else {
+					return <a onClick={() => onActionClick(record, ActionType.RESET)}>重置密码</a>;
+				}
+			}
+		},
+		{
 			title: '编辑',
 			dataIndex: 'id',
 			key: 'id',

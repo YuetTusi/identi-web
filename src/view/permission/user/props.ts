@@ -30,6 +30,7 @@ interface FormValue {
 enum ActionType {
     Edit,
     DEL,
+    RESET,
     ROLE
 }
 

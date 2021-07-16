@@ -14,6 +14,7 @@ import { getColumns } from './columns';
 import { ActionType, FormValue, Prop } from './props';
 import SearchForm from './search-form';
 import RoleModal from './role-modal';
+import ResetModal from './reset-modal';
 import { SearchBox } from './styled/layout-box';
 
 let actionUser: UserEntity | undefined;
@@ -25,6 +26,7 @@ const defaultPageSize = 20;
 const User: FC<Prop> = (props) => {
 	const { dispatch, user } = props;
 	const [roleModalVisible, setRoleModalVisible] = useState<boolean>(false);
+	const [resetModalVisible, setResetModalVisible] = useState<boolean>(false);
 
 	useEffect(() => {
 		dispatch({
@@ -114,6 +116,10 @@ const User: FC<Prop> = (props) => {
 				actionUser = data;
 				setRoleModalVisible(true);
 				break;
+			case ActionType.RESET:
+				actionUser = data;
+				setResetModalVisible(true);
+				break;
 			case ActionType.Edit:
 				dispatch(routerRedux.push(`/permission/user/edit/${data.id}`));
 				break;
@@ -144,6 +150,35 @@ const User: FC<Prop> = (props) => {
 		} else {
 			message.error('更新角色失败');
 		}
+	};
+
+	/**
+	 * 保存
+	 * @param id 用户id
+	 * @param newPassword 密码
+	 */
+	const onSavePassword = (id: string, newPassword: string) => {
+		Modal.confirm({
+			async onOk() {
+				const { code, data } = await request<number>({
+					url: `user/reset/${id}`,
+					method: 'PUT',
+					data: { form: { password: newPassword } }
+				});
+				message.destroy();
+				if (code === 0 && data > 0) {
+					setResetModalVisible(false);
+					message.success('重置密码成功');
+				} else {
+					message.error('重置密码失败');
+				}
+			},
+			title: '重置密码',
+			content: `确认重置用户密码？`,
+			okText: '是',
+			cancelText: '否'
+		});
+		console.log(id, newPassword);
 	};
 
 	return (
@@ -179,6 +214,15 @@ const User: FC<Prop> = (props) => {
 				onCancel={() => {
 					actionUser = undefined;
 					setRoleModalVisible(false);
+				}}
+			/>
+			<ResetModal
+				data={actionUser}
+				visible={resetModalVisible}
+				onOk={onSavePassword}
+				onCancel={() => {
+					actionUser = undefined;
+					setResetModalVisible(false);
 				}}
 			/>
 		</>

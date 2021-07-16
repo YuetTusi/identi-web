@@ -93,6 +93,7 @@ const RoleModal: FC<RoleModalProp> = (props) => {
 			visible={visible}
 			title={`设置角色${data?.username ? `（${data.username}）` : ''}`}
 			width={600}
+			forceRender={true}
 			destroyOnClose={true}
 			maskClosable={false}
 			centered={true}>
