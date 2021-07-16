@@ -110,14 +110,18 @@ const User: FC<Prop> = (props) => {
 	 */
 	const onActionClick = (data: UserEntity, type: ActionType) => {
 		switch (type) {
-			case ActionType.DEL:
-				delUser(data);
-				break;
 			case ActionType.ROLE:
 				actionUser = data;
 				setRoleModalVisible(true);
 				break;
+			case ActionType.Edit:
+				dispatch(routerRedux.push(`/permission/user/edit/${data.id}`));
+				break;
+			case ActionType.DEL:
+				delUser(data);
+				break;
 			default:
+				console.warn('未定义的ActionType');
 				break;
 		}
 	};

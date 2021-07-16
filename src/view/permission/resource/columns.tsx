@@ -33,16 +33,9 @@ const getColumns = (dispatch: Dispatch) => {
 			width: 50
 		},
 		{
-			title: 'id',
-			dataIndex: 'id',
-			key: 'id',
-			width: 280
-		},
-		{
-			title: '父级id',
-			dataIndex: 'pid',
-			key: 'pid',
-			width: 280
+			title: '上级资源',
+			dataIndex: 'pname',
+			key: 'pname'
 		},
 		{
 			title: '创建时间',
@@ -58,12 +51,24 @@ const getColumns = (dispatch: Dispatch) => {
 			title: '更新时间',
 			dataIndex: 'update_time',
 			key: 'update_time',
-            align: 'center',
+			align: 'center',
 			width: 160,
 			render(value: any) {
 				return dayjs(value).format('YYYY-MM-DD HH:mm:ss');
 			}
-		}
+		},
+		// {
+		// 	title: 'id',
+		// 	dataIndex: 'id',
+		// 	key: 'id',
+		// 	width: 280
+		// },
+		// {
+		// 	title: '父级id',
+		// 	dataIndex: 'pid',
+		// 	key: 'pid',
+		// 	width: 280
+		// }
 	];
 	return columns;
 };

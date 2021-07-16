@@ -19,6 +19,7 @@ const createRouter = (api?: RouterAPI) => {
 		<ConfigProvider locale={localeCN} componentSize="small">
 			<Router history={history}>
 				<Switch>
+					<Route path="/login" component={Login} />
 					<Route
 						path="/"
 						exact={true}
@@ -48,7 +49,6 @@ const createRouter = (api?: RouterAPI) => {
 							);
 						}}
 					/>
-					<Route path="/login" component={Login} />
 					<Route
 						path="/permission"
 						exact={true}
@@ -95,6 +95,21 @@ const createRouter = (api?: RouterAPI) => {
 						render={() => {
 							const NextView = lazy<FC<any>>(
 								() => import('@/view/permission/user/add')
+							);
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel>
+										<NextView />
+									</RootPanel>
+								</Suspense>
+							);
+						}}
+					/>
+					<Route
+						path="/permission/user/edit/:id"
+						render={() => {
+							const NextView = lazy<FC<any>>(
+								() => import('@/view/permission/user/edit')
 							);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>

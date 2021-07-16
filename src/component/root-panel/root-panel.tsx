@@ -22,11 +22,17 @@ import { RootPanelProp } from './props';
  */
 const RootPanel = (props: PropsWithChildren<RootPanelProp>) => {
 	const { appMenu } = props;
+	const { path } = props.match;
 	const { pathname } = props.location;
+	let routePath = pathname;
 	const notLogin = sessionStorage.getItem('user_token') === null;
 	let allow = true;
+
 	if (appMenu.data.length !== 0) {
-		allow = helper.hasRoute(appMenu.data, pathname);
+		if (path.includes('/:')) {
+			routePath = path.split('/:')[0]; //若为带参路由，截取到参数之前
+		}
+		allow = helper.hasRoute(appMenu.data, routePath);
 	}
 
 	const renderView = () => {

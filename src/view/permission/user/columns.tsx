@@ -69,6 +69,20 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			}
 		},
 		{
+			title: '编辑',
+			dataIndex: 'id',
+			key: 'id',
+			align: 'center',
+			width: 60,
+			render(value: string, record: User) {
+				if (record.username === 'admin') {
+					return <span style={{ cursor: 'not-allowed' }}>编辑</span>;
+				} else {
+					return <a onClick={() => onActionClick(record, ActionType.Edit)}>编辑</a>;
+				}
+			}
+		},
+		{
 			title: '删除',
 			dataIndex: 'id',
 			key: 'id',

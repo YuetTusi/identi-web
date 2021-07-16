@@ -44,8 +44,8 @@ const SearchForm: FC<SearchFormProp> = (props) => {
 
 	return (
 		<Form form={formRef} layout="inline">
-			<Item name="id" label="父级">
-				<Select style={{ width: '160px' }}>
+			<Item name="id" label="上级资源">
+				<Select style={{ width: '180px' }}>
 					<Option value="">全部</Option>
 					{getOptions(options)}
 				</Select>
