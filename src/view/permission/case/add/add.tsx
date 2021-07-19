@@ -19,6 +19,7 @@ import { helper } from '@/utility/helper';
 import { request } from '@/utility/request';
 import { SearchBox } from '../styled/layout-box';
 import { AddProp } from './props';
+import { OfficerNumber } from '@/utility/regex';
 
 const { Item, useForm } = Form;
 const { Option } = Select;
@@ -104,13 +105,16 @@ const Add: FC<AddProp> = (props) => {
 					label="案件名称"
 					name="case_name"
 					rules={[{ required: true, message: '请填写案件名称' }]}>
-					<Input />
+					<Input maxLength={100} />
 				</Item>
 				<Item label="检验单位" name="check_unit_name">
 					<Input />
 				</Item>
-				<Item label="采集人员编号" name="officer_no">
-					<Input />
+				<Item
+					label="采集人员编号"
+					name="officer_no"
+					rules={[{ pattern: OfficerNumber, message: '请输入6位数字' }]}>
+					<Input maxLength={6} placeholder="6位数字" />
 				</Item>
 				<Item label="采集人员" name="officer_name">
 					<Input />
