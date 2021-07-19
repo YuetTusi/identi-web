@@ -1,6 +1,7 @@
 import React, { FC, MouseEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as newId } from 'uuid';
+import throttle from 'lodash/throttle';
 import dayjs from 'dayjs';
 import { Link, routerRedux } from 'dva/router';
 import Breadcrumb from 'antd/lib/breadcrumb';
@@ -35,6 +36,24 @@ const bindUserList = (data: User[]) => {
 		return null;
 	}
 };
+
+/**
+ * 验证案件存在
+ * @param case_name 案件名
+ */
+const validCaseNameExist = throttle((case_name: string): Promise<void> => {
+	return new Promise((resolve, reject) => {
+		request<{ count: number }>({ url: `law-case/count/${case_name}`, method: 'GET' }).then(
+			({ data }) => {
+				if (data.count === 0) {
+					resolve();
+				} else {
+					reject(new Error(`案件${case_name}已存在`));
+				}
+			}
+		);
+	});
+}, 500);
 
 const Add: FC<AddProp> = (props) => {
 	const dispatch = useDispatch();
@@ -104,7 +123,15 @@ const Add: FC<AddProp> = (props) => {
 				<Item
 					label="案件名称"
 					name="case_name"
-					rules={[{ required: true, message: '请填写案件名称' }]}>
+					rules={[
+						{ required: true, message: '请填写案件名称' },
+						() => ({
+							validator(_, value) {
+								return validCaseNameExist(value);
+							},
+							message: '案件名称已存在'
+						})
+					]}>
 					<Input maxLength={100} />
 				</Item>
 				<Item label="检验单位" name="check_unit_name">
