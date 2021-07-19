@@ -4,7 +4,7 @@ import { routerRedux } from 'dva/router';
 import dayjs from 'dayjs';
 import Tag from 'antd/lib/tag';
 import { ColumnsType } from 'antd/lib/table';
-import { CaseState } from '@/schema/law-case';
+import { CaseState, LawCase } from '@/schema/law-case';
 import { LawCase4Table } from './props';
 
 const getColumns = (dispatch: Dispatch) => {
@@ -12,7 +12,14 @@ const getColumns = (dispatch: Dispatch) => {
 		{
 			title: '案件名称',
 			dataIndex: 'case_name',
-			key: 'case_name'
+			key: 'case_name',
+			render(value: string, { id }: LawCase) {
+				return (
+					<a onClick={() => dispatch(routerRedux.push(`/permission/case/detail/${id}`))}>
+						{value}
+					</a>
+				);
+			}
 		},
 		{
 			title: '鉴定人',

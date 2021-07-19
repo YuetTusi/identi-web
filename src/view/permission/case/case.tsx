@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { connect, routerRedux } from 'dva';
-import UserAddOutlined from '@ant-design/icons/UserAddOutlined';
+import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
 import Button from 'antd/lib/button';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
@@ -45,7 +45,7 @@ const Case: FC<Prop> = (props) => {
 				<Button
 					onClick={() => dispatch(routerRedux.push('/permission/case/add'))}
 					type="primary">
-					<UserAddOutlined />
+					<PlusCircleOutlined />
 					<span>添加</span>
 				</Button>
 			</SearchBox>

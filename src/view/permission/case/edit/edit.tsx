@@ -1,6 +1,5 @@
 import React, { FC, MouseEvent, useEffect, useRef } from 'react';
 import { useDispatch } from 'dva';
-import { v4 as newId } from 'uuid';
 import dayjs from 'dayjs';
 import { Link, routerRedux, useParams } from 'dva/router';
 import { useDict, useUserList } from '@/hook';
@@ -8,7 +7,7 @@ import { helper } from '@/utility/helper';
 import { request } from '@/utility/request';
 import { OfficerNumber } from '@/utility/regex';
 import { DictCategory } from '@/schema/dict';
-import { CaseState, LawCase } from '@/schema/law-case';
+import { LawCase } from '@/schema/law-case';
 import { User } from '@/schema/user';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
@@ -56,9 +55,11 @@ const Edit: FC<EditProp> = (props) => {
 					url: `law-case/${id}`,
 					method: 'GET'
 				});
-				if (code === 0) {
+				if (code === 0 && data !== null) {
 					editCaseRef.current = data;
 					editFormRef.setFieldsValue(data);
+				} else {
+					message.error('读取案件数据失败');
 				}
 			} catch (error) {
 				message.error('读取案件数据失败');
@@ -97,7 +98,7 @@ const Edit: FC<EditProp> = (props) => {
 			const { data, code } = await request<number>({
 				url: `law-case/${id}`,
 				method: 'PUT',
-				data: { form: values }
+				data: { form: next }
 			});
 			if (code === 0 && data > 0) {
 				message.success('案件编辑成功');

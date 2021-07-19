@@ -97,8 +97,13 @@ const User: FC<Prop> = (props) => {
 						message.success(`删除失败：${err.message}`);
 					});
 			},
-			title: '删除',
-			content: `确认删除用户「${username}」？`,
+			title: '删除用户',
+			content: (
+				<>
+					<div>{`删除「${username}」会影响与此用户相关联的案件，`}</div>
+					<div>确认删除？</div>
+				</>
+			),
 			centered: true,
 			okText: '是',
 			cancelText: '否'
