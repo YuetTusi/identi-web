@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dispatch } from 'dva';
+import { routerRedux } from 'dva/router';
 import dayjs from 'dayjs';
 import Tag from 'antd/lib/tag';
 import { ColumnsType } from 'antd/lib/table';
@@ -14,14 +15,14 @@ const getColumns = (dispatch: Dispatch) => {
 			key: 'case_name'
 		},
 		{
-			title: '审核人',
-			dataIndex: 'check_username',
-			key: 'check_username'
-		},
-		{
 			title: '鉴定人',
 			dataIndex: 'identi_username',
 			key: 'identi_username'
+		},
+		{
+			title: '审核人',
+			dataIndex: 'check_username',
+			key: 'check_username'
 		},
 		{
 			title: '采集人员',
@@ -123,7 +124,14 @@ const getColumns = (dispatch: Dispatch) => {
 			width: 60,
 			render(value: string, record: LawCase4Table) {
 				if (record.state === CaseState.NotIdenti || record.state === CaseState.Reject) {
-					return <a>编辑</a>;
+					return (
+						<a
+							onClick={() =>
+								dispatch(routerRedux.push(`/permission/case/edit/${value}`))
+							}>
+							编辑
+						</a>
+					);
 				} else {
 					return <span style={{ cursor: 'not-allowed' }}>编辑</span>;
 				}
@@ -136,7 +144,11 @@ const getColumns = (dispatch: Dispatch) => {
 			align: 'center',
 			width: 60,
 			render(value: string, record: LawCase4Table) {
-				if (record.state === CaseState.NotIdenti || record.state === CaseState.Reject) {
+				if (
+					record.state === CaseState.NotIdenti ||
+					record.state === CaseState.Reject ||
+					record.state === CaseState.Finish
+				) {
 					return <a>删除</a>;
 				} else {
 					return <span style={{ cursor: 'not-allowed' }}>删除</span>;

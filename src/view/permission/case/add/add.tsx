@@ -158,10 +158,10 @@ const Add: FC<AddProp> = (props) => {
 				<Item label="执法办案系统案件编号" name="handle_case_no">
 					<Input />
 				</Item>
-				<Item label="执法办案系统案件类别" name="handle_case_type">
+				<Item label="执法办案系统案件名称" name="handle_case_name">
 					<Input />
 				</Item>
-				<Item label="执法办案系统案件名称" name="handle_case_name">
+				<Item label="执法办案系统案件类别" name="handle_case_type">
 					<Input />
 				</Item>
 			</Form>

@@ -54,10 +54,10 @@ const SearchForm: FC<SearchFormProp> = (props) => {
 			<Item name="case_name" label="案件名称">
 				<Input maxLength={100} />
 			</Item>
-			<Item name="check_id" label="审核人" initialValue={''}>
+			<Item name="identi_id" label="鉴定人" initialValue={''}>
 				<Select style={{ width: '150px' }}>{bindUserList(userList)}</Select>
 			</Item>
-			<Item name="identi_id" label="鉴定人" initialValue={''}>
+			<Item name="check_id" label="审核人" initialValue={''}>
 				<Select style={{ width: '150px' }}>{bindUserList(userList)}</Select>
 			</Item>
 			<Item name="state" label="状态" initialValue={''}>
