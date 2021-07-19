@@ -1,4 +1,4 @@
-import { LawCaseStoreState } from "@/model/permission/case";
+import { LawCaseStoreState } from "@/model/permission/law-case";
 import { LawCase } from "@/schema/law-case";
 import { StoreComponent } from "@/schema/model-type";
 

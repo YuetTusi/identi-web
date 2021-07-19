@@ -5,7 +5,7 @@ import Button from 'antd/lib/button';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
-import { LawCase } from '@/schema/law-case';
+import { LawCase as LawCaseEntity } from '@/schema/law-case';
 import { SearchBox } from './styled/layout-box';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
@@ -33,7 +33,7 @@ const Case: FC<Prop> = (props) => {
 	 * 查询submit
 	 * @param form 表单
 	 */
-	const onSearchFormSubmit = async (form: LawCase) => queryTable(1, defaultPageSize, form);
+	const onSearchFormSubmit = async (form: LawCaseEntity) => queryTable(1, defaultPageSize, form);
 
 	return (
 		<>
