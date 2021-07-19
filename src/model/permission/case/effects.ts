@@ -4,6 +4,8 @@ import message from 'antd/lib/message';
 import { LawCase } from '@/schema/law-case';
 import { request, RequestResult } from '@/utility/request';
 
+const defaultPageSize = 20;
+
 export default {
     /**
      * 查询案件表
@@ -45,6 +47,23 @@ export default {
             message.error(`查询失败`);
         } finally {
             yield put({ type: 'setLoading', payload: false });
+        }
+    },
+    /**
+     * 删除案件
+     * @param {string} payload 案件id
+     */
+    *delCase({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
+
+        message.destroy();
+        try {
+            const { code, data }: RequestResult<boolean> = yield call(request, { url: `/law-case/${payload}`, method: 'DELETE' });
+            if (code === 0 && data) {
+                yield put({ type: 'queryLawCase', payload: { pageIndex: 1, pageSize: defaultPageSize, condition: null } });
+                message.success('案件删除成功');
+            }
+        } catch (error) {
+            message.error('删除案件失败');
         }
     }
 };

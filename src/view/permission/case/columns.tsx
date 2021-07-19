@@ -3,9 +3,12 @@ import { Dispatch } from 'dva';
 import { routerRedux } from 'dva/router';
 import dayjs from 'dayjs';
 import Tag from 'antd/lib/tag';
+import Modal from 'antd/lib/modal';
 import { ColumnsType } from 'antd/lib/table';
 import { CaseState, LawCase } from '@/schema/law-case';
 import { LawCase4Table } from './props';
+
+const defaultPageSize = 20;
 
 const getColumns = (dispatch: Dispatch) => {
 	const columns: ColumnsType<LawCase4Table> = [
@@ -150,13 +153,32 @@ const getColumns = (dispatch: Dispatch) => {
 			key: 'id',
 			align: 'center',
 			width: 60,
-			render(value: string, record: LawCase4Table) {
+			render(value: string, { case_name, state }: LawCase4Table) {
 				if (
-					record.state === CaseState.NotIdenti ||
-					record.state === CaseState.Reject ||
-					record.state === CaseState.Finish
+					state === CaseState.NotIdenti ||
+					state === CaseState.Reject ||
+					state === CaseState.Finish
 				) {
-					return <a>删除</a>;
+					return (
+						<a
+							onClick={() => {
+								Modal.confirm({
+									onOk() {
+										dispatch({
+											type: 'lawCase/delCase',
+											payload: value
+										});
+									},
+									title: '删除案件',
+									content: `确认删除「${case_name}」？`,
+									okText: '是',
+									cancelText: '否',
+									centered: true
+								});
+							}}>
+							删除
+						</a>
+					);
 				} else {
 					return <span style={{ cursor: 'not-allowed' }}>删除</span>;
 				}

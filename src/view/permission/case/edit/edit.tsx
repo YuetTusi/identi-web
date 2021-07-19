@@ -78,7 +78,8 @@ const Edit: FC<EditProp> = (props) => {
 			const values = await validateFields();
 
 			let next: LawCase = {
-				...editCaseRef.current!,
+				state: editCaseRef.current!.state,
+				create_time: dayjs(editCaseRef.current!.create_time).format('YYYY-MM-DD HH:mm:ss'),
 				id,
 				check_id: values.check_id,
 				identi_id: values.identi_id,
