@@ -36,10 +36,22 @@ const createRouter = (api?: RouterAPI) => {
 					/>
 					<Route
 						path="/default"
+						exact={true}
 						render={() => {
-							const NextView = lazy<FC<Record<string, any>>>(
-								() => import('@/view/default')
+							const NextView = lazy<FC<any>>(() => import('@/view/default'));
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel>
+										<NextView />
+									</RootPanel>
+								</Suspense>
 							);
+						}}
+					/>
+					<Route
+						path="/default/detail/:id"
+						render={() => {
+							const NextView = lazy<FC<any>>(() => import('@/view/default/detail'));
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel>
@@ -67,7 +79,9 @@ const createRouter = (api?: RouterAPI) => {
 						path="/permission/case"
 						exact={true}
 						render={() => {
-							const NextView = lazy<FC<any>>(() => import('@/view/permission/law-case'));
+							const NextView = lazy<FC<any>>(
+								() => import('@/view/permission/law-case')
+							);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>
 									<RootPanel>

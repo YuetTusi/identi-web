@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'dva/router';
+import { request } from '@/utility/request';
+import { LawCase } from '@/schema/law-case';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Empty from 'antd/lib/empty';
 import message from 'antd/lib/message';
-import { request } from '@/utility/request';
-import { LawCase } from '@/schema/law-case';
 import { DetailProp, LawCase4Table } from './props';
 
 /**
@@ -20,7 +20,7 @@ const Detail: FC<DetailProp> = (props) => {
 		(async () => {
 			try {
 				const { code, data, error } = await request<LawCase>({
-					url: `law-case/${id}`,
+					url: `default/${id}`,
 					method: 'GET'
 				});
 				if (code === 0) {
@@ -97,7 +97,7 @@ const Detail: FC<DetailProp> = (props) => {
 		<>
 			<Breadcrumb>
 				<BreadcrumbItem>
-					<Link to="/permission/case">案件管理</Link>
+					<Link to="/default">案件管理</Link>
 				</BreadcrumbItem>
 				<BreadcrumbItem>「{lawCase?.case_name}」详情</BreadcrumbItem>
 			</Breadcrumb>

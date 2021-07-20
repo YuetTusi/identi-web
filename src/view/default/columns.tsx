@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import Tag from 'antd/lib/tag';
 import Modal from 'antd/lib/modal';
 import { ColumnsType } from 'antd/lib/table';
-import { CaseState, LawCase } from '@/schema/law-case';
+import { CaseState } from '@/schema/law-case';
 import { LawCase4Table } from './props';
 
 const defaultPageSize = 20;
@@ -16,19 +16,19 @@ const getColumns = (dispatch: Dispatch) => {
 			title: '案件名称',
 			dataIndex: 'case_name',
 			key: 'case_name',
-			render(value: string, { id }: LawCase) {
+			render(value: string, { id }: LawCase4Table) {
 				return (
-					<a onClick={() => dispatch(routerRedux.push(`/permission/case/detail/${id}`))}>
+					<a onClick={() => dispatch(routerRedux.push(`/default/detail/${id}`))}>
 						{value}
 					</a>
 				);
 			}
 		},
-		{
-			title: '鉴定人',
-			dataIndex: 'identi_username',
-			key: 'identi_username'
-		},
+		// {
+		// 	title: '鉴定人',
+		// 	dataIndex: 'identi_username',
+		// 	key: 'identi_username'
+		// },
 		{
 			title: '审核人',
 			dataIndex: 'check_username',
@@ -115,72 +115,10 @@ const getColumns = (dispatch: Dispatch) => {
 			align: 'center',
 			width: 60,
 			render(value: string, record: LawCase4Table) {
-				if (
-					record.state === CaseState.NotIdenti ||
-					record.state === CaseState.Approval ||
-					record.state === CaseState.Reject
-				) {
+				if (record.state === CaseState.ToBeIdenti) {
 					return <a>处理</a>;
 				} else {
 					return <span style={{ cursor: 'not-allowed' }}>处理</span>;
-				}
-			}
-		},
-		{
-			title: '编辑',
-			dataIndex: 'id',
-			key: 'id',
-			align: 'center',
-			width: 60,
-			render(value: string, record: LawCase4Table) {
-				if (record.state === CaseState.NotIdenti || record.state === CaseState.Reject) {
-					return (
-						<a
-							onClick={() =>
-								dispatch(routerRedux.push(`/permission/case/edit/${value}`))
-							}>
-							编辑
-						</a>
-					);
-				} else {
-					return <span style={{ cursor: 'not-allowed' }}>编辑</span>;
-				}
-			}
-		},
-		{
-			title: '删除',
-			dataIndex: 'id',
-			key: 'id',
-			align: 'center',
-			width: 60,
-			render(value: string, { case_name, state }: LawCase4Table) {
-				if (
-					state === CaseState.NotIdenti ||
-					state === CaseState.Reject ||
-					state === CaseState.Finish
-				) {
-					return (
-						<a
-							onClick={() => {
-								Modal.confirm({
-									onOk() {
-										dispatch({
-											type: 'lawCase/delCase',
-											payload: value
-										});
-									},
-									title: '删除案件',
-									content: `确认删除「${case_name}」？`,
-									okText: '是',
-									cancelText: '否',
-									centered: true
-								});
-							}}>
-							删除
-						</a>
-					);
-				} else {
-					return <span style={{ cursor: 'not-allowed' }}>删除</span>;
 				}
 			}
 		}
