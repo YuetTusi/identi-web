@@ -1,6 +1,7 @@
 const path = require('path');
 const { ProvidePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 let config = {
 	mode: 'development',
@@ -67,7 +68,8 @@ let config = {
 		new ProvidePlugin({
 			$: 'jQuery',
 			jQuery: 'jQuery'
-		})
+		}),
+		new AntdDayjsWebpackPlugin()
 	]
 };
 

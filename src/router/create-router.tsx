@@ -62,6 +62,19 @@ const createRouter = (api?: RouterAPI) => {
 						}}
 					/>
 					<Route
+						path="/default/begin/:id"
+						render={() => {
+							const NextView = lazy<FC<any>>(() => import('@/view/default/begin'));
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel>
+										<NextView />
+									</RootPanel>
+								</Suspense>
+							);
+						}}
+					/>
+					<Route
 						path="/permission"
 						exact={true}
 						render={() => {

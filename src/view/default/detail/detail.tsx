@@ -6,7 +6,8 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Empty from 'antd/lib/empty';
 import message from 'antd/lib/message';
-import { DetailProp, LawCase4Table } from './props';
+import { DetailProp } from './props';
+import { LawCase4Table } from '../props';
 
 /**
  * 案件详情页

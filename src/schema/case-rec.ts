@@ -11,7 +11,7 @@ class CaseRec extends BaseEntity {
     /**
      * 鉴定时间
      */
-    rec_time?: string;
+    rec_time?: any;
     /**
      * 鉴定地点
      */
@@ -27,7 +27,7 @@ class CaseRec extends BaseEntity {
     /**
      * 动作时间
      */
-    action_time?: string;
+    action_time?: any;
 }
 
 export { CaseRec };

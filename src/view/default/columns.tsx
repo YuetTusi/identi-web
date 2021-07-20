@@ -114,11 +114,12 @@ const getColumns = (dispatch: Dispatch) => {
 			key: 'id',
 			align: 'center',
 			width: 60,
-			render(value: string, record: LawCase4Table) {
-				if (record.state === CaseState.ToBeIdenti) {
-					return <a>处理</a>;
-				} else {
-					return <span style={{ cursor: 'not-allowed' }}>处理</span>;
+			render(value: string, { state }: LawCase4Table) {
+				switch (state) {
+					case CaseState.ToBeIdenti:
+						return <a onClick={() => dispatch(routerRedux.push(`/default/begin/${value}`))}>处理</a>;
+					default:
+						return <span style={{ cursor: 'not-allowed' }}>处理</span>;
 				}
 			}
 		}
