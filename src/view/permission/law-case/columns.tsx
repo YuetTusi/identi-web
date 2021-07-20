@@ -115,12 +115,28 @@ const getColumns = (dispatch: Dispatch) => {
 			align: 'center',
 			width: 60,
 			render(value: string, record: LawCase4Table) {
+				const { state } = record;
 				if (
-					record.state === CaseState.NotIdenti ||
-					record.state === CaseState.Approval ||
-					record.state === CaseState.Reject
+					state === CaseState.NotIdenti ||
+					state === CaseState.Approval ||
+					state === CaseState.Reject
 				) {
-					return <a>处理</a>;
+					return (
+						<a
+							onClick={() => {
+								switch (state) {
+									case CaseState.NotIdenti:
+										dispatch({ type: 'issueModal/setData', payload: record });
+										dispatch({ type: 'issueModal/setVisible', payload: true });
+										break;
+									case CaseState.Reject:
+									case CaseState.Approval:
+									default:
+								}
+							}}>
+							处理
+						</a>
+					);
 				} else {
 					return <span style={{ cursor: 'not-allowed' }}>处理</span>;
 				}

@@ -7,13 +7,14 @@ import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
 import { LawCase as LawCaseEntity } from '@/schema/law-case';
 import { SearchBox } from './styled/layout-box';
+import IssueModal from './component/issue-modal';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
 import { LawCase4Table, Prop } from './props';
 
 const defaultPageSize = 20;
 
-const Case: FC<Prop> = (props) => {
+const LawCase: FC<Prop> = (props) => {
 	const { dispatch, lawCase } = props;
 
 	useEffect(() => {
@@ -55,8 +56,9 @@ const Case: FC<Prop> = (props) => {
 				loading={lawCase.loading}
 				rowKey="id"
 				bordered={true}></Table>
+			<IssueModal />
 		</>
 	);
 };
 
-export default connect((state: any) => ({ lawCase: state.lawCase }))(Case);
+export default connect((state: any) => ({ lawCase: state.lawCase }))(LawCase);
