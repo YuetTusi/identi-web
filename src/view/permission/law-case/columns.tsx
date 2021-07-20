@@ -130,6 +130,12 @@ const getColumns = (dispatch: Dispatch) => {
 										dispatch({ type: 'issueModal/setVisible', payload: true });
 										break;
 									case CaseState.Reject:
+										dispatch({ type: 'reissueModal/setData', payload: record });
+										dispatch({
+											type: 'reissueModal/setVisible',
+											payload: true
+										});
+										break;
 									case CaseState.Approval:
 									default:
 								}

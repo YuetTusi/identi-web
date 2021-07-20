@@ -9,6 +9,7 @@ import roleModel from '@/model/permission/role';
 import userModel from '@/model/permission/user';
 import lawCaseModel from '@/model/permission/law-case';
 import issueModalModel from '@/model/permission/component/issue-modal';
+import reissueModalModel from '@/model/permission/component/reissue-modal';
 import defaultModal from '@/model/default';
 import '@ztree/ztree_v3/js/jquery.ztree.all.min';
 import '@ztree/ztree_v3/css/metroStyle/metroStyle.css';
@@ -25,6 +26,7 @@ app.model(roleModel);
 app.model(userModel);
 app.model(lawCaseModel);
 app.model(issueModalModel);
+app.model(reissueModalModel);
 app.model(defaultModal);
 app.router(createRouter);
 

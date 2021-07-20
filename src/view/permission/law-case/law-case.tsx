@@ -8,6 +8,7 @@ import Table from 'antd/lib/table';
 import { LawCase as LawCaseEntity } from '@/schema/law-case';
 import { SearchBox } from './styled/layout-box';
 import IssueModal from './component/issue-modal';
+import ReissueModal from './component/reissue-modal';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
 import { LawCase4Table, Prop } from './props';
@@ -57,6 +58,7 @@ const LawCase: FC<Prop> = (props) => {
 				rowKey="id"
 				bordered={true}></Table>
 			<IssueModal />
+			<ReissueModal />
 		</>
 	);
 };

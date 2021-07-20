@@ -12,21 +12,23 @@ function useLastRec(id: string) {
     const [rec, setRec] = useState<CaseRec>();
 
     useEffect(() => {
-        (async () => {
-            try {
-                const { code, data } = await request<CaseRec>({ url: `rec/law-case/${id}`, method: 'GET' });
-                if (code === 0) {
-                    setRec(data);
-                } else {
+        if (id) {
+            (async () => {
+                try {
+                    const { code, data } = await request<CaseRec>({ url: `rec/law-case/${id}`, method: 'GET' });
+                    if (code === 0) {
+                        setRec(data);
+                    } else {
+                        setRec(undefined);
+                    }
+
+                } catch (error) {
+                    console.log(error);
                     setRec(undefined);
                 }
-
-            } catch (error) {
-                console.log(error);
-                setRec(undefined);
-            }
-        })();
-    }, []);
+            })();
+        }
+    }, [id]);
 
     return rec;
 }
