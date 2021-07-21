@@ -11,7 +11,7 @@ import Modal from 'antd/lib/modal';
 import { useUserList } from '@/hook';
 import { helper } from '@/utility/helper';
 import { CaseRec } from '@/schema/case-rec';
-import { IssueModalProp } from './props';
+import { FormValue, IssueModalProp } from './props';
 import { User } from '@/schema/user';
 import { LawCase4Table } from '@/view/default/props';
 import { CaseState, LawCase } from '@/schema/law-case';
@@ -35,22 +35,20 @@ const needUpdateCase = (lawCase: LawCase, nextIdentiId: string, nextCheckId: str
 const IssueModal: FC<Partial<IssueModalProp>> = (props) => {
 	const dispatch = useDispatch();
 	const userList = useUserList();
-	const [identiSelectId, setIdentiSelectId] = useState<string>('');
-	const [checkSelectId, setCheckSelectId] = useState<string>('');
-	const [form] = useForm<{ action_note: string }>();
+	// const [identiSelectId, setIdentiSelectId] = useState<string>('');
+	// const [checkSelectId, setCheckSelectId] = useState<string>('');
+	const [form] = useForm<FormValue>();
 	const { visible, data } = props.issueModal!;
 	const onCancel = () => dispatch({ type: 'issueModal/setVisible', payload: false });
 
 	useEffect(() => {
-		if (data?.identi_id) {
-			setIdentiSelectId(data.identi_id);
+		if (data) {
+			form.setFieldsValue({
+				check_id: data.check_id,
+				identi_id: data.identi_id
+			});
 		}
-	}, [data?.identi_id]);
-	useEffect(() => {
-		if (data?.check_id) {
-			setCheckSelectId(data.check_id);
-		}
-	}, [data?.check_id]);
+	}, [data]);
 
 	/**
 	 * 绑定用户select
@@ -77,54 +75,60 @@ const IssueModal: FC<Partial<IssueModalProp>> = (props) => {
 					<span>取消</span>
 				</Button>,
 				<Button
-					onClick={() => {
-						const { username, realname } = userList.find(
-							(item) => item.id === identiSelectId
-						)!;
-						Modal.confirm({
-							onOk() {
-								let now = dayjs().format('YYYY-MM-DD HH:mm:ss');
-								const rec: CaseRec = {
-									id: helper.newId(),
-									case_id: data?.id!,
-									action_note: form.getFieldsValue().action_note,
-									action_time: now,
-									create_time: now,
-									update_time: now
-								};
-								if (data && needUpdateCase(data!, identiSelectId, checkSelectId)) {
-									dispatch({
-										type: 'issueModal/issue',
-										payload: {
-											caseRec: rec,
-											lawCase: {
-												...data,
-												identi_id: identiSelectId,
-												check_id: checkSelectId,
-												state: CaseState.ToBeIdenti
+					onClick={async () => {
+						try {
+							const { identi_id, check_id, action_note } =
+								await form.validateFields();
+							const { username, realname } = userList.find(
+								(item) => item.id === identi_id
+							)!;
+							Modal.confirm({
+								onOk() {
+									let now = dayjs().format('YYYY-MM-DD HH:mm:ss');
+									const rec: CaseRec = {
+										id: helper.newId(),
+										case_id: data?.id!,
+										action_note,
+										action_time: now,
+										create_time: now,
+										update_time: now
+									};
+									if (data && needUpdateCase(data!, identi_id, check_id)) {
+										dispatch({
+											type: 'issueModal/issue',
+											payload: {
+												caseRec: rec,
+												lawCase: {
+													...data,
+													identi_id,
+													check_id,
+													state: CaseState.ToBeIdenti
+												}
 											}
-										}
-									});
-								} else {
-									dispatch({
-										type: 'issueModal/issue',
-										payload: {
-											caseRec: rec,
-											lawCase: {
-												...data,
-												state: CaseState.ToBeIdenti
+										});
+									} else {
+										dispatch({
+											type: 'issueModal/issue',
+											payload: {
+												caseRec: rec,
+												lawCase: {
+													...data,
+													state: CaseState.ToBeIdenti
+												}
 											}
-										}
-									});
-								}
-							},
-							okText: '是',
-							cancelText: '否',
-							title: '指派鉴定',
-							content: `确认「${
-								data?.case_name
-							}」由鉴定人「${username ?? ''} ${realname ?? ''}」处理？`
-						});
+										});
+									}
+								},
+								okText: '是',
+								cancelText: '否',
+								title: '指派鉴定',
+								content: `确认「${data?.case_name}」由鉴定人「${username ?? ''} ${
+									realname ?? ''
+								}」处理？`
+							});
+						} catch (error) {
+							console.log(error);
+						}
 					}}
 					type="primary"
 					key="K_1">
@@ -140,35 +144,14 @@ const IssueModal: FC<Partial<IssueModalProp>> = (props) => {
 			destroyOnClose={true}
 			centered={true}>
 			<div>
-				<p>请确认鉴定人员</p>
-				<p>
-					<label>鉴定人：</label>
-					<span>{data?.identi_username ?? ''}</span>
-				</p>
-				<p>
-					<label>审核人：</label>
-					<span>{data?.check_username ?? ''}</span>
-				</p>
-				<div>
-					<label>鉴定人：</label>
-					<Select
-						value={identiSelectId}
-						onChange={(value) => setIdentiSelectId(value)}
-						style={{ width: '200px' }}>
-						{bindUserList(userList)}
-					</Select>
-				</div>
-				<div>
-					<label>审核人：</label>
-					<Select
-						value={checkSelectId}
-						onChange={(value) => setCheckSelectId(value)}
-						style={{ width: '200px' }}>
-						{bindUserList(userList)}
-					</Select>
-				</div>
 				<div>
 					<Form form={form} layout="horizontal">
+						<Item label="鉴定人" name="identi_id">
+							<Select style={{ width: '200px' }}>{bindUserList(userList)}</Select>
+						</Item>
+						<Item label="审核人" name="check_id">
+							<Select style={{ width: '200px' }}>{bindUserList(userList)}</Select>
+						</Item>
 						<Item label="说明" name="action_note" initialValue="">
 							<Input maxLength={200} />
 						</Item>
