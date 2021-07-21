@@ -10,6 +10,7 @@ import Form from 'antd/lib/form';
 import Modal from 'antd/lib/modal';
 import { CaseRec } from '@/schema/case-rec';
 import { DisapproveModalProp } from './props';
+import { CaseState } from '@/schema/law-case';
 
 const { Item, useForm } = Form;
 
@@ -49,9 +50,15 @@ const DisapproveModal: FC<Partial<DisapproveModalProp>> = (props) => {
 										};
 										dispatch({
 											type: 'disapproveModal/issueAfterReject',
-											payload: { caseRec: rec, state: 1 }
+											payload: {
+												caseRec: rec,
+												lawCase: {
+													...data,
+													state: CaseState.ToBeIdenti
+												}
+											}
 										});
-                                        dispatch(routerRedux.push('/permission/law-case'));
+										dispatch(routerRedux.push('/permission/law-case'));
 									} catch (error) {
 										console.log(error);
 									}

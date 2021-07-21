@@ -7,7 +7,7 @@ import { helper } from '@/utility/helper';
 import { request } from '@/utility/request';
 import { OfficerNumber } from '@/utility/regex';
 import { DictCategory } from '@/schema/dict';
-import { LawCase } from '@/schema/law-case';
+import { CaseState, LawCase } from '@/schema/law-case';
 import { User } from '@/schema/user';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
@@ -134,7 +134,9 @@ const Edit: FC<EditProp> = (props) => {
 					label="鉴定人"
 					name="identi_id"
 					rules={[{ required: true, message: '请选择鉴定人' }]}>
-					<Select>{bindUserList(userList)}</Select>
+					<Select>
+						{bindUserList(userList)}
+					</Select>
 				</Item>
 				<Item
 					label="审核人"
@@ -155,7 +157,7 @@ const Edit: FC<EditProp> = (props) => {
 					<Input maxLength={6} placeholder="6位数字" />
 				</Item>
 				<Item label="采集人员" name="officer_name">
-					<Input />
+					<Input maxLength={50} />
 				</Item>
 				<Item label="网安部门案件编号" name="security_case_no">
 					<Input />

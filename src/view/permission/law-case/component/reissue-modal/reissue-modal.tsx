@@ -11,6 +11,7 @@ import Form from 'antd/lib/form';
 import Modal from 'antd/lib/modal';
 import { useLastRec } from '@/hook';
 import { CaseRec } from '@/schema/case-rec';
+import { CaseState } from '@/schema/law-case';
 import { ReissueModalProp } from './props';
 
 const { Item, useForm } = Form;
@@ -24,8 +25,6 @@ const ReissueModal: FC<Partial<ReissueModalProp>> = (props) => {
 	const { visible, data } = props.reissueModal!;
 	const lastRec = useLastRec(data?.id!);
 	const onCancel = () => dispatch({ type: 'reissueModal/setVisible', payload: false });
-
-	console.log(lastRec);
 
 	return (
 		<Modal
@@ -48,7 +47,13 @@ const ReissueModal: FC<Partial<ReissueModalProp>> = (props) => {
 								};
 								dispatch({
 									type: 'reissueModal/issue',
-									payload: { caseRec: rec, state: 1 }
+									payload: {
+										caseRec: rec,
+										lawCase: {
+											...data,
+											state: CaseState.ToBeIdenti
+										}
+									}
 								});
 							},
 							okText: '是',

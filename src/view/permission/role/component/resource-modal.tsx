@@ -38,7 +38,7 @@ let resourceTree: any = null;
 
 const ResourceTreeBox = styled.div`
 	width: auto;
-	height: 320px;
+	height: 450px;
 	overflow-y: auto;
 `;
 

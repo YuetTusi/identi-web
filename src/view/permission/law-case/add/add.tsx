@@ -144,7 +144,7 @@ const Add: FC<AddProp> = (props) => {
 					<Input maxLength={6} placeholder="6位数字" />
 				</Item>
 				<Item label="采集人员" name="officer_name">
-					<Input />
+					<Input maxLength={50} />
 				</Item>
 				<Item label="网安部门案件编号" name="security_case_no">
 					<Input />

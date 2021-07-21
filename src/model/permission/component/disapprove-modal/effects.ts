@@ -3,25 +3,25 @@ import { EffectsCommandMap } from 'dva';
 import message from 'antd/lib/message';
 import { request, RequestResult } from '@/utility/request';
 import { CaseRec } from '@/schema/case-rec';
-import { CaseState } from '@/schema/law-case';
+import { LawCase } from '@/schema/law-case';
 
 export default {
 
     /**
      * 审核驳回并重新下发鉴定
      * @param {CaseRec} payload.caseRec 记录数据
-     * @param {number} payload.state 案件状态
+     * @param {number} payload.lawCase 案件数据
      */
     *issueAfterReject({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
-        const { caseRec, state } = payload as { caseRec: CaseRec, state: CaseState };
+        const { caseRec, lawCase } = payload as { caseRec: CaseRec, lawCase: LawCase };
 
         message.destroy();
         try {
             const { code, data }: RequestResult<boolean> = yield call(request, {
                 url: '/rec/append',
                 data: {
-                    form: { ...caseRec, state }
+                    form: { caseRec, lawCase }
                 },
                 method: 'POST'
             });

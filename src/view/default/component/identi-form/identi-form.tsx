@@ -6,17 +6,11 @@ import Datepicker from 'antd/lib/date-picker';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import { FormValue } from '../../begin/props';
+import { IdentiFormProp } from './props';
 
-dayjs.locale('zh-cn')
+dayjs.locale('zh-cn');
 const { Item, useForm } = Form;
 const { TextArea } = Input;
-
-interface IdentiFormProp {
-	/**
-	 * 表单数据handle
-	 */
-	onData: (data: FormValue) => void;
-}
 
 /**
  * 鉴定表单

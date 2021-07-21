@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as newId, V4Options } from 'uuid';
 import { ResourceItem } from '@/model/app-menu';
 import { DictCategory } from '@/schema/dict';
 import { request } from './request';
@@ -16,6 +17,13 @@ const helper = {
 			Object.prototype.toString.call(value) === '[object Null]' ||
 			Object.prototype.toString.call(value) === '[object Undefined]'
 		);
+	},
+	/**
+	 * 生成UUID
+	 * @param options 选项
+	 */
+	newId(options?: V4Options) {
+		return newId(options);
 	},
 	/**
 	 * 验证传入路径是否存在于当菜单中

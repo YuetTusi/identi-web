@@ -140,8 +140,11 @@ const Begin: FC<BeginProp> = (props) => {
 					method: 'POST',
 					data: {
 						form: {
-							...next,
-							state: action === '0' ? CaseState.Reject : CaseState.Approval
+							caseRec: next,
+							lawCase: {
+								...lawCase,
+								state: action === '0' ? CaseState.Reject : CaseState.Approval
+							}
 						}
 					}
 				})
