@@ -18,7 +18,10 @@ const getColumns = (dispatch: Dispatch) => {
 			key: 'case_name',
 			render(value: string, { id }: LawCase) {
 				return (
-					<a onClick={() => dispatch(routerRedux.push(`/permission/case/detail/${id}`))}>
+					<a
+						onClick={() =>
+							dispatch(routerRedux.push(`/permission/law-case/detail/${id}`))
+						}>
 						{value}
 					</a>
 				);
@@ -115,7 +118,7 @@ const getColumns = (dispatch: Dispatch) => {
 			align: 'center',
 			width: 60,
 			render(value: string, record: LawCase4Table) {
-				const { state } = record;
+				const { id, state } = record;
 				if (
 					state === CaseState.NotIdenti ||
 					state === CaseState.Approval ||
@@ -137,6 +140,7 @@ const getColumns = (dispatch: Dispatch) => {
 										});
 										break;
 									case CaseState.Approval:
+										dispatch(routerRedux.push(`/permission/law-case/approval/${id}`));
 									default:
 								}
 							}}>
@@ -159,7 +163,7 @@ const getColumns = (dispatch: Dispatch) => {
 					return (
 						<a
 							onClick={() =>
-								dispatch(routerRedux.push(`/permission/case/edit/${value}`))
+								dispatch(routerRedux.push(`/permission/law-case/edit/${value}`))
 							}>
 							编辑
 						</a>

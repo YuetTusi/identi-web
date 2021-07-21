@@ -45,7 +45,7 @@ const LawCase: FC<Prop> = (props) => {
 			<SearchBox>
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
 				<Button
-					onClick={() => dispatch(routerRedux.push('/permission/case/add'))}
+					onClick={() => dispatch(routerRedux.push('/permission/law-case/add'))}
 					type="primary">
 					<PlusCircleOutlined />
 					<span>添加</span>

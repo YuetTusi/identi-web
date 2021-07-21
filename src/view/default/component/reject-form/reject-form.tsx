@@ -1,7 +1,7 @@
 import React, { FC, MouseEvent } from 'react';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
-import Form, { FormInstance } from 'antd/lib/form';
+import Form from 'antd/lib/form';
 import { FormValue } from '../../begin/props';
 
 const { Item, useForm } = Form;

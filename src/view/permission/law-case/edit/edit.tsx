@@ -103,7 +103,7 @@ const Edit: FC<EditProp> = (props) => {
 			});
 			if (code === 0 && data > 0) {
 				message.success('案件编辑成功');
-				dispatch(routerRedux.push('/permission/case'));
+				dispatch(routerRedux.push('/permission/law-case'));
 			} else {
 				message.error('案件编辑失败');
 			}
@@ -116,7 +116,7 @@ const Edit: FC<EditProp> = (props) => {
 		<>
 			<Breadcrumb>
 				<BreadcrumbItem>
-					<Link to="/permission/case">案件管理</Link>
+					<Link to="/permission/law-case">案件管理</Link>
 				</BreadcrumbItem>
 				<BreadcrumbItem>编辑案件</BreadcrumbItem>
 			</Breadcrumb>

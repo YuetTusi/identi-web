@@ -81,7 +81,7 @@ const Add: FC<AddProp> = (props) => {
 			});
 			if (code === 0 && data > 0) {
 				message.success('案件添加成功');
-				dispatch(routerRedux.push('/permission/case'));
+				dispatch(routerRedux.push('/permission/law-case'));
 			} else {
 				message.error('案件添加失败');
 			}
@@ -94,7 +94,7 @@ const Add: FC<AddProp> = (props) => {
 		<>
 			<Breadcrumb>
 				<BreadcrumbItem>
-					<Link to="/permission/case">案件管理</Link>
+					<Link to="/permission/law-case">案件管理</Link>
 				</BreadcrumbItem>
 				<BreadcrumbItem>添加案件</BreadcrumbItem>
 			</Breadcrumb>

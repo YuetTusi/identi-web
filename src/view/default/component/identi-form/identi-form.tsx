@@ -1,11 +1,13 @@
 import React, { FC, MouseEvent } from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import Button from 'antd/lib/button';
 import Datepicker from 'antd/lib/date-picker';
 import Input from 'antd/lib/input';
-import Form, { FormInstance } from 'antd/lib/form';
+import Form from 'antd/lib/form';
 import { FormValue } from '../../begin/props';
 
+dayjs.locale('zh-cn')
 const { Item, useForm } = Form;
 const { TextArea } = Input;
 

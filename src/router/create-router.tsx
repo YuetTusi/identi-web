@@ -89,7 +89,7 @@ const createRouter = (api?: RouterAPI) => {
 						}}
 					/>
 					<Route
-						path="/permission/case"
+						path="/permission/law-case"
 						exact={true}
 						render={() => {
 							const NextView = lazy<FC<any>>(
@@ -105,7 +105,7 @@ const createRouter = (api?: RouterAPI) => {
 						}}
 					/>
 					<Route
-						path="/permission/case/detail/:id"
+						path="/permission/law-case/detail/:id"
 						render={() => {
 							const NextView = lazy<FC<any>>(
 								() => import('@/view/permission/law-case/detail')
@@ -120,7 +120,7 @@ const createRouter = (api?: RouterAPI) => {
 						}}
 					/>
 					<Route
-						path="/permission/case/add"
+						path="/permission/law-case/add"
 						render={() => {
 							const NextView = lazy<FC<any>>(
 								() => import('@/view/permission/law-case/add')
@@ -135,10 +135,25 @@ const createRouter = (api?: RouterAPI) => {
 						}}
 					/>
 					<Route
-						path="/permission/case/edit/:id"
+						path="/permission/law-case/edit/:id"
 						render={() => {
 							const NextView = lazy<FC<any>>(
 								() => import('@/view/permission/law-case/edit')
+							);
+							return (
+								<Suspense fallback={<div>加载中...</div>}>
+									<RootPanel>
+										<NextView />
+									</RootPanel>
+								</Suspense>
+							);
+						}}
+					/>
+					<Route
+						path="/permission/law-case/approval/:id"
+						render={() => {
+							const NextView = lazy<FC<any>>(
+								() => import('@/view/permission/law-case/approval')
 							);
 							return (
 								<Suspense fallback={<div>加载中...</div>}>

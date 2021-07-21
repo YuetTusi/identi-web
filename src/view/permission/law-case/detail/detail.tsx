@@ -1,11 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'dva/router';
+import dayjs from 'dayjs';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
-import Empty from 'antd/lib/empty';
+import Divider from 'antd/lib/divider';
 import message from 'antd/lib/message';
+import { useLastRec } from '@/hook';
 import { request } from '@/utility/request';
-import { LawCase } from '@/schema/law-case';
+import { CaseState, LawCase } from '@/schema/law-case';
+import CaseDesc from './case-desc';
+import Record from './record';
 import { DetailProp, LawCase4Table } from './props';
 
 /**
@@ -13,6 +17,7 @@ import { DetailProp, LawCase4Table } from './props';
  */
 const Detail: FC<DetailProp> = (props) => {
 	const { id } = useParams<{ id: string }>();
+	const lastRec = useLastRec(id);
 	const [lawCase, setLawCase] = useState<LawCase4Table>();
 
 	useEffect(() => {
@@ -34,62 +39,35 @@ const Detail: FC<DetailProp> = (props) => {
 		})();
 	}, [id]);
 
-	const renderDetail = () => {
-		if (lawCase) {
+	const renderLastRec = () => {
+		if (lawCase?.state === CaseState.Finish) {
 			return (
 				<div>
 					<div>
-						<label>鉴定人：</label>
-						<span>{lawCase.identi_username}</span>
+						<label>鉴定时间：</label>
+						<span>{dayjs(lastRec?.rec_time).format('YYYY-MM-DD')}</span>
 					</div>
 					<div>
-						<label>审核人：</label>
-						<span>{lawCase.check_username}</span>
+						<label>鉴定地点：</label>
+						<span>{lastRec?.rec_place ?? ''}</span>
 					</div>
 					<div>
-						<label>案件名称：</label>
-						<span>{lawCase.case_name}</span>
-					</div>
-					<div>
-						<label>检验单位：</label>
-						<span>{lawCase.check_unit_name}</span>
-					</div>
-					<div>
-						<label>采集人员编号：</label>
-						<span>{lawCase.officer_no}</span>
-					</div>
-					<div>
-						<label>采集人员：</label>
-						<span>{lawCase.officer_name}</span>
-					</div>
-					<div>
-						<label>网安部门案件编号：</label>
-						<span>{lawCase.security_case_no}</span>
-					</div>
-					<div>
-						<label>网安部门案件名称：</label>
-						<span>{lawCase.security_case_name}</span>
-					</div>
-					<div>
-						<label>网安部门案件类别：</label>
-						<span>{lawCase.security_case_type}</span>
-					</div>
-					<div>
-						<label>执法办案系统案件编号：</label>
-						<span>{lawCase.handle_case_no}</span>
-					</div>
-					<div>
-						<label>执法办案系统案件名称：</label>
-						<span>{lawCase.handle_case_name}</span>
-					</div>
-					<div>
-						<label>执法办案系统案件类别：</label>
-						<span>{lawCase.handle_case_type}</span>
+						<label>鉴定意见：</label>
+						<span>{lastRec?.suggest}</span>
 					</div>
 				</div>
 			);
 		} else {
-			return <Empty />;
+			<div>
+				<div>
+					<label>操作时间：</label>
+					<span>{dayjs(lastRec?.action_time).format('YYYY-MM-DD')}</span>
+				</div>
+				<div>
+					<label>说明：</label>
+					<span>{lastRec?.action_note ?? ''}</span>
+				</div>
+			</div>;
 		}
 	};
 
@@ -97,11 +75,13 @@ const Detail: FC<DetailProp> = (props) => {
 		<>
 			<Breadcrumb>
 				<BreadcrumbItem>
-					<Link to="/permission/case">案件管理</Link>
+					<Link to="/permission/law-case">案件管理</Link>
 				</BreadcrumbItem>
 				<BreadcrumbItem>「{lawCase?.case_name}」详情</BreadcrumbItem>
 			</Breadcrumb>
-			{renderDetail()}
+			<CaseDesc data={lawCase} />
+			<Divider />
+			<Record data={lastRec!} state={lawCase?.state!} />
 		</>
 	);
 };
