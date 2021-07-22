@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import dayjs from 'dayjs';
 import { CaseRec } from '@/schema/case-rec';
 import { CaseState } from '@/schema/law-case';
+import { ListView } from '@/component/styled/widget';
 
 interface RecordProp {
 	/**
@@ -22,32 +23,32 @@ const Record: FC<RecordProp> = (props) => {
 
 	if (state === CaseState.Finish) {
 		return (
-			<div>
-				<div>
+			<ListView>
+				<li>
 					<label>鉴定时间：</label>
 					<span>{dayjs(data?.rec_time).format('YYYY-MM-DD')}</span>
-				</div>
-				<div>
+				</li>
+				<li>
 					<label>鉴定地点：</label>
 					<span>{data?.rec_place ?? ''}</span>
-				</div>
-				<div>
+				</li>
+				<li>
 					<label>鉴定意见：</label>
 					<span>{data?.suggest}</span>
-				</div>
-			</div>
+				</li>
+			</ListView>
 		);
 	} else {
-		return <div>
-			<div>
+		return <ListView>
+			<li>
 				<label>处理时间：</label>
 				<span>{dayjs(data?.action_time).format('YYYY-MM-DD HH:mm:ss')}</span>
-			</div>
-			<div>
+			</li>
+			<li>
 				<label>说明：</label>
 				<span>{data?.action_note ?? ''}</span>
-			</div>
-		</div>;
+			</li>
+		</ListView>;
 	}
 };
 

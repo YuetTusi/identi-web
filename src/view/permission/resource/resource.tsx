@@ -2,8 +2,8 @@ import React, { FC, useEffect } from 'react';
 import { connect } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
-
 import Table from 'antd/lib/table';
+import { BaseBox, BorderBox, StrongBox } from '@/component/styled/container';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
 import { FormValue, Prop } from './props';
@@ -48,16 +48,16 @@ const Resource: FC<Prop> = (props) => {
 		});
 	};
 
-	// console.log(resource.total);
-	// console.log(resource.pageSize);
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>资源查看</BreadcrumbItem>
-			</Breadcrumb>
-			<div>
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>资源查看</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+			<BorderBox marginTop="10px" marginBottom="10px">
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
-			</div>
+			</BorderBox>
 			<Table
 				pagination={{
 					onChange: onPageChange,

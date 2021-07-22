@@ -15,7 +15,7 @@ import defaultModal from '@/model/default';
 import '@ztree/ztree_v3/js/jquery.ztree.all.min';
 import '@ztree/ztree_v3/css/metroStyle/metroStyle.css';
 
-import 'antd/dist/antd.min.css';
+import 'antd/dist/antd.less';
 
 const app = dva({ history: createHistory() });
 

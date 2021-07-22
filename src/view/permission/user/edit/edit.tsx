@@ -9,6 +9,7 @@ import Input from 'antd/lib/input';
 import { SaveOutlined } from '@ant-design/icons/lib/icons';
 import Form from 'antd/lib/form';
 import message from 'antd/lib/message';
+import { BorderBox, StrongBox } from '@/component/styled/container';
 import { request } from '@/utility/request';
 import { User } from '@/schema/user';
 import { Mail, OnlyNumber } from '@/utility/regex';
@@ -90,44 +91,50 @@ const Edit: FC<EditProp> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>
-					<Link to="/permission/user">用户管理</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>编辑用户</BreadcrumbItem>
-			</Breadcrumb>
-			<SearchBox>
-				<div />
-				<div>
-					<Button onClick={onSubmit} type="primary">
-						<SaveOutlined />
-						<span>保存</span>
-					</Button>
-				</div>
-			</SearchBox>
-			<Form form={editFormRef} layout="vertical">
-				<Item name="username" label="用户名">
-					<Input maxLength={50} disabled={true} />
-				</Item>
-				<Item
-					name="mail"
-					label="邮件"
-					rules={[{ pattern: Mail, message: '请输入正确的邮件格式' }]}>
-					<Input maxLength={200} />
-				</Item>
-				<Item
-					name="mobile"
-					label="手机/电话"
-					rules={[{ pattern: OnlyNumber, message: '请输入数字' }]}>
-					<Input maxLength={50} />
-				</Item>
-				<Item name="realname" label="真实姓名">
-					<Input maxLength={50} />
-				</Item>
-				<Item name="desc" label="描述">
-					<Input maxLength={200} />
-				</Item>
-			</Form>
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>
+						<Link to="/permission/user">用户管理</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem>编辑用户</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+			<BorderBox marginTop="10px" marginBottom="10px">
+				<SearchBox>
+					<div />
+					<div>
+						<Button onClick={onSubmit} type="primary">
+							<SaveOutlined />
+							<span>保存</span>
+						</Button>
+					</div>
+				</SearchBox>
+			</BorderBox>
+			<BorderBox>
+				<Form form={editFormRef} layout="vertical">
+					<Item name="username" label="用户名">
+						<Input maxLength={50} disabled={true} />
+					</Item>
+					<Item
+						name="mail"
+						label="邮件"
+						rules={[{ pattern: Mail, message: '请输入正确的邮件格式' }]}>
+						<Input maxLength={200} />
+					</Item>
+					<Item
+						name="mobile"
+						label="手机/电话"
+						rules={[{ pattern: OnlyNumber, message: '请输入数字' }]}>
+						<Input maxLength={50} />
+					</Item>
+					<Item name="realname" label="真实姓名">
+						<Input maxLength={50} />
+					</Item>
+					<Item name="desc" label="描述">
+						<Input maxLength={200} />
+					</Item>
+				</Form>
+			</BorderBox>
 		</>
 	);
 };

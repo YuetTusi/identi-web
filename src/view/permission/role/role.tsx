@@ -4,6 +4,7 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import message from 'antd/lib/message';
 import Table from 'antd/lib/table';
+import { BaseBox, StrongBox } from '@/component/styled/container';
 import { Role as RoleEntity } from '@/schema/role';
 import { getRoleColumns } from './columns';
 import ResourceModal from './component/resource-modal';
@@ -88,21 +89,26 @@ const Role: FC<Prop> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>角色管理</BreadcrumbItem>
-			</Breadcrumb>
-			<Table<RoleEntity>
-				pagination={{
-					onChange: onPageChange,
-					pageSize: role.pageSize,
-					current: role.pageIndex,
-					total: role.total
-				}}
-				columns={getRoleColumns(dispatch, showResourceHandle)}
-				dataSource={role.data}
-				loading={role.loading}
-				rowKey={(row) => row.id}
-				bordered={true}></Table>
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>角色管理</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+			<BaseBox marginTop="10px">
+				<Table<RoleEntity>
+					pagination={{
+						onChange: onPageChange,
+						pageSize: role.pageSize,
+						current: role.pageIndex,
+						total: role.total
+					}}
+					columns={getRoleColumns(dispatch, showResourceHandle)}
+					dataSource={role.data}
+					loading={role.loading}
+					rowKey={(row) => row.id}
+					bordered={true}></Table>
+			</BaseBox>
+
 			<ResourceModal
 				visible={resourceModalVisible}
 				id={roleId}

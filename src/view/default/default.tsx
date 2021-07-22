@@ -1,11 +1,9 @@
 import React, { FC, useEffect } from 'react';
-import { connect, routerRedux } from 'dva';
+import { connect } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
-import Button from 'antd/lib/button';
-import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
 import Table from 'antd/lib/table';
-import { SearchBox } from './styled/layout-box';
+import { BorderBox, StrongBox } from '@/component/styled/container';
 import SearchForm from './search-form';
 import { LawCase } from '@/schema/law-case';
 import { Prop, LawCase4Table } from './props';
@@ -44,12 +42,15 @@ const Default: FC<Prop> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>我的案件</BreadcrumbItem>
-			</Breadcrumb>
-			<SearchBox>
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>我的案件</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+
+			<BorderBox marginTop="10px" marginBottom="10px">
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
-			</SearchBox>
+			</BorderBox>
 			<Table<LawCase4Table>
 				columns={getColumns(dispatch)}
 				dataSource={defaultState.data}

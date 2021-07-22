@@ -8,7 +8,7 @@ import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import message from 'antd/lib/message';
 import { KeyOutlined } from '@ant-design/icons';
-import { LoginBox } from './styled/login-box';
+import { LoginRoot } from './styled/login-box';
 import { request } from '@/utility/request';
 import { LoginProp } from './props';
 
@@ -60,28 +60,31 @@ const Login: FC<LoginProp> = (props) => {
 	);
 
 	return (
-		<LoginBox>
-			<Form onFinish={onLoginFormFinish}>
-				<Item
-					label="用户"
-					name="username"
-					rules={[{ required: true, message: '请输入用户' }]}>
-					<Input />
-				</Item>
-				<Item
-					label="密码"
-					name="password"
-					rules={[{ required: true, message: '请输入密码' }]}>
-					<Password />
-				</Item>
-				<Item wrapperCol={{ offset: 21 }}>
-					<Button type="primary" htmlType="submit">
-						<KeyOutlined />
-						<span>登录</span>
-					</Button>
-				</Item>
-			</Form>
-		</LoginBox>
+		<LoginRoot>
+			<div className="login-box">
+				<h1>登录</h1>
+				<Form onFinish={onLoginFormFinish} size="middle" layout="vertical">
+					<Item
+						label="用户"
+						name="username"
+						rules={[{ required: true, message: '请输入用户' }]}>
+						<Input />
+					</Item>
+					<Item
+						label="密码"
+						name="password"
+						rules={[{ required: true, message: '请输入密码' }]}>
+						<Password />
+					</Item>
+					<Item style={{ textAlign: 'right', paddingTop: '10px' }}>
+						<Button type="primary" htmlType="submit">
+							<KeyOutlined />
+							<span>登录</span>
+						</Button>
+					</Item>
+				</Form>
+			</div>
+		</LoginRoot>
 	);
 };
 

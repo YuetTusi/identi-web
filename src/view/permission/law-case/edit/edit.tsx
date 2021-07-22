@@ -7,7 +7,7 @@ import { helper } from '@/utility/helper';
 import { request } from '@/utility/request';
 import { OfficerNumber } from '@/utility/regex';
 import { DictCategory } from '@/schema/dict';
-import { CaseState, LawCase } from '@/schema/law-case';
+import { LawCase } from '@/schema/law-case';
 import { User } from '@/schema/user';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
@@ -17,6 +17,7 @@ import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import Select from 'antd/lib/select';
 import message from 'antd/lib/message';
+import { BorderBox, StrongBox } from '@/component/styled/container';
 import { SearchBox } from '../styled/layout-box';
 import { EditProp } from './props';
 
@@ -114,70 +115,74 @@ const Edit: FC<EditProp> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>
-					<Link to="/permission/law-case">案件管理</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>编辑案件</BreadcrumbItem>
-			</Breadcrumb>
-			<SearchBox>
-				<div></div>
-				<div>
-					<Button onClick={onSubmit} type="primary">
-						<SaveOutlined />
-						<span>保存</span>
-					</Button>
-				</div>
-			</SearchBox>
-			<Form form={editFormRef} layout="horizontal">
-				<Item
-					label="鉴定人"
-					name="identi_id"
-					rules={[{ required: true, message: '请选择鉴定人' }]}>
-					<Select>
-						{bindUserList(userList)}
-					</Select>
-				</Item>
-				<Item
-					label="审核人"
-					name="check_id"
-					rules={[{ required: true, message: '请选择审核人' }]}>
-					<Select>{bindUserList(userList)}</Select>
-				</Item>
-				<Item label="案件名称" name="case_name">
-					<Input disabled={true} />
-				</Item>
-				<Item label="检验单位" name="check_unit_name">
-					<Input />
-				</Item>
-				<Item
-					label="采集人员编号"
-					name="officer_no"
-					rules={[{ pattern: OfficerNumber, message: '请输入6位数字' }]}>
-					<Input maxLength={6} placeholder="6位数字" />
-				</Item>
-				<Item label="采集人员" name="officer_name">
-					<Input maxLength={50} />
-				</Item>
-				<Item label="网安部门案件编号" name="security_case_no">
-					<Input />
-				</Item>
-				<Item label="网安部门案件名称" name="security_case_name">
-					<Input />
-				</Item>
-				<Item label="网安部门案件类别" name="security_case_type" initialValue="">
-					<Select>{helper.bindOptions(dict, true)}</Select>
-				</Item>
-				<Item label="执法办案系统案件编号" name="handle_case_no">
-					<Input />
-				</Item>
-				<Item label="执法办案系统案件名称" name="handle_case_name">
-					<Input />
-				</Item>
-				<Item label="执法办案系统案件类别" name="handle_case_type">
-					<Input />
-				</Item>
-			</Form>
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>
+						<Link to="/permission/law-case">案件管理</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem>编辑案件</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+			<BorderBox marginTop="10px" marginBottom="10px">
+				<SearchBox>
+					<div></div>
+					<div>
+						<Button onClick={onSubmit} type="primary">
+							<SaveOutlined />
+							<span>保存</span>
+						</Button>
+					</div>
+				</SearchBox>
+			</BorderBox>
+			<BorderBox>
+				<Form form={editFormRef} layout="horizontal">
+					<Item
+						label="鉴定人"
+						name="identi_id"
+						rules={[{ required: true, message: '请选择鉴定人' }]}>
+						<Select>{bindUserList(userList)}</Select>
+					</Item>
+					<Item
+						label="审核人"
+						name="check_id"
+						rules={[{ required: true, message: '请选择审核人' }]}>
+						<Select>{bindUserList(userList)}</Select>
+					</Item>
+					<Item label="案件名称" name="case_name">
+						<Input disabled={true} />
+					</Item>
+					<Item label="检验单位" name="check_unit_name">
+						<Input />
+					</Item>
+					<Item
+						label="采集人员编号"
+						name="officer_no"
+						rules={[{ pattern: OfficerNumber, message: '请输入6位数字' }]}>
+						<Input maxLength={6} placeholder="6位数字" />
+					</Item>
+					<Item label="采集人员" name="officer_name">
+						<Input maxLength={50} />
+					</Item>
+					<Item label="网安部门案件编号" name="security_case_no">
+						<Input />
+					</Item>
+					<Item label="网安部门案件名称" name="security_case_name">
+						<Input />
+					</Item>
+					<Item label="网安部门案件类别" name="security_case_type" initialValue="">
+						<Select>{helper.bindOptions(dict, true)}</Select>
+					</Item>
+					<Item label="执法办案系统案件编号" name="handle_case_no">
+						<Input />
+					</Item>
+					<Item label="执法办案系统案件名称" name="handle_case_name">
+						<Input />
+					</Item>
+					<Item label="执法办案系统案件类别" name="handle_case_type">
+						<Input />
+					</Item>
+				</Form>
+			</BorderBox>
 		</>
 	);
 };

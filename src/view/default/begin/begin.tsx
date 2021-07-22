@@ -10,6 +10,7 @@ import Radio from 'antd/lib/radio';
 import Divider from 'antd/lib/divider';
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
+import { LabelBox, StrongBox } from '@/component/styled/container';
 import { useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { helper } from '@/utility/helper';
@@ -19,6 +20,7 @@ import { LawCase4Table } from '@/view/default/props';
 import IdentiForm from '../component/identi-form';
 import RejectForm from '../component/reject-form';
 import { BeginProp, FormValue } from './props';
+import { ListView } from '@/component/styled/widget';
 
 const { Group } = Radio;
 
@@ -59,56 +61,56 @@ const Begin: FC<BeginProp> = (props) => {
 	const renderDetail = () => {
 		if (lawCase) {
 			return (
-				<div>
-					<div>
+				<ListView>
+					<li>
 						<label>鉴定人：</label>
 						<span>{lawCase.identi_username}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>审核人：</label>
 						<span>{lawCase.check_username}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>案件名称：</label>
 						<span>{lawCase.case_name}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>检验单位：</label>
 						<span>{lawCase.check_unit_name}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>采集人员编号：</label>
 						<span>{lawCase.officer_no}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>采集人员：</label>
 						<span>{lawCase.officer_name}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>网安部门案件编号：</label>
 						<span>{lawCase.security_case_no}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>网安部门案件名称：</label>
 						<span>{lawCase.security_case_name}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>网安部门案件类别：</label>
 						<span>{lawCase.security_case_type}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>执法办案系统案件编号：</label>
 						<span>{lawCase.handle_case_no}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>执法办案系统案件名称：</label>
 						<span>{lawCase.handle_case_name}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>执法办案系统案件类别：</label>
 						<span>{lawCase.handle_case_type}</span>
-					</div>
-				</div>
+					</li>
+				</ListView>
 			);
 		} else {
 			return <Empty />;
@@ -192,24 +194,33 @@ const Begin: FC<BeginProp> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>
-					<Link to="/default">我的案件</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>鉴定「{lawCase?.case_name ?? ''}」</BreadcrumbItem>
-			</Breadcrumb>
-			{renderDetail()}
-			<Divider />
-			<div>
-				<label>说明：</label>
-				<span>{rec?.action_note}</span>
-			</div>
-			<Group value={action} onChange={(e) => setAction(e.target.value)}>
-				<Radio value="1">鉴定</Radio>
-				<Radio value="0">驳回</Radio>
-			</Group>
-			<Divider />
-			{renderForm(action)}
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>
+						<Link to="/default">我的案件</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem>鉴定「{lawCase?.case_name ?? ''}」</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+			<LabelBox marginTop="10px">
+				<legend>案件信息</legend>
+				{renderDetail()}
+			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>鉴定</legend>
+				<ListView>
+					<li>
+						<label>说明：</label>
+						<span>{rec?.action_note}</span>
+					</li>
+				</ListView>
+				<Group value={action} onChange={(e) => setAction(e.target.value)}>
+					<Radio value="1">鉴定</Radio>
+					<Radio value="0">驳回</Radio>
+				</Group>
+				<Divider />
+				{renderForm(action)}
+			</LabelBox>
 		</>
 	);
 };

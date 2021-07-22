@@ -1,3 +1,4 @@
+declare module '*.json';
 declare module 'dva-immer';
 
 interface JQuery {

@@ -1,5 +1,9 @@
 import React, { FC, MouseEvent } from 'react';
-// import { routerRedux } from 'dva/router';
+import { WebHeaderRoot } from './styled/layout-box';
+import Button from 'antd/lib/button';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import MailOutlined from '@ant-design/icons/lib/icons/MailOutlined';
+import TableOutlined from '@ant-design/icons/lib/icons/TableOutlined';
 
 const WebHeader: FC<{}> = () => {
 	/**
@@ -12,11 +16,32 @@ const WebHeader: FC<{}> = () => {
 	};
 
 	return (
-		<div>
-			<label>当前用户：</label>
-			<span>{sessionStorage.getItem('username') ?? ''}</span>
-			<a onClick={onLogoutClick}>安全退出</a>
-		</div>
+		<WebHeaderRoot>
+			<div className="first-row">
+				<div className="caption">案件鉴定管理</div>
+				<div className="fn">
+					<a onClick={onLogoutClick}>退出系统</a>
+				</div>
+			</div>
+			<div className="second-row">
+				<div className="left">
+					<TableOutlined />
+				</div>
+				<div className="right">
+					<div className="btn">
+						<Button type="default" shape="circle" icon={<MailOutlined />}></Button>
+					</div>
+					<div className="user">
+						<i>
+							<UserOutlined />
+						</i>
+						<div>
+							<span>{sessionStorage.getItem('username') ?? ''}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</WebHeaderRoot>
 	);
 };
 

@@ -5,9 +5,9 @@ import { Link } from 'dva/router';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
-import Divider from 'antd/lib/divider';
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
+import { LabelBox, StrongBox } from '@/component/styled/container';
 import { useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { CaseState, LawCase } from '@/schema/law-case';
@@ -87,36 +87,46 @@ const Approval: FC<ApprovalProp> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>
-					<Link to="/permission/law-case">案件管理</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>审核「{lawCase?.case_name ?? ''}」</BreadcrumbItem>
-			</Breadcrumb>
-			<CaseDesc data={lawCase} />
-			<Divider />
-			<div>
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>
+						<Link to="/permission/law-case">案件管理</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem>审核「{lawCase?.case_name ?? ''}」</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+
+			<LabelBox marginTop="10px">
+				<legend>案件信息</legend>
+				<CaseDesc data={lawCase} />
+			</LabelBox>
+
+			<LabelBox marginTop="10px">
+				<legend>审核</legend>
 				<div>
-					<label>鉴定时间：</label>
-					<span>{dayjs(lastRec?.rec_time).format('YYYY-MM-DD')}</span>
+					<div>
+						<label>鉴定时间：</label>
+						<span>{dayjs(lastRec?.rec_time).format('YYYY-MM-DD')}</span>
+					</div>
+					<div>
+						<label>鉴定地点：</label>
+						<span>{lastRec?.rec_place}</span>
+					</div>
+					<div>
+						<label>鉴定意见：</label>
+						<span>{lastRec?.suggest}</span>
+					</div>
+					<div>
+						<Button onClick={onApproveClick} type="primary">
+							审核通过
+						</Button>
+						<Button onClick={onDisapproveClick} type="primary" danger={true}>
+							审核不通过
+						</Button>
+					</div>
 				</div>
-				<div>
-					<label>鉴定地点：</label>
-					<span>{lastRec?.rec_place}</span>
-				</div>
-				<div>
-					<label>鉴定意见：</label>
-					<span>{lastRec?.suggest}</span>
-				</div>
-				<div>
-					<Button onClick={onApproveClick} type="primary">
-						审核通过
-					</Button>
-					<Button onClick={onDisapproveClick} type="primary" danger={true}>
-						审核不通过
-					</Button>
-				</div>
-			</div>
+			</LabelBox>
+
 			<DisapproveModal />
 		</>
 	);

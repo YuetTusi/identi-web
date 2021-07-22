@@ -8,6 +8,7 @@ import Button from 'antd/lib/button';
 import Table from 'antd/lib/table';
 import message from 'antd/lib/message';
 import Modal from 'antd/lib/modal';
+import { BorderBox, StrongBox } from '@/component/styled/container';
 import { request } from '@/utility/request';
 import { User as UserEntity } from '@/schema/user';
 import { getColumns } from './columns';
@@ -188,30 +189,35 @@ const User: FC<Prop> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>用户管理</BreadcrumbItem>
-			</Breadcrumb>
-			<SearchBox>
-				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
-				<Button
-					onClick={() => dispatch(routerRedux.push('/permission/user/add'))}
-					type="primary">
-					<UserAddOutlined />
-					<span>添加</span>
-				</Button>
-			</SearchBox>
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>用户管理</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+			<BorderBox marginTop="10px" marginBottom="10px">
+				<SearchBox>
+					<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
+					<Button
+						onClick={() => dispatch(routerRedux.push('/permission/user/add'))}
+						type="primary">
+						<UserAddOutlined />
+						<span>添加</span>
+					</Button>
+				</SearchBox>
+			</BorderBox>
 			<Table<UserEntity>
-				pagination={{
-					onChange: onPageChange,
-					pageSize: user.pageSize,
-					current: user.pageIndex,
-					total: user.total
-				}}
-				columns={getColumns(dispatch, onActionClick)}
-				dataSource={user.data}
-				loading={user.loading}
-				rowKey={(r) => r.id}
-				bordered={true}></Table>
+					pagination={{
+						onChange: onPageChange,
+						pageSize: user.pageSize,
+						current: user.pageIndex,
+						total: user.total
+					}}
+					columns={getColumns(dispatch, onActionClick)}
+					dataSource={user.data}
+					loading={user.loading}
+					rowKey={(r) => r.id}
+					bordered={true}></Table>
+
 			<RoleModal
 				data={actionUser}
 				visible={roleModalVisible}

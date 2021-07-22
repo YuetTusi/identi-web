@@ -5,6 +5,7 @@ import Button from 'antd/lib/button';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
+import { BorderBox, StrongBox } from '@/component/styled/container';
 import { LawCase as LawCaseEntity } from '@/schema/law-case';
 import { SearchBox } from './styled/layout-box';
 import IssueModal from './component/issue-modal';
@@ -39,18 +40,22 @@ const LawCase: FC<Prop> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>案件管理</BreadcrumbItem>
-			</Breadcrumb>
-			<SearchBox>
-				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
-				<Button
-					onClick={() => dispatch(routerRedux.push('/permission/law-case/add'))}
-					type="primary">
-					<PlusCircleOutlined />
-					<span>添加</span>
-				</Button>
-			</SearchBox>
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>案件管理</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+			<BorderBox marginTop="10px" marginBottom="10px">
+				<SearchBox>
+					<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
+					<Button
+						onClick={() => dispatch(routerRedux.push('/permission/law-case/add'))}
+						type="primary">
+						<PlusCircleOutlined />
+						<span>添加</span>
+					</Button>
+				</SearchBox>
+			</BorderBox>
 			<Table<LawCase4Table>
 				columns={getColumns(dispatch)}
 				dataSource={lawCase.data}

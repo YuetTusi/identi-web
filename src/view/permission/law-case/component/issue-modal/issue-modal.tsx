@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 import { connect, useDispatch } from 'dva';
 import dayjs from 'dayjs';
 import Button from 'antd/lib/button';
@@ -10,11 +10,10 @@ import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
 import { useUserList } from '@/hook';
 import { helper } from '@/utility/helper';
-import { CaseRec } from '@/schema/case-rec';
-import { FormValue, IssueModalProp } from './props';
 import { User } from '@/schema/user';
-import { LawCase4Table } from '@/view/default/props';
+import { CaseRec } from '@/schema/case-rec';
 import { CaseState, LawCase } from '@/schema/law-case';
+import { FormValue, IssueModalProp } from './props';
 
 const { Item, useForm } = Form;
 const { Option } = Select;
@@ -35,8 +34,6 @@ const needUpdateCase = (lawCase: LawCase, nextIdentiId: string, nextCheckId: str
 const IssueModal: FC<Partial<IssueModalProp>> = (props) => {
 	const dispatch = useDispatch();
 	const userList = useUserList();
-	// const [identiSelectId, setIdentiSelectId] = useState<string>('');
-	// const [checkSelectId, setCheckSelectId] = useState<string>('');
 	const [form] = useForm<FormValue>();
 	const { visible, data } = props.issueModal!;
 	const onCancel = () => dispatch({ type: 'issueModal/setVisible', payload: false });

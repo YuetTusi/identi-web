@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'dva/router';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
-import Divider from 'antd/lib/divider';
 import message from 'antd/lib/message';
+import { LabelBox, StrongBox } from '@/component/styled/container';
 import { useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { LawCase } from '@/schema/law-case';
@@ -41,15 +41,22 @@ const Detail: FC<DetailProp> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>
-					<Link to="/default">案件管理</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>「{lawCase?.case_name}」详情</BreadcrumbItem>
-			</Breadcrumb>
-			<CaseDesc data={lawCase} />
-			<Divider />
-			<Record data={lastRec!} state={lawCase?.state!} />
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>
+						<Link to="/default">我的案件</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem>「{lawCase?.case_name}」详情</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+			<LabelBox marginTop="10px">
+				<legend>案件信息</legend>
+				<CaseDesc data={lawCase} />
+			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>说明信息</legend>
+				<Record data={lastRec!} state={lawCase?.state!} />
+			</LabelBox>
 		</>
 	);
 };

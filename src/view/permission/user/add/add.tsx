@@ -16,6 +16,7 @@ import { User } from '@/schema/user';
 import { Mail, OnlyNumber } from '@/utility/regex';
 import { SearchBox } from '../styled/layout-box';
 import { AddFormValue, AddProp } from './props';
+import { BorderBox, StrongBox } from '@/component/styled/container';
 
 const { Item, useForm } = Form;
 const { Password } = Input;
@@ -83,79 +84,85 @@ const Add: FC<AddProp> = (props) => {
 
 	return (
 		<>
-			<Breadcrumb>
-				<BreadcrumbItem>
-					<Link to="/permission/user">用户管理</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>添加用户</BreadcrumbItem>
-			</Breadcrumb>
-			<hr />
-			<SearchBox>
-				<div></div>
-				<div>
-					<Button onClick={onSubmit} type="primary">
-						<SaveOutlined />
-						<span>保存</span>
-					</Button>
-				</div>
-			</SearchBox>
-			<Form form={form} layout="vertical">
-				<Item
-					name="username"
-					label="用户名"
-					rules={[
-						{ required: true, message: '请填写用户名' },
-						() => ({
-							validator(_, value) {
-								return validUserNameExist(value);
-							},
-							message: '用户名已存在'
-						})
-					]}>
-					<Input maxLength={50} />
-				</Item>
-				<Item
-					name="password"
-					label="密码"
-					rules={[{ required: true, message: '请填写密码' }]}>
-					<Password maxLength={50} />
-				</Item>
-				<Item
-					dependencies={['password']}
-					rules={[
-						{ required: true, message: '请重复输入密码' },
-						({ getFieldValue }) => ({
-							validator(_, value) {
-								if (!value || getFieldValue('password') === value) {
-									return Promise.resolve();
+			<StrongBox>
+				<Breadcrumb>
+					<BreadcrumbItem>
+						<Link to="/permission/user">用户管理</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem>添加用户</BreadcrumbItem>
+				</Breadcrumb>
+			</StrongBox>
+
+			<BorderBox marginTop="10px" marginBottom="10px">
+				<SearchBox>
+					<div></div>
+					<div>
+						<Button onClick={onSubmit} type="primary">
+							<SaveOutlined />
+							<span>保存</span>
+						</Button>
+					</div>
+				</SearchBox>
+			</BorderBox>
+			<BorderBox>
+				<Form form={form} layout="vertical">
+					<Item
+						name="username"
+						label="用户名"
+						rules={[
+							{ required: true, message: '请填写用户名' },
+							() => ({
+								validator(_, value) {
+									return validUserNameExist(value);
+								},
+								message: '用户名已存在'
+							})
+						]}>
+						<Input maxLength={50} />
+					</Item>
+					<Item
+						name="password"
+						label="密码"
+						rules={[{ required: true, message: '请填写密码' }]}>
+						<Password maxLength={50} />
+					</Item>
+					<Item
+						dependencies={['password']}
+						rules={[
+							{ required: true, message: '请重复输入密码' },
+							({ getFieldValue }) => ({
+								validator(_, value) {
+									if (!value || getFieldValue('password') === value) {
+										return Promise.resolve();
+									}
+									return Promise.reject(new Error('请确认与密码输入一致'));
 								}
-								return Promise.reject(new Error('请确认与密码输入一致'));
-							}
-						})
-					]}
-					name="repassword"
-					label="重复密码">
-					<Password />
-				</Item>
-				<Item
-					name="mail"
-					label="邮件"
-					rules={[{ pattern: Mail, message: '请输入正确的邮件格式' }]}>
-					<Input maxLength={200} />
-				</Item>
-				<Item
-					name="mobile"
-					label="手机/电话"
-					rules={[{ pattern: OnlyNumber, message: '请输入数字' }]}>
-					<Input maxLength={50} />
-				</Item>
-				<Item name="realname" label="真实姓名">
-					<Input maxLength={50} />
-				</Item>
-				<Item name="desc" label="描述">
-					<Input maxLength={200} />
-				</Item>
-			</Form>
+							})
+						]}
+						name="repassword"
+						label="重复密码">
+						<Password />
+					</Item>
+					<Item
+						name="mail"
+						label="邮件"
+						rules={[{ pattern: Mail, message: '请输入正确的邮件格式' }]}>
+						<Input maxLength={200} />
+					</Item>
+					<Item
+						name="mobile"
+						label="手机/电话"
+						rules={[{ pattern: OnlyNumber, message: '请输入数字' }]}>
+						<Input maxLength={50} />
+					</Item>
+					<Item name="realname" label="真实姓名">
+						<Input maxLength={50} />
+					</Item>
+					<Item name="desc" label="描述">
+						<Input maxLength={200} />
+					</Item>
+				</Form>
+			</BorderBox>
 		</>
 	);
 };

@@ -52,7 +52,9 @@ const RootPanel = (props: PropsWithChildren<RootPanelProp>) => {
 						</LeftBox>
 						<ContentBox>{props.children}</ContentBox>
 					</MainBox>
-					<FooterBox>脚</FooterBox>
+					<FooterBox>
+						<div>&copy;2021 安证网信（北京）信息科技有限公司</div>
+					</FooterBox>
 				</RootContainer>
 			);
 		}

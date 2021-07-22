@@ -2,6 +2,7 @@ const path = require('path');
 const { ProvidePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
+const theme = require('./src/theme/blue.json');
 
 let config = {
 	mode: 'development',
@@ -36,6 +37,22 @@ let config = {
 			{
 				test: /\.css$/,
 				use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+			},
+			{
+				test: /\.less$/,
+				use: [
+					{ loader: 'style-loader' },
+					{ loader: 'css-loader' },
+					{
+						loader: 'less-loader',
+						options: {
+							lessOptions: {
+								modifyVars: theme,
+								javascriptEnabled: true
+							}
+						}
+					}
+				]
 			},
 			{
 				test: /\.(png|jpg|jpeg|gif|ico)$/,
