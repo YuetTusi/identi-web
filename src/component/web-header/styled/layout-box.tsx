@@ -55,6 +55,7 @@ const WebHeaderRoot = styled.div`
 				margin-right: 20px;
 			}
 			.user {
+				cursor: pointer;
 				display: flex;
 				flex-direction: row;
 				font-weight: bold;

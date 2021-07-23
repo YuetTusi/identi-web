@@ -251,6 +251,37 @@ const createRouter = (api?: RouterAPI) => {
 								);
 							}}
 						/>
+						<Route
+							path="/profile"
+							exact={true}
+							render={() => {
+								const NextView = lazy<FC<any>>(
+									() => import('@/view/profile/setting')
+								);
+								return (
+									<Suspense fallback={<div>加载中...</div>}>
+										<RootPanel>
+											<NextView />
+										</RootPanel>
+									</Suspense>
+								);
+							}}
+						/>
+						<Route
+							path="/profile/setting"
+							render={() => {
+								const NextView = lazy<FC<any>>(
+									() => import('@/view/profile/setting')
+								);
+								return (
+									<Suspense fallback={<div>加载中...</div>}>
+										<RootPanel>
+											<NextView />
+										</RootPanel>
+									</Suspense>
+								);
+							}}
+						/>
 						{/* <Route /> */}
 						<Route component={NotFound} />
 					</Switch>

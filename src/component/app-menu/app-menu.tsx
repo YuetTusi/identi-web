@@ -10,6 +10,8 @@ import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import TeamOutlined from '@ant-design/icons/TeamOutlined';
 import PartitionOutlined from '@ant-design/icons/PartitionOutlined';
+import IdcardOutlined from '@ant-design/icons/IdcardOutlined';
+import ToolOutlined from '@ant-design/icons/ToolOutlined';
 import { StoreComponent } from '@/schema/model-type';
 import { AppMenuStoreState, ResourceItem } from '@/model/app-menu';
 
@@ -39,6 +41,10 @@ const getIcon = (url: string): JSX.Element => {
 			return <TeamOutlined />;
 		case '/permission/resource':
 			return <PartitionOutlined />;
+		case '/profile':
+			return <IdcardOutlined />;
+		case '/profile/setting':
+			return <ToolOutlined />;
 		default:
 			return <BorderOutlined />;
 	}
@@ -73,7 +79,7 @@ const AppMenu: FC<AppMenuProp> = (props) => {
 		<div>
 			<Menu
 				selectedKeys={[pathname]}
-				defaultOpenKeys={['/', '/permission']}
+				defaultOpenKeys={['/', '/permission', '/profile']}
 				style={{ width: '200px' }}
 				mode="inline">
 				{renderMenu()}

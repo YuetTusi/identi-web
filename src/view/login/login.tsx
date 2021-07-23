@@ -52,7 +52,7 @@ const Login: FC<LoginProp> = (props) => {
 					}
 				} else {
 					message.destroy();
-					message.warn('登录失败，用户或密码不正确');
+					message.warn('用户或密码不正确');
 				}
 			});
 		},
