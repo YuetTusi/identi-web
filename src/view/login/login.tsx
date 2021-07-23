@@ -11,6 +11,7 @@ import { KeyOutlined } from '@ant-design/icons';
 import { LoginRoot } from './styled/login-box';
 import { request } from '@/utility/request';
 import { LoginProp } from './props';
+import { helper } from '@/utility/helper';
 
 const { Item } = Form;
 const { Password } = Input;
@@ -35,9 +36,9 @@ const Login: FC<LoginProp> = (props) => {
 						message.success('登录成功');
 						//todo:可将角色、用户等数据存入model
 						sessionStorage.setItem('user_token', token);
-						sessionStorage.setItem('uid', uid);
 						sessionStorage.setItem('role', Base64.encode(JSON.stringify(role)));
 						sessionStorage.setItem('username', values.username);
+						helper.setUId(uid);
 
 						dispatch({
 							type: 'auth/setAuth',

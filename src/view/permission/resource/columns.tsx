@@ -18,7 +18,8 @@ const getColumns = (dispatch: Dispatch) => {
 		{
 			title: '类型',
 			dataIndex: 'type',
-			key: 'type'
+			key: 'type',
+			width: 120
 		},
 		{
 			title: '层级',

@@ -1,5 +1,6 @@
-import { request } from "@/utility/request";
 import { SubscriptionAPI } from "dva";
+import { request } from "@/utility/request";
+import { helper } from '@/utility/helper';
 
 export default {
 
@@ -9,7 +10,7 @@ export default {
      */
     readCurrentAuth({ dispatch }: SubscriptionAPI) {
 
-        const uid = sessionStorage.getItem('uid');
+        const uid = helper.getUId();
 
         if (uid !== null) {
             request(`login/${uid}`).then((res: any) => {

@@ -3,7 +3,7 @@
 import { AnyAction } from 'redux';
 import { EffectsCommandMap } from 'dva';
 import message from 'antd/lib/message';
-import { AuthStoreState } from '../auth';
+import { helper } from '@/utility/helper';
 import { request, RequestResult } from '@/utility/request';
 import { LawCase } from '@/schema/law-case';
 
@@ -22,7 +22,7 @@ export default {
             // const authState: AuthStoreState = yield select((state: any) => ({ auth: state.auth }));
             const params = {
                 ...condition,
-                identi_id: sessionStorage.getItem('uid') //鉴定人id必传
+                identi_id: helper.getUId() //鉴定人id必传
             }
 
             const { code, data, error }: RequestResult<{ data: LawCase[], total: number }> =

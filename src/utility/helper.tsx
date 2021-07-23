@@ -1,5 +1,6 @@
 import React from 'react';
 import { v4 as newId, V4Options } from 'uuid';
+import { encode, decode } from 'js-base64';
 import { ResourceItem } from '@/model/app-menu';
 import { DictCategory } from '@/schema/dict';
 import { request } from './request';
@@ -24,6 +25,20 @@ const helper = {
 	 */
 	newId(options?: V4Options) {
 		return newId(options);
+	},
+	/**
+	 * 存储登录用户id
+	 * @param id 用户id
+	 */
+	setUId(id: string) {
+		sessionStorage.setItem('uid', encode(id));
+	},
+	/**
+	 * 当前登录用户id
+	 */
+	getUId() {
+		const base64 = sessionStorage.getItem('uid');
+		return base64 === null ? null : decode(base64);
 	},
 	/**
 	 * 验证传入路径是否存在于当菜单中

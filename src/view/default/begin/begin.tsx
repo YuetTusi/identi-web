@@ -5,22 +5,22 @@ import dayjs from 'dayjs';
 import { v4 as newId } from 'uuid';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
+import Divider from 'antd/lib/divider';
 import Empty from 'antd/lib/empty';
 import Radio from 'antd/lib/radio';
-import Divider from 'antd/lib/divider';
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
-import { LabelBox, StrongBox } from '@/component/styled/container';
+import { BorderBox, LabelBox, StrongBox } from '@/component/styled/container';
 import { useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { helper } from '@/utility/helper';
 import { CaseState, LawCase } from '@/schema/law-case';
 import { CaseRec } from '@/schema/case-rec';
 import { LawCase4Table } from '@/view/default/props';
+import { ListView } from '@/component/styled/widget';
 import IdentiForm from '../component/identi-form';
 import RejectForm from '../component/reject-form';
 import { BeginProp, FormValue } from './props';
-import { ListView } from '@/component/styled/widget';
 
 const { Group } = Radio;
 
@@ -164,10 +164,6 @@ const Begin: FC<BeginProp> = (props) => {
 					.catch((err) => {
 						message.error(`提交失败 ${err.message}`);
 					});
-				// console.log({
-				// 	...next,
-				// 	state: action === '0' ? CaseState.Reject : CaseState.Approval
-				// });
 			},
 			content: action === '0' ? '确认驳回案件？' : '确认提交鉴定？',
 			okText: '是',
@@ -207,20 +203,22 @@ const Begin: FC<BeginProp> = (props) => {
 				{renderDetail()}
 			</LabelBox>
 			<LabelBox marginTop="10px">
-				<legend>鉴定</legend>
+				<legend>说明信息</legend>
 				<ListView>
 					<li>
 						<label>说明：</label>
 						<span>{rec?.action_note}</span>
 					</li>
 				</ListView>
+			</LabelBox>
+			<BorderBox marginTop="10px">
 				<Group value={action} onChange={(e) => setAction(e.target.value)}>
 					<Radio value="1">鉴定</Radio>
 					<Radio value="0">驳回</Radio>
 				</Group>
 				<Divider />
 				{renderForm(action)}
-			</LabelBox>
+			</BorderBox>
 		</>
 	);
 };

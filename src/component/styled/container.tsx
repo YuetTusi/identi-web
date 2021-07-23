@@ -1,6 +1,6 @@
 //页面布局
-import styled from 'styled-components';
 import color from 'color';
+import styled from 'styled-components';
 
 /**
  * 根容器
@@ -121,6 +121,7 @@ const LabelBox = styled.fieldset<{
 		font-weight: bold;
 		color: ${(props) => props.theme.text};
 		border: 1px solid ${(props) => color(props.theme.text).lighten(0.6).toString()};
+		border-radius: ${(props) => props.theme.radius};
 	}
 `;
 
