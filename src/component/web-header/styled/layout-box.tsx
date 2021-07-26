@@ -15,7 +15,7 @@ const WebHeaderRoot = styled.div`
 		background-color: ${(props) => props.theme.bg};
 		.caption {
 			margin-left: 1rem;
-			font-size: 1.2rem;
+			font-size: 1.8rem;
 			font-weight: lighter;
 		}
 		.fn {

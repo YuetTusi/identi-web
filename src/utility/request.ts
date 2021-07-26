@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const baseURL =
-    process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : '/';
+    process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://127.0.0.1:7001/';
 
 const instance = setInterceptor(
     axios.create({

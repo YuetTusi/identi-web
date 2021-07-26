@@ -20,7 +20,6 @@ const createRouter = (api?: RouterAPI) => {
 
 	return (
 		<ConfigProvider locale={localeCN} componentSize="small">
-			<GlobalStyle />
 			<ThemeProvider theme={theme}>
 				<Router history={history}>
 					<Switch>
@@ -287,6 +286,7 @@ const createRouter = (api?: RouterAPI) => {
 					</Switch>
 				</Router>
 			</ThemeProvider>
+			<GlobalStyle />
 		</ConfigProvider>
 	);
 };

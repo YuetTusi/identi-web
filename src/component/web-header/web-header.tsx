@@ -5,7 +5,6 @@ import { WebHeaderRoot } from './styled/layout-box';
 import Button from 'antd/lib/button';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import MailOutlined from '@ant-design/icons/lib/icons/MailOutlined';
-import TableOutlined from '@ant-design/icons/lib/icons/TableOutlined';
 
 const WebHeader: FC<{}> = () => {
 	const dispatch = useDispatch();

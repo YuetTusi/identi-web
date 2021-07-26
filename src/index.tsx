@@ -2,6 +2,7 @@ import { createHashHistory as createHistory } from 'history';
 import dva from 'dva';
 import immer from 'dva-immer';
 import { createRouter } from './router';
+import { registerModel } from './utility/register-model';
 import authModel from '@/model/auth';
 import appMenuModel from '@/model/app-menu';
 import resourceModel from '@/model/permission/resource';
@@ -15,23 +16,22 @@ import settingModel from '@/model/profile/setting';
 import defaultModal from '@/model/default';
 import '@ztree/ztree_v3/js/jquery.ztree.all.min';
 import '@ztree/ztree_v3/css/metroStyle/metroStyle.css';
-
 import 'antd/dist/antd.less';
 
 const app = dva({ history: createHistory() });
 
-app.use(immer());
-app.model(authModel);
-app.model(appMenuModel);
-app.model(resourceModel);
-app.model(roleModel);
-app.model(userModel);
-app.model(lawCaseModel);
-app.model(issueModalModel);
-app.model(reissueModalModel);
-app.model(disapproveModelModel);
-app.model(defaultModal);
-app.model(settingModel);
-app.router(createRouter);
+registerModel(app, authModel);
+registerModel(app, appMenuModel);
+registerModel(app, resourceModel);
+registerModel(app, roleModel);
+registerModel(app, userModel);
+registerModel(app, lawCaseModel);
+registerModel(app, issueModalModel);
+registerModel(app, reissueModalModel);
+registerModel(app, disapproveModelModel);
+registerModel(app, defaultModal);
+registerModel(app, settingModel);
 
+app.use(immer());
+app.router(createRouter);
 app.start('#root');
