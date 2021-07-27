@@ -12,6 +12,11 @@ let config = {
 		filename: 'bundle.js'
 	},
 	target: 'web',
+	cache: {
+		name: 'dev-cache',
+		type: 'filesystem',
+		cacheDirectory: path.join(__dirname, '/_cache/webpack')
+	},
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src')
@@ -56,25 +61,17 @@ let config = {
 			},
 			{
 				test: /\.(png|jpg|jpeg|gif|ico)$/,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							outputPath: '/images'
-						}
-					}
-				]
+				type: 'asset/resource',
+				generator: {
+					filename: 'images/[hash:16][ext]'
+				}
 			},
 			{
 				test: /\.(woff|woff2|ttf|otf|eot|svg)$/,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							outputPath: '/fonts'
-						}
-					}
-				]
+				type: 'asset/resource',
+				generator: {
+					filename: 'fonts/[hash:16][ext]'
+				}
 			}
 		]
 	},

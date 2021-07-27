@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const baseURL =
-    process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://127.0.0.1:7001/';
+    process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://192.168.1.11:7001/';
 
 const instance = setInterceptor(
     axios.create({
@@ -26,12 +26,8 @@ function setInterceptor(instance: AxiosInstance) {
         return config;
     });
     instance.interceptors.response.use(
-        res => {
-            return res.data;
-        },
-        err => {
-            return Promise.reject(err);
-        }
+        res => res.data,
+        err => Promise.reject(err)
     );
     return instance;
 }
