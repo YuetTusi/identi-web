@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
-import { connect } from 'dva';
+import { useLocation, useSelector } from 'dva';
 import { Link, withRouter } from 'dva/router';
 import Menu from 'antd/lib/menu';
+import { StateTree } from '@/schema/model-type';
+import { AppMenuStoreState, ResourceItem } from '@/model/app-menu';
 import BorderOutlined from '@ant-design/icons/BorderOutlined';
 import TableOutlined from '@ant-design/icons/TableOutlined';
 import BookOutlined from '@ant-design/icons/BookOutlined';
@@ -12,14 +14,10 @@ import TeamOutlined from '@ant-design/icons/TeamOutlined';
 import PartitionOutlined from '@ant-design/icons/PartitionOutlined';
 import IdcardOutlined from '@ant-design/icons/IdcardOutlined';
 import ToolOutlined from '@ant-design/icons/ToolOutlined';
-import { StoreComponent } from '@/schema/model-type';
-import { AppMenuStoreState, ResourceItem } from '@/model/app-menu';
 
 const { SubMenu, Item } = Menu;
 
-interface AppMenuProp extends Partial<StoreComponent> {
-	appMenu: AppMenuStoreState;
-}
+interface AppMenuProp {}
 
 /**
  * 菜单项Icon
@@ -53,9 +51,9 @@ const getIcon = (url: string): JSX.Element => {
 /**
  * 主菜单
  */
-const AppMenu: FC<AppMenuProp> = (props) => {
-	const { pathname } = props.location!;
-	const { data } = props.appMenu;
+const AppMenu: FC<AppMenuProp> = () => {
+	const { pathname } = useLocation();
+	const { data } = useSelector<StateTree, AppMenuStoreState>((state) => state.appMenu);
 
 	const renderMenu = () =>
 		data.map(({ name, key, children }) => (
@@ -88,4 +86,4 @@ const AppMenu: FC<AppMenuProp> = (props) => {
 	);
 };
 
-export default withRouter(connect((state: any) => ({ appMenu: state.appMenu }))(AppMenu));
+export default withRouter(AppMenu);

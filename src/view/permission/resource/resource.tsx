@@ -1,9 +1,11 @@
 import React, { FC, useEffect } from 'react';
-import { connect } from 'dva';
+import { useDispatch, useSelector } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
-import { BaseBox, BorderBox, StrongBox } from '@/component/styled/container';
+import { StateTree } from '@/schema/model-type';
+import { ResourceStoreState } from '@/model/permission/resource';
+import { BorderBox, StrongBox } from '@/component/styled/container';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
 import { FormValue, Prop } from './props';
@@ -13,7 +15,8 @@ import { FormValue, Prop } from './props';
  * @returns
  */
 const Resource: FC<Prop> = (props) => {
-	const { dispatch, resource } = props;
+	const dispatch = useDispatch();
+	const resource = useSelector<StateTree, ResourceStoreState>((state) => state.resource);
 
 	useEffect(() => {
 		dispatch({
@@ -73,4 +76,4 @@ const Resource: FC<Prop> = (props) => {
 	);
 };
 
-export default connect((state: any) => ({ resource: state.resource }))(Resource);
+export default Resource;

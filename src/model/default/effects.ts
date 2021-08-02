@@ -3,9 +3,9 @@
 import { AnyAction } from 'redux';
 import { EffectsCommandMap } from 'dva';
 import message from 'antd/lib/message';
+import { LawCase } from '@/schema/law-case';
 import { helper } from '@/utility/helper';
 import { request, RequestResult } from '@/utility/request';
-import { LawCase } from '@/schema/law-case';
 
 export default {
     /**
@@ -14,7 +14,7 @@ export default {
      * @param {number} payload.pageIndex 当前页
      * @param {number} payload.pageSize 页尺寸
      */
-    *queryMyCase({ payload }: AnyAction, { call, put, select }: EffectsCommandMap) {
+    *queryMyCase({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
         const { condition, pageIndex, pageSize = 20 } = payload;
         yield put({ type: 'setLoading', payload: true });

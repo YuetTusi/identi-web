@@ -1,11 +1,13 @@
 import React, { FC, useEffect } from 'react';
-import { connect, routerRedux } from 'dva';
+import { routerRedux, useDispatch, useSelector } from 'dva';
 import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
 import Button from 'antd/lib/button';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
+import { LawCaseStoreState } from '@/model/permission/law-case';
 import { BorderBox, StrongBox } from '@/component/styled/container';
+import { StateTree } from '@/schema/model-type';
 import { LawCase as LawCaseEntity } from '@/schema/law-case';
 import { SearchBox } from './styled/layout-box';
 import IssueModal from './component/issue-modal';
@@ -17,7 +19,8 @@ import { LawCase4Table, Prop } from './props';
 const defaultPageSize = 20;
 
 const LawCase: FC<Prop> = (props) => {
-	const { dispatch, lawCase } = props;
+	const dispatch = useDispatch();
+	const lawCase = useSelector<StateTree, LawCaseStoreState>((state) => state.lawCase);
 
 	useEffect(() => {
 		queryTable();
@@ -68,4 +71,4 @@ const LawCase: FC<Prop> = (props) => {
 	);
 };
 
-export default connect((state: any) => ({ lawCase: state.lawCase }))(LawCase);
+export default LawCase;

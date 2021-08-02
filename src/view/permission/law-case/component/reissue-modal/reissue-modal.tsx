@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { connect, useDispatch } from 'dva';
+import { useDispatch, useSelector } from 'dva';
 import dayjs from 'dayjs';
 import { v4 as newId } from 'uuid';
 import Button from 'antd/lib/button';
@@ -13,6 +13,8 @@ import { useLastRec } from '@/hook';
 import { CaseRec } from '@/schema/case-rec';
 import { CaseState } from '@/schema/law-case';
 import { ReissueModalProp } from './props';
+import { StateTree } from '@/schema/model-type';
+import { ReissueModalStoreState } from '@/model/permission/component/reissue-modal';
 
 const { Item, useForm } = Form;
 
@@ -22,7 +24,9 @@ const { Item, useForm } = Form;
 const ReissueModal: FC<Partial<ReissueModalProp>> = (props) => {
 	const dispatch = useDispatch();
 	const [form] = useForm<{ action_note: string }>();
-	const { visible, data } = props.reissueModal!;
+	const { visible, data } = useSelector<StateTree, ReissueModalStoreState>(
+		({ reissueModal }) => reissueModal
+	);
 	const lastRec = useLastRec(data?.id!);
 	const onCancel = () => dispatch({ type: 'reissueModal/setVisible', payload: false });
 
@@ -104,4 +108,4 @@ const ReissueModal: FC<Partial<ReissueModalProp>> = (props) => {
 	);
 };
 
-export default memo(connect((state: any) => ({ reissueModal: state.reissueModal }))(ReissueModal));
+export default memo(ReissueModal);

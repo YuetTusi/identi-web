@@ -1,14 +1,6 @@
-import { LawCaseStoreState } from "@/model/permission/law-case";
 import { LawCase } from "@/schema/law-case";
-import { StoreComponent } from "@/schema/model-type";
 
-interface Prop extends StoreComponent {
-
-    /**
-     * 仓库State
-     */
-    lawCase: LawCaseStoreState
-}
+interface Prop { }
 
 interface SearchFormProp {
 

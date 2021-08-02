@@ -1,21 +1,24 @@
 import React, { FC, useEffect, useState } from 'react';
-import { connect } from 'dva';
+import { useDispatch, useSelector } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import message from 'antd/lib/message';
 import Table from 'antd/lib/table';
 import { BaseBox, StrongBox } from '@/component/styled/container';
 import { Role as RoleEntity } from '@/schema/role';
-import { getRoleColumns } from './columns';
-import ResourceModal from './component/resource-modal';
-import { Prop } from './props';
+import { StateTree } from '@/schema/model-type';
+import { RoleStoreState } from '@/model/permission/role';
 import { request } from '@/utility/request';
+import ResourceModal from './component/resource-modal';
+import { getRoleColumns } from './columns';
+import { Prop } from './props';
 
 const defaultPageSize = 20;
 let roleId: string = '';
 
-const Role: FC<Prop> = (props) => {
-	const { dispatch, role } = props;
+const Role: FC<Prop> = () => {
+	const dispatch = useDispatch();
+	const role = useSelector<StateTree, RoleStoreState>((state) => state.role);
 	const [resourceModalVisible, setResourceModalVisible] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -119,5 +122,4 @@ const Role: FC<Prop> = (props) => {
 	);
 };
 
-export default connect((state: any) => ({ role: state.role }))(Role);
-// export default Role;
+export default Role;

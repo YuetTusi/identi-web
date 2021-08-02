@@ -1,10 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
-import { connect, useDispatch } from 'dva';
+import { useDispatch, useSelector } from 'dva';
 import RollbackOutlined from '@ant-design/icons/RollbackOutlined';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
+import { StateTree } from '@/schema/model-type';
+import { SettingStoreState } from '@/model/profile/setting';
 import { helper } from '@/utility/helper';
 import { BorderBox, StrongBox } from '@/component/styled/container';
 import { ButtonBar } from './component/styled/style-box';
@@ -15,9 +17,9 @@ import { SettingProp } from './props';
 /**
  * 个人设置
  */
-const Setting: FC<SettingProp> = (props) => {
+const Setting: FC<SettingProp> = () => {
 	const dispatch = useDispatch();
-	const { data } = props.setting;
+	const { data } = useSelector<StateTree, SettingStoreState>((state) => state.setting);
 	const [resetModalVisible, setResetModalVisible] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -70,4 +72,4 @@ const Setting: FC<SettingProp> = (props) => {
 	);
 };
 
-export default connect((state: any) => ({ setting: state.setting }))(Setting);
+export default Setting;

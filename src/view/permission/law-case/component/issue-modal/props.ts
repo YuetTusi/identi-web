@@ -1,9 +1,6 @@
-import { IssueModalStoreState } from "@/model/permission/component/issue-modal";
 import { StoreComponent } from "@/schema/model-type";
 
-interface IssueModalProp extends StoreComponent {
-    issueModal: IssueModalStoreState
-}
+interface IssueModalProp extends StoreComponent {}
 
 /**
  * 表单

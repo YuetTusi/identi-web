@@ -3,6 +3,7 @@ import { helper } from '@/utility/helper';
 import { AuthorityProp } from './props';
 import { useSelector } from 'dva';
 import { AppMenuStoreState } from '@/model/app-menu';
+import { StateTree } from '@/schema/model-type';
 
 /**
  * 权限控制
@@ -11,10 +12,10 @@ import { AppMenuStoreState } from '@/model/app-menu';
  */
 const Authority: FC<AuthorityProp> = (props) => {
 	const { k, children } = props;
-	const { data } = useSelector<any, AppMenuStoreState>((state: any) => state.appMenu);
+	const { data } = useSelector<StateTree, AppMenuStoreState>((state) => state.appMenu);
 	const [visible, setVisible] = useState<boolean>(false);
 
-	useEffect(() => setVisible(helper.hasRoute(data, k)), [k, data]);
+	useEffect(() => setVisible(helper.hasRoute(data, k)), [data, k]);
 
 	return <div style={{ display: visible ? 'block' : 'none' }}>{children}</div>;
 };

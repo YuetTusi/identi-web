@@ -1,11 +1,13 @@
 import React, { FC, useEffect } from 'react';
-import { connect } from 'dva';
+import { useDispatch, useSelector } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
 import { BorderBox, StrongBox } from '@/component/styled/container';
-import SearchForm from './search-form';
 import { LawCase } from '@/schema/law-case';
+import { StateTree } from '@/schema/model-type';
+import { DefaultStoreState } from '@/model/default';
+import SearchForm from './search-form';
 import { Prop, LawCase4Table } from './props';
 import { getColumns } from './columns';
 
@@ -14,8 +16,9 @@ const defaultPageSize = 20;
 /**
  * 我的案件
  */
-const Default: FC<Prop> = (props) => {
-	const { dispatch, default: defaultState } = props;
+const Default: FC<Prop> = () => {
+	const dispatch = useDispatch();
+	const defaultState = useSelector<StateTree, DefaultStoreState>((state) => state.default);
 
 	useEffect(() => {
 		queryTable(1, defaultPageSize, null);
@@ -27,12 +30,11 @@ const Default: FC<Prop> = (props) => {
 	 * @param pageSize 页尺寸
 	 * @param condition 条件
 	 */
-	const queryTable = (pageIndex: number, pageSize: number, condition: any) => {
+	const queryTable = (pageIndex: number, pageSize: number, condition: any) =>
 		dispatch({
 			type: 'default/queryMyCase',
 			payload: { pageIndex, pageSize, condition }
 		});
-	};
 
 	/**
 	 * 查询submit
@@ -61,4 +63,4 @@ const Default: FC<Prop> = (props) => {
 	);
 };
 
-export default connect((state: any) => ({ default: state.default }))(Default);
+export default Default;

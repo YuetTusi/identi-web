@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from 'react';
-import { connect, useDispatch } from 'dva';
+import { useDispatch, useSelector } from 'dva';
 import dayjs from 'dayjs';
 import Button from 'antd/lib/button';
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
@@ -8,11 +8,13 @@ import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
-import { useUserList } from '@/hook';
-import { helper } from '@/utility/helper';
+import { StateTree } from '@/schema/model-type';
 import { User } from '@/schema/user';
 import { CaseRec } from '@/schema/case-rec';
 import { CaseState, LawCase } from '@/schema/law-case';
+import { IssueModalStoreState } from '@/model/permission/component/issue-modal';
+import { useUserList } from '@/hook';
+import { helper } from '@/utility/helper';
 import { FormValue, IssueModalProp } from './props';
 
 const { Item, useForm } = Form;
@@ -35,7 +37,9 @@ const IssueModal: FC<Partial<IssueModalProp>> = (props) => {
 	const dispatch = useDispatch();
 	const userList = useUserList();
 	const [form] = useForm<FormValue>();
-	const { visible, data } = props.issueModal!;
+	const { visible, data } = useSelector<StateTree, IssueModalStoreState>(
+		(state) => state.issueModal
+	);
 	const onCancel = () => dispatch({ type: 'issueModal/setVisible', payload: false });
 
 	useEffect(() => {
@@ -159,4 +163,4 @@ const IssueModal: FC<Partial<IssueModalProp>> = (props) => {
 	);
 };
 
-export default memo(connect((state: any) => ({ issueModal: state.issueModal }))(IssueModal));
+export default memo(IssueModal);

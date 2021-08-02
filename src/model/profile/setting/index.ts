@@ -1,7 +1,7 @@
 import { Model } from 'dva';
+import { User } from '@/schema/user';
 import reducers from './reducers';
 import effects from './effects';
-import { User } from '@/schema/user';
 
 
 interface SettingStoreState {
@@ -16,9 +16,7 @@ interface SettingStoreState {
  */
 let model: Model = {
     namespace: 'setting',
-    state: {
-        data: []
-    },
+    state: { data: [] },
     reducers,
     effects
 }

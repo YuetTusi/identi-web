@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { connect, routerRedux, useDispatch } from 'dva';
+import { routerRedux, useDispatch, useSelector } from 'dva';
 import dayjs from 'dayjs';
 import { v4 as newId } from 'uuid';
 import Button from 'antd/lib/button';
@@ -11,6 +11,8 @@ import Modal from 'antd/lib/modal';
 import { CaseRec } from '@/schema/case-rec';
 import { DisapproveModalProp } from './props';
 import { CaseState } from '@/schema/law-case';
+import { StateTree } from '@/schema/model-type';
+import { DisapproveModalStoreState } from '@/model/permission/component/disapprove-modal';
 
 const { Item, useForm } = Form;
 
@@ -20,7 +22,9 @@ const { Item, useForm } = Form;
 const DisapproveModal: FC<Partial<DisapproveModalProp>> = (props) => {
 	const dispatch = useDispatch();
 	const [form] = useForm<{ action_note: string }>();
-	const { visible, data } = props.disapproveModal!;
+	const { data, visible } = useSelector<StateTree, DisapproveModalStoreState>(
+		(state) => state.disapproveModal
+	);
 	const onCancel = () => {
 		form.resetFields();
 		dispatch({ type: 'disapproveModal/setVisible', payload: false });
@@ -110,6 +114,4 @@ const DisapproveModal: FC<Partial<DisapproveModalProp>> = (props) => {
 	);
 };
 
-export default memo(
-	connect((state: any) => ({ disapproveModal: state.disapproveModal }))(DisapproveModal)
-);
+export default memo(DisapproveModal);

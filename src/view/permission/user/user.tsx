@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { connect } from 'dva';
+import { useDispatch, useSelector } from 'dva';
 import { routerRedux } from 'dva/router';
 import { UserAddOutlined } from '@ant-design/icons/lib/icons';
 import Breadcrumb from 'antd/lib/breadcrumb';
@@ -8,6 +8,7 @@ import Button from 'antd/lib/button';
 import Table from 'antd/lib/table';
 import message from 'antd/lib/message';
 import Modal from 'antd/lib/modal';
+import { UserStoreState } from '@/model/permission/user';
 import { BorderBox, StrongBox } from '@/component/styled/container';
 import { request } from '@/utility/request';
 import { User as UserEntity } from '@/schema/user';
@@ -17,6 +18,7 @@ import SearchForm from './search-form';
 import RoleModal from './role-modal';
 import ResetModal from './reset-modal';
 import { SearchBox } from './styled/layout-box';
+import { StateTree } from '@/schema/model-type';
 
 let actionUser: UserEntity | undefined;
 const defaultPageSize = 20;
@@ -25,7 +27,8 @@ const defaultPageSize = 20;
  * 用户管理页
  */
 const User: FC<Prop> = (props) => {
-	const { dispatch, user } = props;
+	const dispatch = useDispatch();
+	const user = useSelector<StateTree, UserStoreState>((state) => state.user);
 	const [roleModalVisible, setRoleModalVisible] = useState<boolean>(false);
 	const [resetModalVisible, setResetModalVisible] = useState<boolean>(false);
 
@@ -206,17 +209,17 @@ const User: FC<Prop> = (props) => {
 				</SearchBox>
 			</BorderBox>
 			<Table<UserEntity>
-					pagination={{
-						onChange: onPageChange,
-						pageSize: user.pageSize,
-						current: user.pageIndex,
-						total: user.total
-					}}
-					columns={getColumns(dispatch, onActionClick)}
-					dataSource={user.data}
-					loading={user.loading}
-					rowKey={(r) => r.id}
-					bordered={true}></Table>
+				pagination={{
+					onChange: onPageChange,
+					pageSize: user.pageSize,
+					current: user.pageIndex,
+					total: user.total
+				}}
+				columns={getColumns(dispatch, onActionClick)}
+				dataSource={user.data}
+				loading={user.loading}
+				rowKey={(r) => r.id}
+				bordered={true}></Table>
 
 			<RoleModal
 				data={actionUser}
@@ -240,4 +243,4 @@ const User: FC<Prop> = (props) => {
 	);
 };
 
-export default connect((state: any) => ({ user: state.user }))(User);
+export default User;
