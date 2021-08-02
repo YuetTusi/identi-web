@@ -5,6 +5,7 @@ import { WebHeaderRoot } from './styled/layout-box';
 import Button from 'antd/lib/button';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import MailOutlined from '@ant-design/icons/lib/icons/MailOutlined';
+import Authority from '@/component/authority';
 
 const WebHeader: FC<{}> = () => {
 	const dispatch = useDispatch();
@@ -32,16 +33,18 @@ const WebHeader: FC<{}> = () => {
 					<div className="btn">
 						<Button type="default" shape="circle" icon={<MailOutlined />}></Button>
 					</div>
-					<div
-						className="user"
-						onClick={() => dispatch(routerRedux.push('/profile/setting'))}>
-						<i>
-							<UserOutlined />
-						</i>
-						<div>
-							<span>{sessionStorage.getItem('username') ?? ''}</span>
+					<Authority k="/profile">
+						<div
+							className="user"
+							onClick={() => dispatch(routerRedux.push('/profile/setting'))}>
+							<i>
+								<UserOutlined />
+							</i>
+							<div>
+								<span>{sessionStorage.getItem('username') ?? ''}</span>
+							</div>
 						</div>
-					</div>
+					</Authority>
 				</div>
 			</div>
 		</WebHeaderRoot>
