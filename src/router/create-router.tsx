@@ -24,20 +24,7 @@ const createRouter = (api?: RouterAPI) => {
 				<Router history={history}>
 					<Switch>
 						<Route path="/login" component={Login} />
-						<Route
-							path="/"
-							exact={true}
-							render={() => {
-								const NextView = lazy<FC<any>>(() => import('@/view/default'));
-								return (
-									<Suspense fallback={<div>加载中...</div>}>
-										<RootPanel>
-											<NextView />
-										</RootPanel>
-									</Suspense>
-								);
-							}}
-						/>
+						<Route path="/" exact={true} component={Login} />
 						<Route
 							path="/default"
 							exact={true}

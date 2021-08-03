@@ -36,8 +36,8 @@ const WebHeaderRoot = styled.div`
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		border-top: 2px solid ${(props) => color(props.theme.text).lighten(0.2).toString()};
-		border-bottom: 2px solid ${(props) => color(props.theme.text).lighten(0.2).toString()};
+		border-top: 2px solid ${(props) => color(props.theme.text).fade(0.2).toString()};
+		border-bottom: 2px solid ${(props) => color(props.theme.text).fade(0.2).toString()};
 		background-color: ${(props) => props.theme.widget};
 
 		.left {

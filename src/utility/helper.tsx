@@ -1,10 +1,10 @@
 import React from 'react';
+import Select from 'antd/lib/select';
 import { v4 as newId, V4Options } from 'uuid';
 import { encode, decode } from 'js-base64';
 import { ResourceItem } from '@/model/app-menu';
 import { DictCategory } from '@/schema/dict';
 import { request } from './request';
-import Select from 'antd/lib/select';
 
 const { Option } = Select;
 
@@ -62,7 +62,7 @@ const helper = {
 		valueField: string = 'value'
 	) {
 		let options = data.map((item) => (
-			<Option value={item[valueField]} key={item[valueField]}>
+			<Option value={item[valueField]} key={`K_${item[valueField]}`}>
 				{item[nameField]}
 			</Option>
 		));

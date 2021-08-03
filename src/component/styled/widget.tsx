@@ -16,16 +16,16 @@ const ListView = styled.ol<{
 	margin-right: ${(props) => props.marginRight ?? 0};
 	padding: 0;
 	background-color: #fff;
-	border: 1px solid ${(props) => color(props.theme.text).lighten(0.6).toString()};
+	border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
 	border-radius: ${(props) => props.theme.radius};
 
 	& > li {
 		list-style-type: none;
 		margin: 0;
 		padding: 5px 8px;
-		border-bottom: 1px solid ${(props) => color(props.theme.text).lighten(0.6).toString()};
+		border-bottom: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
 		&:nth-child(even) {
-			background-color: ${(props) => color(props.theme.text).lighten(0.9).toString()};
+			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
 		}
 		&:last-child {
 			border-bottom: none;

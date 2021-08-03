@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 const baseURL =
     process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://192.168.1.11:7001/';
@@ -18,10 +18,10 @@ const instance = setInterceptor(
  */
 function setInterceptor(instance: AxiosInstance) {
     instance.interceptors.request.use(config => {
-        const jwtToken = sessionStorage.getItem('user_token');
+        const token = sessionStorage.getItem('user_token');
         // console.log('in axios:', sessionStorage.getItem('user_token'));
-        if (jwtToken !== null) {
-            config.headers["Authorization"] = jwtToken;
+        if (token !== null) {
+            config.headers["Authorization"] = token;
         }
         return config;
     });
@@ -57,7 +57,8 @@ interface RequestResult<T = any> {
 /**
  * 封装ajax请求
  */
-function request<T = any>(options = {}) {
+function request<T = any>(options: AxiosRequestConfig = {}) {
+
     return instance.request<any, RequestResult<T>>(options);
 }
 

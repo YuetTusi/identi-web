@@ -13,7 +13,7 @@ export default {
         const uid = helper.getUId();
 
         if (uid !== null) {
-            request(`login/${uid}`).then((res: any) => {
+            request({ url: `login/${uid}` }).then((res: any) => {
                 if (res.success) {
                     const { uid, username, role } = res.data;
                     dispatch({

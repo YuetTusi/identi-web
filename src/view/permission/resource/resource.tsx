@@ -5,7 +5,7 @@ import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
 import { StateTree } from '@/schema/model-type';
 import { ResourceStoreState } from '@/model/permission/resource';
-import { BorderBox, StrongBox } from '@/component/styled/container';
+import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
 import { FormValue, Prop } from './props';
@@ -61,17 +61,20 @@ const Resource: FC<Prop> = (props) => {
 			<BorderBox marginTop="10px" marginBottom="10px">
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
 			</BorderBox>
-			<Table
-				pagination={{
-					onChange: onPageChange,
-					pageSize: resource.pageSize,
-					current: resource.pageIndex,
-					total: resource.total
-				}}
-				columns={getColumns(dispatch)}
-				dataSource={resource.data}
-				loading={resource.loading}
-				bordered={true}></Table>
+			<TableBox>
+				<Table
+					pagination={{
+						onChange: onPageChange,
+						pageSize: resource.pageSize,
+						current: resource.pageIndex,
+						total: resource.total
+					}}
+					columns={getColumns(dispatch)}
+					dataSource={resource.data}
+					loading={resource.loading}
+					bordered={false}
+				/>
+			</TableBox>
 		</>
 	);
 };

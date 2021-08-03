@@ -9,7 +9,7 @@ import Table from 'antd/lib/table';
 import message from 'antd/lib/message';
 import Modal from 'antd/lib/modal';
 import { UserStoreState } from '@/model/permission/user';
-import { BorderBox, StrongBox } from '@/component/styled/container';
+import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import { request } from '@/utility/request';
 import { User as UserEntity } from '@/schema/user';
 import { getColumns } from './columns';
@@ -187,7 +187,6 @@ const User: FC<Prop> = (props) => {
 			okText: '是',
 			cancelText: '否'
 		});
-		console.log(id, newPassword);
 	};
 
 	return (
@@ -208,18 +207,21 @@ const User: FC<Prop> = (props) => {
 					</Button>
 				</SearchBox>
 			</BorderBox>
-			<Table<UserEntity>
-				pagination={{
-					onChange: onPageChange,
-					pageSize: user.pageSize,
-					current: user.pageIndex,
-					total: user.total
-				}}
-				columns={getColumns(dispatch, onActionClick)}
-				dataSource={user.data}
-				loading={user.loading}
-				rowKey={(r) => r.id}
-				bordered={true}></Table>
+			<TableBox>
+				<Table<UserEntity>
+					pagination={{
+						onChange: onPageChange,
+						pageSize: user.pageSize,
+						current: user.pageIndex,
+						total: user.total
+					}}
+					columns={getColumns(dispatch, onActionClick)}
+					dataSource={user.data}
+					loading={user.loading}
+					rowKey={(r) => r.id}
+					bordered={false}
+				/>
+			</TableBox>
 
 			<RoleModal
 				data={actionUser}

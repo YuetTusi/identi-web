@@ -6,7 +6,7 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
 import { LawCaseStoreState } from '@/model/permission/law-case';
-import { BorderBox, StrongBox } from '@/component/styled/container';
+import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import { StateTree } from '@/schema/model-type';
 import { LawCase as LawCaseEntity } from '@/schema/law-case';
 import { SearchBox } from './styled/layout-box';
@@ -59,12 +59,15 @@ const LawCase: FC<Prop> = (props) => {
 					</Button>
 				</SearchBox>
 			</BorderBox>
-			<Table<LawCase4Table>
-				columns={getColumns(dispatch)}
-				dataSource={lawCase.data}
-				loading={lawCase.loading}
-				rowKey="id"
-				bordered={true}></Table>
+			<TableBox>
+				<Table<LawCase4Table>
+					columns={getColumns(dispatch)}
+					dataSource={lawCase.data}
+					loading={lawCase.loading}
+					rowKey="id"
+					bordered={false}
+				/>
+			</TableBox>
 			<IssueModal />
 			<ReissueModal />
 		</>

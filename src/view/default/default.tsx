@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
-import { BorderBox, StrongBox } from '@/component/styled/container';
+import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import { LawCase } from '@/schema/law-case';
 import { StateTree } from '@/schema/model-type';
 import { DefaultStoreState } from '@/model/default';
@@ -53,12 +53,15 @@ const Default: FC<Prop> = () => {
 			<BorderBox marginTop="10px" marginBottom="10px">
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
 			</BorderBox>
-			<Table<LawCase4Table>
-				columns={getColumns(dispatch)}
-				dataSource={defaultState.data}
-				loading={defaultState.loading}
-				rowKey="id"
-				bordered={true}></Table>
+			<TableBox>
+				<Table<LawCase4Table>
+					columns={getColumns(dispatch)}
+					dataSource={defaultState.data}
+					loading={defaultState.loading}
+					rowKey="id"
+					bordered={false}
+				/>
+			</TableBox>
 		</>
 	);
 };
