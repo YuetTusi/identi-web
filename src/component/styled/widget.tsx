@@ -30,6 +30,8 @@ const ListView = styled.ol<{
 		&:last-child {
 			border-bottom: none;
 		}
+		& > label {
+		}
 	}
 `;
 

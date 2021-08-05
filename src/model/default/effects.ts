@@ -7,6 +7,8 @@ import { LawCase } from '@/schema/law-case';
 import { helper } from '@/utility/helper';
 import { request, RequestResult } from '@/utility/request';
 
+const defaultPageSize: number = 20;
+
 export default {
     /**
      * 查询我的案件表
@@ -16,7 +18,7 @@ export default {
      */
     *queryMyCase({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
-        const { condition, pageIndex, pageSize = 20 } = payload;
+        const { condition, pageIndex, pageSize = defaultPageSize } = payload;
         yield put({ type: 'setLoading', payload: true });
         try {
             // const authState: AuthStoreState = yield select((state: any) => ({ auth: state.auth }));
@@ -42,7 +44,7 @@ export default {
                 yield put({
                     type: 'setPage', payload: {
                         pageIndex: 1,
-                        pageSize: 20,
+                        pageSize: defaultPageSize,
                         total: 0
                     }
                 });

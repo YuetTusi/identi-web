@@ -111,6 +111,7 @@ const LabelBox = styled.fieldset<{
 	& > legend {
 		display: block;
 		width: auto;
+		margin-bottom: 0;
 		padding: 2px 5px;
 		background-color: #fff;
 		font-size: 14px;

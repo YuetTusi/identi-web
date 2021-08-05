@@ -26,7 +26,7 @@ export default {
                 message.error('查询用户数据失败');
             }
         } catch (e) {
-            message.error(`查询用户数据失败,${e.message}`);
+            message.error(`查询用户数据失败:${e.message}`);
         }
     },
     /**
@@ -39,7 +39,7 @@ export default {
         const { id, password } = payload;
         message.destroy();
         try {
-            const { code, data }: RequestResult<number> = yield call(request, {
+            const { code, data, error }: RequestResult<number> = yield call(request, {
                 url: `user/reset/${id}`,
                 method: 'PUT',
                 data: { form: { password } }
@@ -50,6 +50,7 @@ export default {
                 yield put(routerRedux.push('/login'));
             } else {
                 message.error('重置密码失败');
+                console.log(`重置密码失败:${error?.stack}`);
             }
         } catch (error) {
             message.error(`重置密码失败，${error.message}`);
