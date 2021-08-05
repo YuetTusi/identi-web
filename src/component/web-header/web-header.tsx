@@ -16,7 +16,7 @@ const WebHeader: FC<{}> = () => {
 	const onLogoutClick = (event: MouseEvent<HTMLAnchorElement>) => {
 		event.preventDefault();
 		sessionStorage.clear();
-		window.location.href = '/#/login';
+		dispatch(routerRedux.push('/login'));
 	};
 
 	return (
