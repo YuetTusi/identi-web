@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
+import { TablePanel } from '@/component/styled/widget';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import { LawCase } from '@/schema/law-case';
 import { StateTree } from '@/schema/model-type';
@@ -43,7 +44,7 @@ const Default: FC<Prop> = () => {
 	const onSearchFormSubmit = async (form: LawCase) => queryTable(1, defaultPageSize, form);
 
 	return (
-		<>
+		<TablePanel>
 			<StrongBox>
 				<Breadcrumb>
 					<BreadcrumbItem>我的案件</BreadcrumbItem>
@@ -58,11 +59,12 @@ const Default: FC<Prop> = () => {
 					columns={getColumns(dispatch)}
 					dataSource={defaultState.data}
 					loading={defaultState.loading}
+					rowClassName="az-table-row"
 					rowKey="id"
 					bordered={false}
 				/>
 			</TableBox>
-		</>
+		</TablePanel>
 	);
 };
 

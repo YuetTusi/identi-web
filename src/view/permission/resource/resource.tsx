@@ -6,10 +6,10 @@ import Table from 'antd/lib/table';
 import { StateTree } from '@/schema/model-type';
 import { ResourceStoreState } from '@/model/permission/resource';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
+import { TablePanel } from '@/component/styled/widget';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
 import { FormValue, Prop } from './props';
-
 /**
  * 资源查看页
  * @returns
@@ -62,18 +62,21 @@ const Resource: FC<Prop> = (props) => {
 				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
 			</BorderBox>
 			<TableBox>
-				<Table
-					pagination={{
-						onChange: onPageChange,
-						pageSize: resource.pageSize,
-						current: resource.pageIndex,
-						total: resource.total
-					}}
-					columns={getColumns(dispatch)}
-					dataSource={resource.data}
-					loading={resource.loading}
-					bordered={false}
-				/>
+				<TablePanel>
+					<Table
+						pagination={{
+							onChange: onPageChange,
+							pageSize: resource.pageSize,
+							current: resource.pageIndex,
+							total: resource.total
+						}}
+						columns={getColumns(dispatch)}
+						dataSource={resource.data}
+						loading={resource.loading}
+						bordered={false}
+						rowClassName="az-table-row"
+					/>
+				</TablePanel>
 			</TableBox>
 		</>
 	);

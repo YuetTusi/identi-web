@@ -2,6 +2,17 @@ import styled from 'styled-components';
 import color from 'color';
 
 /**
+ * 表格
+ */
+const TablePanel = styled.div`
+	.az-table-row {
+		&:nth-child(even) {
+			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
+		}
+	}
+`;
+
+/**
  * 列表
  */
 const ListView = styled.ol<{
@@ -22,8 +33,7 @@ const ListView = styled.ol<{
 	& > li {
 		list-style-type: none;
 		margin: 0;
-		padding: 5px 8px;
-		border-bottom: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+		padding: 8px 8px;
 		&:nth-child(even) {
 			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
 		}
@@ -35,4 +45,4 @@ const ListView = styled.ol<{
 	}
 `;
 
-export { ListView };
+export { TablePanel, ListView };

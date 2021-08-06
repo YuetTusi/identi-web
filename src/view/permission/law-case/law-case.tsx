@@ -7,6 +7,7 @@ import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Table from 'antd/lib/table';
 import { LawCaseStoreState } from '@/model/permission/law-case';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
+import { TablePanel } from '@/component/styled/widget';
 import { StateTree } from '@/schema/model-type';
 import { LawCase as LawCaseEntity } from '@/schema/law-case';
 import { SearchBox } from './styled/layout-box';
@@ -42,7 +43,7 @@ const LawCase: FC<Prop> = (props) => {
 	const onSearchFormSubmit = async (form: LawCaseEntity) => queryTable(1, defaultPageSize, form);
 
 	return (
-		<>
+		<TablePanel>
 			<StrongBox>
 				<Breadcrumb>
 					<BreadcrumbItem>案件管理</BreadcrumbItem>
@@ -65,12 +66,13 @@ const LawCase: FC<Prop> = (props) => {
 					dataSource={lawCase.data}
 					loading={lawCase.loading}
 					rowKey="id"
+					rowClassName="az-table-row"
 					bordered={false}
 				/>
 			</TableBox>
 			<IssueModal />
 			<ReissueModal />
-		</>
+		</TablePanel>
 	);
 };
 

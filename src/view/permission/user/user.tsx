@@ -10,6 +10,7 @@ import message from 'antd/lib/message';
 import Modal from 'antd/lib/modal';
 import { UserStoreState } from '@/model/permission/user';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
+import { TablePanel } from '@/component/styled/widget';
 import { request } from '@/utility/request';
 import { User as UserEntity } from '@/schema/user';
 import { getColumns } from './columns';
@@ -208,19 +209,22 @@ const User: FC<Prop> = (props) => {
 				</SearchBox>
 			</BorderBox>
 			<TableBox>
-				<Table<UserEntity>
-					pagination={{
-						onChange: onPageChange,
-						pageSize: user.pageSize,
-						current: user.pageIndex,
-						total: user.total
-					}}
-					columns={getColumns(dispatch, onActionClick)}
-					dataSource={user.data}
-					loading={user.loading}
-					rowKey={(r) => r.id}
-					bordered={false}
-				/>
+				<TablePanel>
+					<Table<UserEntity>
+						pagination={{
+							onChange: onPageChange,
+							pageSize: user.pageSize,
+							current: user.pageIndex,
+							total: user.total
+						}}
+						columns={getColumns(dispatch, onActionClick)}
+						dataSource={user.data}
+						loading={user.loading}
+						rowKey={(r) => r.id}
+						bordered={false}
+						rowClassName="az-table-row"
+					/>
+				</TablePanel>
 			</TableBox>
 
 			<RoleModal

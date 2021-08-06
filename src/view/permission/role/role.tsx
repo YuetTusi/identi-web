@@ -4,7 +4,8 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import message from 'antd/lib/message';
 import Table from 'antd/lib/table';
-import { BaseBox, StrongBox, TableBox } from '@/component/styled/container';
+import { StrongBox, TableBox } from '@/component/styled/container';
+import { TablePanel } from '@/component/styled/widget';
 import { Role as RoleEntity } from '@/schema/role';
 import { StateTree } from '@/schema/model-type';
 import { RoleStoreState } from '@/model/permission/role';
@@ -98,19 +99,22 @@ const Role: FC<Prop> = () => {
 				</Breadcrumb>
 			</StrongBox>
 			<TableBox marginTop="10px">
-				<Table<RoleEntity>
-					pagination={{
-						onChange: onPageChange,
-						pageSize: role.pageSize,
-						current: role.pageIndex,
-						total: role.total
-					}}
-					columns={getRoleColumns(dispatch, showResourceHandle)}
-					dataSource={role.data}
-					loading={role.loading}
-					rowKey={(row) => row.id}
-					bordered={false}
-				/>
+				<TablePanel>
+					<Table<RoleEntity>
+						pagination={{
+							onChange: onPageChange,
+							pageSize: role.pageSize,
+							current: role.pageIndex,
+							total: role.total
+						}}
+						columns={getRoleColumns(dispatch, showResourceHandle)}
+						dataSource={role.data}
+						loading={role.loading}
+						rowKey={(row) => row.id}
+						bordered={false}
+						rowClassName="az-table-row"
+					/>
+				</TablePanel>
 			</TableBox>
 
 			<ResourceModal
