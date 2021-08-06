@@ -1,0 +1,3 @@
+interface WebHeaderProp { }
+
+export { WebHeaderProp };

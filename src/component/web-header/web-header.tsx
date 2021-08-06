@@ -1,13 +1,14 @@
 import React, { FC, MouseEvent } from 'react';
 import { useDispatch } from 'dva';
 import { routerRedux } from 'dva/router';
-import { WebHeaderRoot } from './styled/layout-box';
 import Button from 'antd/lib/button';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import MailOutlined from '@ant-design/icons/lib/icons/MailOutlined';
 import Authority from '@/component/authority';
+import { WebHeaderRoot } from './styled/layout-box';
+import { WebHeaderProp } from './props';
 
-const WebHeader: FC<{}> = () => {
+const WebHeader: FC<WebHeaderProp> = () => {
 	const dispatch = useDispatch();
 
 	/**
