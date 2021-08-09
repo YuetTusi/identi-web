@@ -43,9 +43,7 @@ const createRouter = (api?: RouterAPI) => {
 						<Route
 							path="/default/detail/:id"
 							render={() => {
-								const Next = lazy<FC<any>>(
-									() => import('@/view/default/detail')
-								);
+								const Next = lazy<FC<any>>(() => import('@/view/default/detail'));
 								return (
 									<Suspense fallback={<Loading />}>
 										<RootPanel>
@@ -58,9 +56,7 @@ const createRouter = (api?: RouterAPI) => {
 						<Route
 							path="/default/begin/:id"
 							render={() => {
-								const Next = lazy<FC<any>>(
-									() => import('@/view/default/begin')
-								);
+								const Next = lazy<FC<any>>(() => import('@/view/default/begin'));
 								return (
 									<Suspense fallback={<Loading />}>
 										<RootPanel>
@@ -74,9 +70,7 @@ const createRouter = (api?: RouterAPI) => {
 							path="/permission"
 							exact={true}
 							render={() => {
-								const Next = lazy<FC<any>>(
-									() => import('@/view/permission/user')
-								);
+								const Next = lazy<FC<any>>(() => import('@/view/permission/user'));
 								return (
 									<Suspense fallback={<Loading />}>
 										<RootPanel>
@@ -166,9 +160,7 @@ const createRouter = (api?: RouterAPI) => {
 							path="/permission/user"
 							exact={true}
 							render={() => {
-								const Next = lazy<FC<any>>(
-									() => import('@/view/permission/user')
-								);
+								const Next = lazy<FC<any>>(() => import('@/view/permission/user'));
 								return (
 									<Suspense fallback={<Loading />}>
 										<RootPanel>
@@ -210,9 +202,23 @@ const createRouter = (api?: RouterAPI) => {
 						/>
 						<Route
 							path="/permission/role"
+							exact={true}
+							render={() => {
+								const Next = lazy<FC<any>>(() => import('@/view/permission/role'));
+								return (
+									<Suspense fallback={<Loading />}>
+										<RootPanel>
+											<Next />
+										</RootPanel>
+									</Suspense>
+								);
+							}}
+						/>
+						<Route
+							path="/permission/role/add"
 							render={() => {
 								const Next = lazy<FC<any>>(
-									() => import('@/view/permission/role')
+									() => import('@/view/permission/role/add')
 								);
 								return (
 									<Suspense fallback={<Loading />}>
@@ -242,9 +248,7 @@ const createRouter = (api?: RouterAPI) => {
 							path="/profile"
 							exact={true}
 							render={() => {
-								const Next = lazy<FC<any>>(
-									() => import('@/view/profile/setting')
-								);
+								const Next = lazy<FC<any>>(() => import('@/view/profile/setting'));
 								return (
 									<Suspense fallback={<Loading />}>
 										<RootPanel>
@@ -257,9 +261,7 @@ const createRouter = (api?: RouterAPI) => {
 						<Route
 							path="/profile/setting"
 							render={() => {
-								const Next = lazy<FC<any>>(
-									() => import('@/view/profile/setting')
-								);
+								const Next = lazy<FC<any>>(() => import('@/view/profile/setting'));
 								return (
 									<Suspense fallback={<Loading />}>
 										<RootPanel>

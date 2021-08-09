@@ -1,7 +1,10 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import { Dispatch } from 'dva';
-import dayjs from 'dayjs';
+import message from 'antd/lib/message';
+import Modal from 'antd/lib/modal';
 import { ColumnsType } from 'antd/lib/table';
+import { request } from '@/utility/request';
 import { Role } from '@/schema/role';
 
 const getRoleColumns = (dispatch: Dispatch, showResourceHandle: (id: string) => void) => {
@@ -51,6 +54,55 @@ const getRoleColumns = (dispatch: Dispatch, showResourceHandle: (id: string) => 
 						鉴权资源
 					</a>
 				);
+			}
+		},
+		{
+			title: '删除',
+			dataIndex: 'id',
+			key: 'id',
+			align: 'center',
+			width: 60,
+			render(value: string, { id, name }: Role) {
+				if (name === 'admin') {
+					return <span style={{ cursor: 'not-allowed' }}>删除</span>;
+				} else {
+					return (
+						<a
+							onClick={() => {
+								Modal.confirm({
+									async onOk() {
+										try {
+											const { code, data } = await request<boolean>({
+												url: `role/${id}`,
+												method: 'DELETE'
+											});
+											if (code === 0 && data) {
+												message.success('角色删除成功');
+												dispatch({
+													type: 'role/queryRole',
+													payload: {
+														condition: {},
+														pageIndex: 1,
+														pageSize: 20
+													}
+												});
+											} else {
+												message.error('角色删除失败');
+											}
+										} catch (error) {
+											message.error('角色删除失败');
+										}
+									},
+									title: `删除角色「${name}」`,
+									content: '删除角色，拥有该角色的用户将无法使用，确认删除？',
+									okText: '是',
+									cancelText: '否'
+								});
+							}}>
+							删除
+						</a>
+					);
+				}
 			}
 		}
 	];
