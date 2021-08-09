@@ -21,8 +21,14 @@ const SearchForm: FC<SearchFormProp> = (props) => {
 	useEffect(() => {
 		(async () => {
 			try {
-				let { data } = await request<any[]>({ url: 'resource', method: 'GET' });
-				setOptions(data);
+				let { code, data } = await request<any[]>({
+					url: 'resource/has-parent',
+					method: 'GET'
+				});
+
+				if (code === 0) {
+					setOptions(data);
+				}
 				formRef.setFieldsValue({ id: '' });
 			} catch (error) {
 				console.log(error.message);
