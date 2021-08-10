@@ -22,11 +22,12 @@ const WebHeaderRoot = styled.div`
 			margin-right: 1rem;
 			a {
 				font-weight: bold;
-				color: ${(props) => props.theme.text};
+				color: #000000d9;
 				border-radius: 2px;
 				padding: 2px 10px;
 				display: inline-block;
 				background-color: ${(props) => props.theme.strong};
+				border: 1px solid ${(props) => color(props.theme.strong).darken(0.2).toString()};
 			}
 		}
 	}
@@ -36,8 +37,8 @@ const WebHeaderRoot = styled.div`
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		border-top: 2px solid ${(props) => color(props.theme.text).fade(0.2).toString()};
-		border-bottom: 2px solid ${(props) => color(props.theme.text).fade(0.2).toString()};
+		border-top: 2px solid ${(props) => color(props.theme.strong).darken(0.2).toString()};
+		border-bottom: 2px solid ${(props) => color(props.theme.strong).darken(0.2).toString()};
 		background-color: ${(props) => props.theme.widget};
 
 		.left {

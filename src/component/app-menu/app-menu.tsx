@@ -5,15 +5,15 @@ import Menu from 'antd/lib/menu';
 import { StateTree } from '@/schema/model-type';
 import { AppMenuStoreState, ResourceItem } from '@/model/app-menu';
 import BorderOutlined from '@ant-design/icons/BorderOutlined';
-import TableOutlined from '@ant-design/icons/TableOutlined';
+// import TableOutlined from '@ant-design/icons/TableOutlined';
 import BookOutlined from '@ant-design/icons/BookOutlined';
-import SolutionOutlined from '@ant-design/icons/SolutionOutlined';
+// import SolutionOutlined from '@ant-design/icons/SolutionOutlined';
 import SettingOutlined from '@ant-design/icons/SettingOutlined';
-import UserOutlined from '@ant-design/icons/UserOutlined';
-import TeamOutlined from '@ant-design/icons/TeamOutlined';
-import PartitionOutlined from '@ant-design/icons/PartitionOutlined';
+// import UserOutlined from '@ant-design/icons/UserOutlined';
+// import TeamOutlined from '@ant-design/icons/TeamOutlined';
+// import PartitionOutlined from '@ant-design/icons/PartitionOutlined';
 import IdcardOutlined from '@ant-design/icons/IdcardOutlined';
-import ToolOutlined from '@ant-design/icons/ToolOutlined';
+// import ToolOutlined from '@ant-design/icons/ToolOutlined';
 
 const { SubMenu, Item } = Menu;
 
@@ -23,26 +23,32 @@ interface AppMenuProp {}
  * 菜单项Icon
  * @param url 路径
  */
-const getIcon = (url: string): JSX.Element => {
+const getIcon = (url: string): JSX.Element | null => {
 	switch (url) {
 		case '/':
 			return <BookOutlined />;
 		case '/default':
-			return <SolutionOutlined />;
+			// return <SolutionOutlined />;
+			return null;
 		case '/permission':
 			return <SettingOutlined />;
 		case '/permission/law-case':
-			return <TableOutlined />;
+			// return <TableOutlined />;
+			return null;
 		case '/permission/user':
-			return <UserOutlined />;
+			// return <UserOutlined />;
+			return null;
 		case '/permission/role':
-			return <TeamOutlined />;
+			// return <TeamOutlined />;
+			return null;
 		case '/permission/resource':
-			return <PartitionOutlined />;
+			// return <PartitionOutlined />;
+			return null;
 		case '/profile':
 			return <IdcardOutlined />;
 		case '/profile/setting':
-			return <ToolOutlined />;
+			// return <ToolOutlined />;
+			return null;
 		default:
 			return <BorderOutlined />;
 	}

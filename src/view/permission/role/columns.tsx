@@ -86,6 +86,10 @@ const getRoleColumns = (dispatch: Dispatch, showResourceHandle: (id: string) => 
 														pageSize: 20
 													}
 												});
+											} else if (code === 2) {
+												message.warn(
+													'此角色尚有关联用户，请先解除再进行删除'
+												);
 											} else {
 												message.error('角色删除失败');
 											}

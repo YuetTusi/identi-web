@@ -40,7 +40,7 @@ const LeftBox = styled.div`
  */
 const ContentBox = styled.div`
 	flex: 1;
-	/* min-height: 600px; */
+	min-height: 600px;
 	padding: 10px;
 `;
 
