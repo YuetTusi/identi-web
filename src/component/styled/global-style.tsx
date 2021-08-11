@@ -17,6 +17,14 @@ const GlobalStyle = createGlobalStyle`
         font-size: 1.4rem;
         background-color: #f6f7f9;
     }
+
+    .ztree {
+        li {
+            a.curSelectedNode{
+                background-color:#b5eaec ;
+            }
+        }
+    }
 `;
 
 export { GlobalStyle };

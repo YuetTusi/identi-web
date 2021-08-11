@@ -8,6 +8,9 @@ import { request } from './request';
 
 const { Option } = Select;
 
+const BASE_URL =
+	process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://192.168.1.12:7001/';
+
 const helper = {
 	/**
 	 * 是否是null或undefined
@@ -99,4 +102,4 @@ const helper = {
 	}
 };
 
-export { helper };
+export { helper, BASE_URL };

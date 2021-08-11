@@ -8,6 +8,7 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
 import SaveOutlined from '@ant-design/icons/SaveOutlined';
+import Upload from 'antd/lib/upload';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import Select from 'antd/lib/select';
@@ -19,6 +20,7 @@ import { CaseState, LawCase } from '@/schema/law-case';
 import { DictCategory } from '@/schema/dict';
 import { helper } from '@/utility/helper';
 import { request } from '@/utility/request';
+import { upload } from '@/utility/upload';
 import { SearchBox } from '../styled/layout-box';
 import { AddProp } from './props';
 import { OfficerNumber } from '@/utility/regex';
@@ -171,6 +173,55 @@ const Add: FC<AddProp> = (props) => {
 						<Input />
 					</Item>
 				</Form>
+				<div>
+					<Upload
+						onChange={(info) => {
+							const { response } = info.file;
+							if (info.file.status === 'done') {
+								message.success('上传成功');
+								console.log(response);
+							}
+							if (info.file.status === 'error') {
+								message.error('上传失败');
+							}
+						}}
+						multiple={false}
+						action="http://127.0.0.1:7001/attachment/upload"
+						beforeUpload={(file) => Promise.resolve(file)}
+						// customRequest={(options: UploadRequestOption) => {
+						// 	const { data, file, onProgress, onSuccess } = options;
+						// 	const formData = new FormData();
+						// 	console.log(data);
+						// 	formData.append('uid', 'abc');
+						// 	formData.append('attach1', file);
+						// 	upload(
+						// 		'attachment/upload?cid=123123',
+						// 		formData,
+						// 		(body: any, xhr: XMLHttpRequest) => {
+						// 			onSuccess!(body, xhr);
+						// 			message.destroy();
+						// 			message.success('上传成功');
+						// 		},
+						// 		(event: ProgressEvent) => {
+						// 			message.destroy();
+						// 			message.error('上传失败');
+						// 		},
+						// 		(event) => {
+						// 			const { total, loaded } = event;
+						// 			onProgress!({ ...event, percent: (loaded / total) * 100 });
+						// 		}
+						// 	);
+						// 	return {
+						// 		abort() {
+						// 			console.log('upload progress is aborted.');
+						// 		}
+						// 	};
+
+						// }}
+					>
+						<Button>选择文件</Button>
+					</Upload>
+				</div>
 			</BorderBox>
 		</>
 	);
