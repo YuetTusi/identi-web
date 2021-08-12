@@ -20,7 +20,6 @@ import { CaseState, LawCase } from '@/schema/law-case';
 import { DictCategory } from '@/schema/dict';
 import { helper } from '@/utility/helper';
 import { request } from '@/utility/request';
-import { upload } from '@/utility/upload';
 import { SearchBox } from '../styled/layout-box';
 import { AddProp } from './props';
 import { OfficerNumber } from '@/utility/regex';

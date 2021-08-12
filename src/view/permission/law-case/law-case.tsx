@@ -11,6 +11,7 @@ import { TablePanel } from '@/component/styled/widget';
 import { StateTree } from '@/schema/model-type';
 import { LawCase as LawCaseEntity } from '@/schema/law-case';
 import { SearchBox } from './styled/layout-box';
+import AttachmentModal from '@/component/attachment-modal';
 import IssueModal from './component/issue-modal';
 import ReissueModal from './component/reissue-modal';
 import SearchForm from './search-form';
@@ -72,6 +73,7 @@ const LawCase: FC<Prop> = (props) => {
 			</TableBox>
 			<IssueModal />
 			<ReissueModal />
+			<AttachmentModal />
 		</TablePanel>
 	);
 };

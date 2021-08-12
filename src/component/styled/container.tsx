@@ -90,6 +90,20 @@ const BorderBox = styled(TableBox)`
 `;
 
 /**
+ * 滚动盒子,自定义最大高度，默认150px
+ */
+const ScrollBox = styled.div<{ width?: string; maxHeight?: string }>`
+	border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border-radius: ${(props) => props.theme.radius};
+	background-color: #fff;
+	padding: 0;
+	margin: 0;
+	overflow-y: auto;
+	width: ${(props) => props.width ?? 'auto'};
+	max-height: ${(props) => props.maxHeight ?? '150px'};
+`;
+
+/**
  * 带标签的盒子，标签使用legend元素
  */
 const LabelBox = styled.fieldset<{
@@ -144,6 +158,18 @@ const StrongBox = styled.div<{
 	background-color: ${(props) => props.theme.strong};
 `;
 
+/**
+ * 不折行盒
+ */
+const NoWrapBox = styled.span<{ width?: string }>`
+	display: inline-block;
+	width: ${(props) => props.width ?? 'auto'};
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	vertical-align: middle;
+`;
+
 const SearchBar = styled.div``;
 
 export {
@@ -156,7 +182,9 @@ export {
 	BaseBox,
 	BorderBox,
 	TableBox,
+	ScrollBox,
 	StrongBox,
 	LabelBox,
+	NoWrapBox,
 	SearchBar
 };

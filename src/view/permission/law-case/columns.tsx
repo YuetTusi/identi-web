@@ -112,6 +112,28 @@ const getColumns = (dispatch: Dispatch) => {
 			}
 		},
 		{
+			title: '附件',
+			dataIndex: 'id',
+			key: 'id',
+			align: 'center',
+			width: 60,
+			render(value: string, record: LawCase4Table) {
+				if (record.state === CaseState.NotIdenti || record.state === CaseState.Reject) {
+					return (
+						<a
+							onClick={() => {
+								dispatch({ type: 'attachmentModal/setCaseId', payload: value });
+								dispatch({ type: 'attachmentModal/setVisible', payload: true });
+							}}>
+							附件
+						</a>
+					);
+				} else {
+					return <span style={{ cursor: 'not-allowed' }}>附件</span>;
+				}
+			}
+		},
+		{
 			title: '处理',
 			dataIndex: 'id',
 			key: 'id',
@@ -140,7 +162,9 @@ const getColumns = (dispatch: Dispatch) => {
 										});
 										break;
 									case CaseState.Approval:
-										dispatch(routerRedux.push(`/permission/law-case/approval/${id}`));
+										dispatch(
+											routerRedux.push(`/permission/law-case/approval/${id}`)
+										);
 									default:
 								}
 							}}>

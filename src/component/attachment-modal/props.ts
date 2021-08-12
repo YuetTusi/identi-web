@@ -1,0 +1,3 @@
+interface AttachmentModalProp { }
+
+export { AttachmentModalProp };
