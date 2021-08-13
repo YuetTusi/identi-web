@@ -45,4 +45,52 @@ const ListView = styled.ol<{
 	}
 `;
 
-export { TablePanel, ListView };
+/**
+ * 附件列表
+ */
+const AttachList = styled.ol<{
+	marginTop?: string | 0;
+	marginBottom?: string | 0;
+	marginLeft?: string | 0;
+	marginRight?: string | 0;
+}>`
+	margin-top: ${(props) => props.marginTop ?? 0};
+	margin-bottom: ${(props) => props.marginBottom ?? 0};
+	margin-left: ${(props) => props.marginLeft ?? 0};
+	margin-right: ${(props) => props.marginRight ?? 0};
+	padding: 0;
+	background-color: #fff;
+	border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border-radius: ${(props) => props.theme.radius};
+
+	& > li {
+		list-style-type: none;
+		margin: 0;
+		padding: 8px 8px;
+		cursor: pointer;
+		&:nth-child(even) {
+			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
+		}
+		&:last-child {
+			border-bottom: none;
+		}
+		&:hover {
+			a {
+				color: ${(props) => color(props.theme.strong).darken(0.2).toString()};
+				i {
+					display: inline-block;
+				}
+			}
+		}
+		a {
+			display: inline-block;
+			width: 100%;
+			i {
+				display: none;
+				margin-left: 1rem;
+			}
+		}
+	}
+`;
+
+export { TablePanel, ListView, AttachList };

@@ -7,7 +7,7 @@ import Modal from 'antd/lib/modal';
 import { ColumnsType } from 'antd/lib/table';
 import webConfig from '@/config/web.json';
 import { Attachment } from '@/schema/attachment';
-import { NoWrapBox } from '../styled/container';
+import { NoWrapBox } from '../../styled/container';
 
 const baseURL: string =
 	process.env.NODE_ENV === 'development' ? webConfig.devBaseURL : webConfig.prodBaseURL;

@@ -7,7 +7,9 @@ import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
-import { LabelBox, StrongBox } from '@/component/styled/container';
+import { BorderBox, LabelBox, StrongBox } from '@/component/styled/container';
+import { ListView } from '@/component/styled/widget';
+import AttachmentList from '@/component/attachment/attachment-list';
 import { useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { CaseState, LawCase } from '@/schema/law-case';
@@ -15,6 +17,8 @@ import CaseDesc from './case-desc';
 import DisapproveModal from '../component/disapprove-modal';
 import { LawCase4Table } from '../props';
 import { ApprovalProp } from './props';
+
+const {Group}=Button;
 
 /**
  * 审核页
@@ -100,33 +104,39 @@ const Approval: FC<ApprovalProp> = (props) => {
 				<legend>案件信息</legend>
 				<CaseDesc data={lawCase} />
 			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>附件</legend>
+				<AttachmentList caseId={id} />
+			</LabelBox>
 
 			<LabelBox marginTop="10px">
 				<legend>审核</legend>
-				<div>
-					<div>
+				<ListView>
+					<li>
 						<label>鉴定时间：</label>
 						<span>{dayjs(lastRec?.rec_time).format('YYYY-MM-DD')}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>鉴定地点：</label>
 						<span>{lastRec?.rec_place}</span>
-					</div>
-					<div>
+					</li>
+					<li>
 						<label>鉴定意见：</label>
 						<span>{lastRec?.suggest}</span>
-					</div>
-					<div>
-						<Button onClick={onApproveClick} type="primary">
-							审核通过
-						</Button>
-						<Button onClick={onDisapproveClick} type="primary" danger={true}>
-							审核不通过
-						</Button>
-					</div>
-				</div>
+					</li>
+				</ListView>
 			</LabelBox>
 
+			<BorderBox marginTop="5px">
+				<Group>
+					<Button onClick={onApproveClick} type="primary">
+						审核通过
+					</Button>
+					<Button onClick={onDisapproveClick} type="primary" danger={true}>
+						审核不通过
+					</Button>
+				</Group>
+			</BorderBox>
 			<DisapproveModal />
 		</>
 	);

@@ -14,7 +14,7 @@ import { helper } from '@/utility/helper';
 import { Attachment } from '@/schema/attachment';
 import { StateTree } from '@/schema/model-type';
 import { AttachmentModalStoreState } from '@/model/component/attachment-modal';
-import { ScrollBox, TableBox } from '../styled/container';
+import { ScrollBox, TableBox } from '../../styled/container';
 import { getColumns } from './column';
 import { AttachmentModalProp } from './props';
 import { UploadPanel } from './styled-box';

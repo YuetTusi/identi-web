@@ -10,6 +10,7 @@ import { LawCase } from '@/schema/law-case';
 import CaseDesc from './case-desc';
 import Record from './record';
 import { DetailProp, LawCase4Table } from './props';
+import AttachmentList from '@/component/attachment/attachment-list';
 
 /**
  * 案件详情页
@@ -51,6 +52,10 @@ const Detail: FC<DetailProp> = (props) => {
 			<LabelBox marginTop="10px">
 				<legend>案件信息</legend>
 				<CaseDesc data={lawCase} />
+			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>附件</legend>
+				<AttachmentList caseId={id} />
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>说明信息</legend>

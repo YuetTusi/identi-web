@@ -11,6 +11,7 @@ import Radio from 'antd/lib/radio';
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
 import { BorderBox, LabelBox, StrongBox } from '@/component/styled/container';
+import AttachmentList from '@/component/attachment/attachment-list';
 import { useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { helper } from '@/utility/helper';
@@ -201,6 +202,10 @@ const Begin: FC<BeginProp> = (props) => {
 			<LabelBox marginTop="10px">
 				<legend>案件信息</legend>
 				{renderDetail()}
+			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>附件</legend>
+				<AttachmentList caseId={id} />
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>说明信息</legend>
