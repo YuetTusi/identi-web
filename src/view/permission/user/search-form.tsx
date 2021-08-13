@@ -11,9 +11,7 @@ const { Item, useForm } = Form;
  * 查询表单
  */
 const SearchForm: FC<SearchFormProp> = (props) => {
-	const { onSearchFormSubmit } = props;
-
-	const [formRef] = useForm<FormValue>();
+	const { formRef, onSearchFormSubmit } = props;
 
 	const onSubmit = () => {
 		const formData = formRef.getFieldsValue();

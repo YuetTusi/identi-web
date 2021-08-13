@@ -8,6 +8,7 @@ import Button from 'antd/lib/button';
 import Table from 'antd/lib/table';
 import message from 'antd/lib/message';
 import Modal from 'antd/lib/modal';
+import { useForm } from 'antd/es/form/Form';
 import { UserStoreState } from '@/model/permission/user';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import { TablePanel } from '@/component/styled/widget';
@@ -22,13 +23,14 @@ import { SearchBox } from './styled/layout-box';
 import { StateTree } from '@/schema/model-type';
 
 let actionUser: UserEntity | undefined;
-const defaultPageSize = 20;
+const defaultPageSize = 10;
 
 /**
  * 用户管理页
  */
 const User: FC<Prop> = (props) => {
 	const dispatch = useDispatch();
+	const [formRef] = useForm<FormValue>();
 	const user = useSelector<StateTree, UserStoreState>((state) => state.user);
 	const [roleModalVisible, setRoleModalVisible] = useState<boolean>(false);
 	const [resetModalVisible, setResetModalVisible] = useState<boolean>(false);
@@ -45,10 +47,11 @@ const User: FC<Prop> = (props) => {
 	}, []);
 
 	const onPageChange = (pageIndex: number, pageSize?: number) => {
+		const formValue = formRef.getFieldsValue();
 		dispatch({
 			type: 'user/queryUser',
 			payload: {
-				condition: null,
+				condition: formValue,
 				pageIndex: pageIndex,
 				pageSize: pageSize ?? defaultPageSize
 			}
@@ -199,7 +202,7 @@ const User: FC<Prop> = (props) => {
 			</StrongBox>
 			<BorderBox marginTop="10px" marginBottom="10px">
 				<SearchBox>
-					<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
+					<SearchForm formRef={formRef} onSearchFormSubmit={onSearchFormSubmit} />
 					<Button
 						onClick={() => dispatch(routerRedux.push('/permission/user/add'))}
 						type="primary">
