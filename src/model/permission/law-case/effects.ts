@@ -4,7 +4,7 @@ import message from 'antd/lib/message';
 import { LawCase } from '@/schema/law-case';
 import { request, RequestResult } from '@/utility/request';
 
-const defaultPageSize = 20;
+const defaultPageSize = 10;
 
 export default {
     /**
@@ -15,7 +15,7 @@ export default {
      */
     *queryLawCase({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
-        const { condition, pageIndex, pageSize = 20 } = payload;
+        const { condition, pageIndex, pageSize = defaultPageSize } = payload;
         yield put({ type: 'setLoading', payload: true });
         try {
             const { code, data, error }: RequestResult<{ data: LawCase[], total: number }> =
@@ -35,7 +35,7 @@ export default {
                 yield put({
                     type: 'setPage', payload: {
                         pageIndex: 1,
-                        pageSize: 20,
+                        pageSize,
                         total: 0
                     }
                 });

@@ -1,10 +1,11 @@
+import { FormInstance } from "antd/es/form/Form";
 import { LawCase } from "@/schema/law-case";
-
-interface Prop { }
 
 interface SearchFormProp {
 
-    onSearchFormSubmit: (data: LawCase) => void;
+    formRef: FormInstance<LawCase>,
+
+    onSearchFormSubmit: (data: LawCase) => void
 }
 
 /**
@@ -21,4 +22,4 @@ class LawCase4Table extends LawCase {
     identi_username?: string;
 }
 
-export { Prop, SearchFormProp, LawCase4Table };
+export { SearchFormProp, LawCase4Table };

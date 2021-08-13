@@ -4,6 +4,7 @@ import PlusCircleOutlined from '@ant-design/icons/PlusCircleOutlined';
 import Button from 'antd/lib/button';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
+import { useForm } from 'antd/es/form/Form';
 import Table from 'antd/lib/table';
 import { LawCaseStoreState } from '@/model/permission/law-case';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
@@ -16,12 +17,13 @@ import IssueModal from './component/issue-modal';
 import ReissueModal from './component/reissue-modal';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
-import { LawCase4Table, Prop } from './props';
+import { LawCase4Table } from './props';
 
-const defaultPageSize = 20;
+const defaultPageSize = 10;
 
-const LawCase: FC<Prop> = (props) => {
+const LawCase: FC<{}> = (props) => {
 	const dispatch = useDispatch();
+	const [formRef] = useForm<LawCaseEntity>();
 	const lawCase = useSelector<StateTree, LawCaseStoreState>((state) => state.lawCase);
 
 	useEffect(() => {
@@ -36,6 +38,12 @@ const LawCase: FC<Prop> = (props) => {
 			type: 'lawCase/queryLawCase',
 			payload: { pageIndex, pageSize, condition }
 		});
+
+	const onPageChange = (pageIndex: number) => {
+		const formValue = formRef.getFieldsValue();
+		console.log(formValue);
+		queryTable(pageIndex, defaultPageSize, formValue);
+	};
 
 	/**
 	 * 查询submit
@@ -52,7 +60,7 @@ const LawCase: FC<Prop> = (props) => {
 			</StrongBox>
 			<BorderBox marginTop="10px" marginBottom="10px">
 				<SearchBox>
-					<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
+					<SearchForm formRef={formRef} onSearchFormSubmit={onSearchFormSubmit} />
 					<Button
 						onClick={() => dispatch(routerRedux.push('/permission/law-case/add'))}
 						type="primary">
@@ -64,6 +72,12 @@ const LawCase: FC<Prop> = (props) => {
 			<TableBox>
 				<Table<LawCase4Table>
 					columns={getColumns(dispatch)}
+					pagination={{
+						onChange: onPageChange,
+						current: lawCase.pageIndex,
+						pageSize: lawCase.pageSize,
+						total: lawCase.total
+					}}
 					dataSource={lawCase.data}
 					loading={lawCase.loading}
 					rowKey="id"
