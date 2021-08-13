@@ -8,7 +8,7 @@ import { ColumnsType } from 'antd/lib/table';
 import { CaseState, LawCase } from '@/schema/law-case';
 import { LawCase4Table } from './props';
 
-const defaultPageSize = 20;
+const defaultPageSize = 10;
 
 const getColumns = (dispatch: Dispatch) => {
 	const columns: ColumnsType<LawCase4Table> = [

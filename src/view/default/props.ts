@@ -1,15 +1,25 @@
 import { DefaultStoreState } from "@/model/default";
 import { LawCase } from "@/schema/law-case";
 import { StoreComponent } from "@/schema/model-type";
+import { FormInstance } from "antd/es/form/Form";
 
 interface Prop extends StoreComponent {
     default: DefaultStoreState
 }
 
-
+/**
+ * 查询表单属性
+ */
 interface SearchFormProp {
 
-    onSearchFormSubmit: (data: LawCase) => void;
+    /**
+     * 表单实例
+     */
+    formRef: FormInstance<LawCase>,
+    /**
+     * 表单Submit
+     */
+    onSearchFormSubmit: (data: LawCase) => void
 }
 
 /**

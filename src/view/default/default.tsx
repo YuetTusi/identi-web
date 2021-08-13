@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
+import Form from 'antd/lib/form';
 import Table from 'antd/lib/table';
 import { TablePanel } from '@/component/styled/widget';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
@@ -12,13 +13,14 @@ import SearchForm from './search-form';
 import { Prop, LawCase4Table } from './props';
 import { getColumns } from './columns';
 
-const defaultPageSize = 20;
+const defaultPageSize = 10;
 
 /**
  * 我的案件
  */
 const Default: FC<Prop> = () => {
 	const dispatch = useDispatch();
+	const [formRef] = Form.useForm<LawCase>();
 	const defaultState = useSelector<StateTree, DefaultStoreState>((state) => state.default);
 
 	useEffect(() => {
@@ -38,6 +40,16 @@ const Default: FC<Prop> = () => {
 		});
 
 	/**
+	 * 翻页Change
+	 * @param pageIndex 当前页
+	 */
+	const onPageChange = (pageIndex: number) => {
+		const formValue = formRef.getFieldsValue();
+		console.log(formValue);
+		queryTable(pageIndex, defaultPageSize, formValue);
+	};
+
+	/**
 	 * 查询submit
 	 * @param form 表单
 	 */
@@ -52,10 +64,16 @@ const Default: FC<Prop> = () => {
 			</StrongBox>
 
 			<BorderBox marginTop="10px" marginBottom="10px">
-				<SearchForm onSearchFormSubmit={onSearchFormSubmit} />
+				<SearchForm formRef={formRef} onSearchFormSubmit={onSearchFormSubmit} />
 			</BorderBox>
 			<TableBox>
 				<Table<LawCase4Table>
+					pagination={{
+						onChange: onPageChange,
+						current: defaultState.pageIndex,
+						pageSize: defaultState.pageSize,
+						total: defaultState.total
+					}}
 					columns={getColumns(dispatch)}
 					dataSource={defaultState.data}
 					loading={defaultState.loading}

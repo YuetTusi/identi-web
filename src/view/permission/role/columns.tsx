@@ -83,7 +83,7 @@ const getRoleColumns = (dispatch: Dispatch, showResourceHandle: (id: string) => 
 													payload: {
 														condition: {},
 														pageIndex: 1,
-														pageSize: 20
+														pageSize: 10
 													}
 												});
 											} else if (code === 2) {

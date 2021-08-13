@@ -4,22 +4,21 @@ import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import Select from 'antd/lib/select';
 import { SearchOutlined } from '@ant-design/icons/lib/icons';
-import { CaseState, LawCase } from '@/schema/law-case';
+import { CaseState } from '@/schema/law-case';
 import { useUserList } from '@/hook';
 import { SearchFormProp } from './props';
 import { User } from '@/schema/user';
 
-const { Item, useForm } = Form;
+const { Item } = Form;
 const { Option } = Select;
 
 /**
  * 查询表单
  */
 const SearchForm: FC<SearchFormProp> = (props) => {
-	const { onSearchFormSubmit } = props;
+	const { formRef, onSearchFormSubmit } = props;
 
 	const userList = useUserList();
-	const [formRef] = useForm<LawCase>();
 
 	const onSubmit = () => {
 		const formData = formRef.getFieldsValue();

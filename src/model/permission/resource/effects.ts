@@ -5,6 +5,8 @@ import { request, RequestResult } from '@/utility/request';
 import { Resource } from '@/schema/resource';
 import message from 'antd/lib/message';
 
+const defaultPageSize = 10;
+
 export default {
     /**
      * 查询资源表
@@ -14,7 +16,7 @@ export default {
      */
     *queryResource({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
-        const { condition, pageIndex, pageSize } = payload;
+        const { condition, pageIndex, pageSize = defaultPageSize } = payload;
         yield put({ type: 'setLoading', payload: true });
         try {
             const { code, data }: RequestResult<{ data: Resource[], total: number }> = yield call(request, { url: 'resource/list', method: 'POST', data: { condition, pageIndex, pageSize } });
@@ -33,7 +35,7 @@ export default {
                 yield put({
                     type: 'setPage', payload: {
                         pageIndex: 1,
-                        pageSize: 20,
+                        pageSize: defaultPageSize,
                         total: 0
                     }
                 });

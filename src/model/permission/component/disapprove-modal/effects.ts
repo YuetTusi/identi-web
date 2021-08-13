@@ -5,6 +5,8 @@ import { request, RequestResult } from '@/utility/request';
 import { CaseRec } from '@/schema/case-rec';
 import { LawCase } from '@/schema/law-case';
 
+const defaultPageSize = 10;
+
 export default {
 
     /**
@@ -39,7 +41,7 @@ export default {
             yield put({
                 type: 'lawCase/queryLawCase', payload: {
                     pageIndex: 1,
-                    pageSize: 20,
+                    pageSize: defaultPageSize,
                     condition: null
                 }
             });

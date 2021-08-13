@@ -3,12 +3,11 @@ import { Dispatch } from 'dva';
 import { routerRedux } from 'dva/router';
 import dayjs from 'dayjs';
 import Tag from 'antd/lib/tag';
-import Modal from 'antd/lib/modal';
 import { ColumnsType } from 'antd/lib/table';
 import { CaseState } from '@/schema/law-case';
 import { LawCase4Table } from './props';
 
-const defaultPageSize = 20;
+const defaultPageSize = 10;
 
 const getColumns = (dispatch: Dispatch) => {
 	const columns: ColumnsType<LawCase4Table> = [

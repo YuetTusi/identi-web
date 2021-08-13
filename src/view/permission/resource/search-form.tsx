@@ -2,21 +2,20 @@ import React, { FC, useState } from 'react';
 import Button from 'antd/lib/button';
 import Form from 'antd/lib/form';
 import Select from 'antd/lib/select';
-import { FormValue, SearchFormProp } from './props';
+import { SearchFormProp } from './props';
 import { useEffect } from 'react';
 import { request } from '@/utility/request';
 import { SearchOutlined } from '@ant-design/icons/lib/icons';
 
-const { Item, useForm } = Form;
+const { Item } = Form;
 const { Option } = Select;
 
 /**
  * 查询表单
  */
 const SearchForm: FC<SearchFormProp> = (props) => {
-	const { onSearchFormSubmit } = props;
+	const { formRef, onSearchFormSubmit } = props;
 	const [options, setOptions] = useState<Record<string, any>[]>([]);
-	const [formRef] = useForm<FormValue>();
 
 	useEffect(() => {
 		(async () => {

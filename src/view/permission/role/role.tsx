@@ -17,7 +17,7 @@ import { SearchBox } from './styled/layout';
 import { getRoleColumns } from './columns';
 import { Prop } from './props';
 
-const defaultPageSize = 20;
+const defaultPageSize = 10;
 let roleId: string = '';
 
 const Role: FC<Prop> = () => {

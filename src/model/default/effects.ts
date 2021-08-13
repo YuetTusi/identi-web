@@ -7,7 +7,7 @@ import { LawCase } from '@/schema/law-case';
 import { helper } from '@/utility/helper';
 import { request, RequestResult } from '@/utility/request';
 
-const defaultPageSize: number = 20;
+const defaultPageSize: number = 10;
 
 export default {
     /**

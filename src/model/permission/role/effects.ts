@@ -4,6 +4,8 @@ import { request, RequestResult } from '@/utility/request';
 import { Role } from '@/schema/role';
 import message from 'antd/lib/message';
 
+const defaultPageSize = 10;
+
 export default {
 
     /**
@@ -14,7 +16,7 @@ export default {
      */
     *queryRole({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
-        const { condition, pageIndex, pageSize = 20 } = payload;
+        const { condition, pageIndex, pageSize = defaultPageSize } = payload;
         yield put({ type: 'setLoading', payload: true });
         try {
             const { code, data, error }: RequestResult<{ data: Role[], total: number }> =
@@ -34,7 +36,7 @@ export default {
                 yield put({
                     type: 'setPage', payload: {
                         pageIndex: 1,
-                        pageSize: 20,
+                        pageSize: defaultPageSize,
                         total: 0
                     }
                 });

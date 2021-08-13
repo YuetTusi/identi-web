@@ -1,14 +1,19 @@
+import { FormInstance } from "antd/lib/form";
 
 /**
  * 属性
  */
-interface Prop {}
+interface Prop { }
 
 /**
  * 表单属性
  */
 interface SearchFormProp {
 
+    /**
+     * 表单实例
+     */
+    formRef: FormInstance<FormValue>
     /**
      * 查询表单提交
      * @param data 表单
