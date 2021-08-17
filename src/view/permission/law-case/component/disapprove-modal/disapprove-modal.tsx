@@ -19,7 +19,7 @@ const { Item, useForm } = Form;
 /**
  * 审核不通过弹框
  */
-const DisapproveModal: FC<Partial<DisapproveModalProp>> = (props) => {
+const DisapproveModal: FC<Partial<DisapproveModalProp>> = () => {
 	const dispatch = useDispatch();
 	const [form] = useForm<{ action_note: string }>();
 	const { data, visible } = useSelector<StateTree, DisapproveModalStoreState>(

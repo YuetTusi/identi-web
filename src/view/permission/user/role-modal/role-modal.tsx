@@ -18,8 +18,7 @@ const { Option } = Select;
 /**
  * 更新角色modal
  */
-const RoleModal: FC<RoleModalProp> = (props) => {
-	const { data, visible, onOk, onCancel } = props;
+const RoleModal: FC<RoleModalProp> = ({ data, visible, onOk, onCancel }) => {
 	const [roleData, setRoleData] = useState<Role[]>([]);
 	const [form] = useForm<FormValue>();
 

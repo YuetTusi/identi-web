@@ -10,8 +10,7 @@ import { StateTree } from '@/schema/model-type';
  * @param props
  * @returns
  */
-const Authority: FC<AuthorityProp> = (props) => {
-	const { k, children } = props;
+const Authority: FC<AuthorityProp> = ({ k, children }) => {
 	const { data } = useSelector<StateTree, AppMenuStoreState>((state) => state.appMenu);
 	const [visible, setVisible] = useState<boolean>(false);
 

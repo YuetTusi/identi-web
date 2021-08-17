@@ -1,27 +1,23 @@
 import dayjs from 'dayjs';
 import React, { FC, memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'dva';
-import UploadOutlined from '@ant-design/icons/UploadOutlined';
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import Button from 'antd/lib/button';
-import Upload from 'antd/lib/upload';
 import Table from 'antd/lib/table';
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
-import webConfig from '@/config/web.json';
 import { helper } from '@/utility/helper';
 import { Attachment } from '@/schema/attachment';
 import { StateTree } from '@/schema/model-type';
 import { AttachmentModalStoreState } from '@/model/component/attachment-modal';
+import AttachmentUpload from '../attachment-upload';
 import { ScrollBox, TableBox } from '../../styled/container';
 import { UploadPanel } from './styled-box';
 import { getColumns } from './column';
 import { AttachmentModalProp } from './props';
 
 const defaultPageSize = 5;
-const { devBaseURL, prodBaseURL } = webConfig;
-const baseURL = process.env.NODE_ENV === 'development' ? devBaseURL : prodBaseURL;
 
 /**
  * 附件上传Modal
@@ -45,7 +41,7 @@ const AttachmentModal: FC<AttachmentModalProp> = memo(() => {
 	 * @param pageIndex 当前页
 	 * @param pageSize 页尺寸
 	 */
-	const query = (caseId: string, pageIndex: number = 1, pageSize: number = defaultPageSize) => {
+	const query = (caseId: string, pageIndex: number = 1, pageSize: number = defaultPageSize) =>
 		dispatch({
 			type: 'attachmentModal/query',
 			payload: {
@@ -54,7 +50,6 @@ const AttachmentModal: FC<AttachmentModalProp> = memo(() => {
 				form: { id: caseId }
 			}
 		});
-	};
 
 	/**
 	 * 删除附件
@@ -78,9 +73,7 @@ const AttachmentModal: FC<AttachmentModalProp> = memo(() => {
 	 * 翻页Change
 	 * @param pageIndex 当前页
 	 */
-	const onPageChange = (pageIndex: number) => {
-		query(caseId, pageIndex, defaultPageSize);
-	};
+	const onPageChange = (pageIndex: number) => query(caseId, pageIndex, defaultPageSize);
 
 	return (
 		<Modal
@@ -100,48 +93,46 @@ const AttachmentModal: FC<AttachmentModalProp> = memo(() => {
 			destroyOnClose={true}>
 			<ScrollBox>
 				<UploadPanel>
-					<Upload
+					<AttachmentUpload
 						onChange={(info) => {
-							const { response } = info.file;
-							if (info.file.status === 'done') {
-								const { filename, hashname } = response;
-								const next = new Attachment();
-								next.id = helper.newId();
-								next.case_id = caseId;
-								next.file_name = filename;
-								next.hash_name = hashname;
-								next.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
-								next.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
-								dispatch({ type: 'attachmentModal/add', payload: { form: next } });
-								setAttachLoading(false);
-							}
-							if (info.file.status === 'error') {
-								message.error('上传失败');
-								setAttachLoading(false);
+							const { response, status } = info.file;
+							setAttachLoading(true);
+							switch (status) {
+								case 'done':
+									const { filename, hashname } = response;
+									const next = new Attachment();
+									next.id = helper.newId();
+									next.case_id = caseId;
+									next.file_name = filename;
+									next.hash_name = hashname;
+									next.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+									next.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+									dispatch({
+										type: 'attachmentModal/add',
+										payload: { form: next }
+									});
+									setAttachLoading(false);
+									break;
+								case 'error':
+									message.error('上传失败');
+									setAttachLoading(false);
+									break;
+								case 'removed':
+									setAttachLoading(false);
+									break;
 							}
 						}}
-						action={`${baseURL}attachment/upload`}
-						headers={{ Authorization: sessionStorage.getItem('user_token')! }}
-						maxCount={5}
-						multiple={false}
-						beforeUpload={(file) => {
-							setAttachLoading(true);
-							Promise.resolve(file);
-						}}>
-						<Button type="primary">
-							<UploadOutlined />
-							<span>上传</span>
-						</Button>
-					</Upload>
+						action={`attachment/upload`}
+					/>
 				</UploadPanel>
 			</ScrollBox>
 			<TableBox marginTop="5px">
 				<Table<Attachment>
 					pagination={{
 						onChange: onPageChange,
-						pageSize: pageSize,
 						current: pageIndex,
-						total: total
+						pageSize,
+						total
 					}}
 					dataSource={data}
 					loading={loading}

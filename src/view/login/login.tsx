@@ -8,23 +8,21 @@ import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import message from 'antd/lib/message';
 import { KeyOutlined } from '@ant-design/icons';
-import { LoginRoot } from './styled/login-box';
 import { request } from '@/utility/request';
-import { LoginProp } from './props';
 import { helper } from '@/utility/helper';
+import { LoginRoot } from './styled/login-box';
+import { LoginProp } from './props';
 
 const { Item } = Form;
 const { Password } = Input;
 
-const Login: FC<LoginProp> = (props) => {
-	const { dispatch } = props;
-
+const Login: FC<LoginProp> = ({ dispatch }) => {
 	const onLoginFormFinish = debounce(
-		(values: any) => {
+		({ username, password }: any) => {
 			request({
 				url: '/login',
 				method: 'post',
-				data: { username: values.username, password: values.password }
+				data: { username, password }
 			}).then((res: any) => {
 				message.destroy();
 				if (res.success) {
@@ -34,15 +32,15 @@ const Login: FC<LoginProp> = (props) => {
 						message.warn('此用户无权限访问');
 					} else {
 						message.success('登录成功');
-						//todo:可将角色、用户等数据存入model
+						//TODO:可将角色、用户等数据存入model
 						sessionStorage.setItem('user_token', token);
 						sessionStorage.setItem('role', Base64.encode(JSON.stringify(role)));
-						sessionStorage.setItem('username', values.username);
+						sessionStorage.setItem('username', username);
 						helper.setUId(uid);
 
 						dispatch({
 							type: 'auth/setAuth',
-							payload: { uid, role, username: values.username }
+							payload: { uid, role, username: username }
 						});
 						dispatch({
 							type: 'appMenu/queryMenuByUserId',

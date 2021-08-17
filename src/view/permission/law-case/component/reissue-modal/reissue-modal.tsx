@@ -21,7 +21,7 @@ const { Item, useForm } = Form;
 /**
  * 重新下发鉴定弹框（用于处理驳回案件）
  */
-const ReissueModal: FC<Partial<ReissueModalProp>> = (props) => {
+const ReissueModal: FC<Partial<ReissueModalProp>> = () => {
 	const dispatch = useDispatch();
 	const [form] = useForm<{ action_note: string }>();
 	const { visible, data } = useSelector<StateTree, ReissueModalStoreState>(

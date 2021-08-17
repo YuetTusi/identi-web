@@ -12,9 +12,7 @@ const { Password } = Input;
 /**
  * 重置密码框
  */
-const ResetModal: FC<ResetModalProp> = (props) => {
-	const { visible, data, onCancel, onOk } = props;
-
+const ResetModal: FC<ResetModalProp> = ({ visible, data, onCancel, onOk }) => {
 	const [resetFormRef] = useForm<FormValue>();
 
 	const onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {

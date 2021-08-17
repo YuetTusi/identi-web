@@ -33,7 +33,7 @@ const needUpdateCase = (lawCase: LawCase, nextIdentiId: string, nextCheckId: str
 /**
  * 下发鉴定弹框
  */
-const IssueModal: FC<Partial<IssueModalProp>> = (props) => {
+const IssueModal: FC<Partial<IssueModalProp>> = () => {
 	const dispatch = useDispatch();
 	const userList = useUserList();
 	const [form] = useForm<FormValue>();

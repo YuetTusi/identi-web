@@ -21,7 +21,7 @@ function setInterceptor(instance: AxiosInstance) {
     instance.interceptors.request.use(config => {
         const token = sessionStorage.getItem('user_token');
         if (token !== null) {
-            config.headers["Authorization"] = token;
+            config.headers['Authorization'] = token;
         }
         return config;
     });

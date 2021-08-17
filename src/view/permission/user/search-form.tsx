@@ -2,17 +2,15 @@ import React, { FC } from 'react';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
-import { FormValue, SearchFormProp } from './props';
+import { SearchFormProp } from './props';
 import { SearchOutlined } from '@ant-design/icons/lib/icons';
 
-const { Item, useForm } = Form;
+const { Item } = Form;
 
 /**
  * 查询表单
  */
-const SearchForm: FC<SearchFormProp> = (props) => {
-	const { formRef, onSearchFormSubmit } = props;
-
+const SearchForm: FC<SearchFormProp> = ({ formRef, onSearchFormSubmit }) => {
 	const onSubmit = () => {
 		const formData = formRef.getFieldsValue();
 		onSearchFormSubmit(formData);

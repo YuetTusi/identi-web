@@ -13,8 +13,7 @@ const { Option } = Select;
 /**
  * 查询表单
  */
-const SearchForm: FC<SearchFormProp> = (props) => {
-	const { formRef, onSearchFormSubmit } = props;
+const SearchForm: FC<SearchFormProp> = ({ formRef, onSearchFormSubmit }) => {
 	const [options, setOptions] = useState<Record<string, any>[]>([]);
 
 	useEffect(() => {

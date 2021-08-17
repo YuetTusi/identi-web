@@ -21,7 +21,7 @@ import { LawCase4Table } from './props';
 
 const defaultPageSize = 10;
 
-const LawCase: FC<{}> = (props) => {
+const LawCase: FC<{}> = () => {
 	const dispatch = useDispatch();
 	const [formRef] = useForm<LawCaseEntity>();
 	const lawCase = useSelector<StateTree, LawCaseStoreState>((state) => state.lawCase);
