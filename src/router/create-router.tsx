@@ -13,8 +13,8 @@ import { GlobalStyle } from '@/component/styled/global-style';
 
 /**
  * 路由配置
- * @param param0
- * @returns
+ * @param api 路由参数
+ * @returns 路由
  */
 const createRouter = (api?: RouterAPI) => {
 	const { history } = api!;

@@ -1,6 +1,8 @@
+import webConfig from '@/config/web.json';
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-const baseURL = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://192.168.1.12:7001/';
+const { devBaseURL, prodBaseURL } = webConfig;
+const baseURL = process.env.NODE_ENV === 'development' ? devBaseURL : prodBaseURL;
 
 const instance = setInterceptor(
     axios.create({
@@ -18,7 +20,6 @@ const instance = setInterceptor(
 function setInterceptor(instance: AxiosInstance) {
     instance.interceptors.request.use(config => {
         const token = sessionStorage.getItem('user_token');
-        // console.log('in axios:', sessionStorage.getItem('user_token'));
         if (token !== null) {
             config.headers["Authorization"] = token;
         }

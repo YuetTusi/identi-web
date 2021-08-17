@@ -1,4 +1,4 @@
 {
 	"devBaseURL": "http://127.0.0.1:7001/",
-	"prodBaseURL": "http://192.168.1.12:7001/"
+	"prodBaseURL": "http://192.168.1.254:7001/"
 }

@@ -15,14 +15,13 @@ import { Attachment } from '@/schema/attachment';
 import { StateTree } from '@/schema/model-type';
 import { AttachmentModalStoreState } from '@/model/component/attachment-modal';
 import { ScrollBox, TableBox } from '../../styled/container';
+import { UploadPanel } from './styled-box';
 import { getColumns } from './column';
 import { AttachmentModalProp } from './props';
-import { UploadPanel } from './styled-box';
 
 const defaultPageSize = 5;
-
-const baseURL: string =
-	process.env.NODE_ENV === 'development' ? webConfig.devBaseURL : webConfig.prodBaseURL;
+const { devBaseURL, prodBaseURL } = webConfig;
+const baseURL = process.env.NODE_ENV === 'development' ? devBaseURL : prodBaseURL;
 
 /**
  * 附件上传Modal
@@ -121,8 +120,10 @@ const AttachmentModal: FC<AttachmentModalProp> = memo(() => {
 								setAttachLoading(false);
 							}
 						}}
-						multiple={false}
 						action={`${baseURL}attachment/upload`}
+						headers={{ Authorization: sessionStorage.getItem('user_token')! }}
+						maxCount={5}
+						multiple={false}
 						beforeUpload={(file) => {
 							setAttachLoading(true);
 							Promise.resolve(file);
