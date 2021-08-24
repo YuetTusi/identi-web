@@ -1,6 +1,7 @@
 import { Model } from 'dva';
 import reducers from './reducers';
 import effects from './effects';
+import subscriptions from './subscriptions';
 import { ActionMessage } from '@/schema/action-message';
 
 interface ActionMessageListStoreState {
@@ -18,7 +19,8 @@ let model: Model = {
         data: []
     },
     reducers,
-    effects
+    effects,
+    subscriptions
 };
 
 export { ActionMessageListStoreState };

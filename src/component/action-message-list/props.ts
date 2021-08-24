@@ -16,7 +16,7 @@ interface ActionMessageListProp {
     /**
      * 去列表页Click
      */
-    onDisplayClick: (data: ActionMessage) => void
+    onDisplayClick: () => void
 }
 
 export { ActionMessageListProp };

@@ -5,6 +5,8 @@ import { helper } from '@/utility/helper';
 import { request, RequestResult } from '@/utility/request';
 import { ActionMessage, ActionMessageState } from '@/schema/action-message';
 
+const defaultPageSize = 10;
+
 export default {
 
     /**
@@ -105,6 +107,13 @@ export default {
                 yield put({
                     type: 'queryMessage', payload: {
                         userId: payload, state: ActionMessageState.Unread
+                    }
+                });
+                yield put({
+                    type: 'message/queryByPage', payload: {
+                        condition: { user_id: payload },
+                        pageIndex: 1,
+                        pageSize: defaultPageSize
                     }
                 });
                 message.success('消息全部已读');

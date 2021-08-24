@@ -16,7 +16,12 @@ const uid = helper.getUId();
 /**
  * 用户消息列表
  */
-const ActionMessageList: FC<ActionMessageListProp> = ({ onMessageClick, onReadAllClick }) => {
+const ActionMessageList: FC<ActionMessageListProp> = ({
+	onMessageClick,
+	onReadAllClick,
+	onDisplayClick
+}) => {
+
 	const { data } = useSelector<StateTree, ActionMessageListStoreState>(
 		(state) => state.actionMessageList
 	);
@@ -50,7 +55,7 @@ const ActionMessageList: FC<ActionMessageListProp> = ({ onMessageClick, onReadAl
 					<div className="button-panel">
 						<Group>
 							<Button onClick={() => onReadAllClick(uid!)}>全部已读</Button>
-							<Button>查看全部</Button>
+							<Button onClick={() => onDisplayClick()}>查看全部</Button>
 						</Group>
 					</div>
 				</>

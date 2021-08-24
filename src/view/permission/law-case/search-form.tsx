@@ -4,7 +4,7 @@ import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import Select from 'antd/lib/select';
 import { SearchOutlined } from '@ant-design/icons/lib/icons';
-import { CaseState, LawCase } from '@/schema/law-case';
+import { CaseState } from '@/schema/law-case';
 import { useUserList } from '@/hook';
 import { SearchFormProp } from './props';
 import { User } from '@/schema/user';
@@ -63,11 +63,21 @@ const SearchForm: FC<SearchFormProp> = (props) => {
 			<Item name="state" label="状态" initialValue={''}>
 				<Select style={{ width: '80px' }}>
 					<Option value={''}>全部</Option>
-					<Option value={CaseState.NotIdenti}>未鉴定</Option>
-					<Option value={CaseState.ToBeIdenti}>待鉴定</Option>
-					<Option value={CaseState.Reject}>驳回</Option>
-					<Option value={CaseState.Approval}>审核</Option>
-					<Option value={CaseState.Finish}>完成</Option>
+					<Option value={CaseState.NotIdenti}>
+						<span>未鉴定</span>
+					</Option>
+					<Option value={CaseState.ToBeIdenti}>
+						<span style={{ color: '#096dd9' }}>待鉴定</span>
+					</Option>
+					<Option value={CaseState.Reject}>
+						<span style={{ color: '#d46b08' }}>驳回</span>
+					</Option>
+					<Option value={CaseState.Approval}>
+						<span style={{ color: '#08979c' }}>审核</span>
+					</Option>
+					<Option value={CaseState.Finish}>
+						<span style={{ color: '#389e0d' }}>完成</span>
+					</Option>
 				</Select>
 			</Item>
 			<Item>

@@ -16,6 +16,7 @@ import reissueModalModel from '@/model/permission/component/reissue-modal';
 import disapproveModelModel from '@/model/permission/component/disapprove-modal';
 import settingModel from '@/model/profile/setting';
 import defaultModal from '@/model/default';
+import messageModel from '@/model/message';
 import '@ztree/ztree_v3/js/jquery.ztree.all.min';
 import '@ztree/ztree_v3/css/metroStyle/metroStyle.css';
 import 'antd/dist/antd.less';
@@ -34,6 +35,7 @@ registerModel(app, issueModalModel);
 registerModel(app, reissueModalModel);
 registerModel(app, disapproveModelModel);
 registerModel(app, defaultModal);
+registerModel(app, messageModel);
 registerModel(app, settingModel);
 
 app.use(immer());

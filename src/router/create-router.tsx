@@ -54,6 +54,20 @@ const createRouter = (api?: RouterAPI) => {
 							}}
 						/>
 						<Route
+							path="/message"
+							exact={true}
+							render={() => {
+								const Next = lazy<FC<any>>(() => import('@/view/message'));
+								return (
+									<Suspense fallback={<Loading />}>
+										<RootPanel>
+											<Next />
+										</RootPanel>
+									</Suspense>
+								);
+							}}
+						/>
+						<Route
 							path="/default/begin/:id"
 							render={() => {
 								const Next = lazy<FC<any>>(() => import('@/view/default/begin'));

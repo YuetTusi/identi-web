@@ -45,7 +45,6 @@ const Default: FC<Prop> = () => {
 	 */
 	const onPageChange = (pageIndex: number) => {
 		const formValue = formRef.getFieldsValue();
-		console.log(formValue);
 		queryTable(pageIndex, defaultPageSize, formValue);
 	};
 

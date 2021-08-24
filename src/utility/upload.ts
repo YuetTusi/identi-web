@@ -24,7 +24,6 @@ function upload(url: string,
         if (xhr.readyState === 4 && xhr.status === 200) {
             onSuccess(xhr.response, xhr);
         }
-        console.log(xhr.readyState, xhr.status);
     };
     try {
         xhr.send(formData); //发送时  Content-Type默认就是: multipart/form-data;

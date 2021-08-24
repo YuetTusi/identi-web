@@ -2,6 +2,8 @@ import { SubscriptionAPI } from "dva";
 import { request } from "@/utility/request";
 import { helper } from '@/utility/helper';
 
+const uid = helper.getUId();
+
 export default {
 
     /**
@@ -9,10 +11,7 @@ export default {
      */
     readCurrentAuth({ dispatch }: SubscriptionAPI) {
 
-        const uid = helper.getUId();
-
         if (uid !== null) {
-            console.log(uid);
             request({ url: `login/${uid}` }).then((res: any) => {
                 if (res.success) {
                     const { uid, username, role } = res.data;

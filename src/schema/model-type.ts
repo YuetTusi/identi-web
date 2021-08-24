@@ -13,6 +13,7 @@ import { UserStoreState } from "@/model/permission/user";
 import { SettingStoreState } from "@/model/profile/setting";
 import { AttachmentModalStoreState } from "@/model/component/attachment-modal";
 import { ActionMessageListStoreState } from "@/model/component/action-message-list";
+import { MessageStoreState } from '@/model/message';
 
 /**
  * 经DvaConnect注入的组件
@@ -41,6 +42,7 @@ interface StateTree {
     role: RoleStoreState,
     user: UserStoreState,
     setting: SettingStoreState,
+    message: MessageStoreState,
     [modelName: string]: any
 }
 

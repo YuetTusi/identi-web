@@ -21,6 +21,20 @@ const helper = {
 		);
 	},
 	/**
+	 * 是否是Promise实例
+	 * @param value 任意值
+	 */
+	isPromise(value: any) {
+		if (
+			Object.prototype.toString.call(value) === '[object Promise]' &&
+			typeof value.then === 'function'
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	/**
 	 * 生成UUID
 	 * @param options 选项
 	 */

@@ -1,10 +1,11 @@
 import debounce from 'lodash/debounce';
 import React, { FC, MouseEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'dva';
+import { useDispatch, useLocation, useSelector } from 'dva';
 import { routerRedux } from 'dva/router';
 import Badge from 'antd/lib/badge';
 import Button from 'antd/lib/button';
 import Popover from 'antd/lib/popover';
+import Modal from 'antd/lib/modal';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import MailOutlined from '@ant-design/icons/lib/icons/MailOutlined';
 import { helper } from '@/utility/helper';
@@ -20,17 +21,27 @@ const userId = helper.getUId();
 
 const WebHeader: FC<WebHeaderProp> = () => {
 	const dispatch = useDispatch();
+	const { pathname } = useLocation();
 	const { data } = useSelector<StateTree, ActionMessageListStoreState>(
 		(state) => state.actionMessageList
 	);
 	// const [unreadCount, setUnreadCount] = useState<number>(0);
 
 	useEffect(() => {
+		queryMessage(userId!, ActionMessageState.Unread);
+	}, [pathname]);
+
+	/**
+	 * 查询消息
+	 * @param userId 用户id
+	 * @param state 状态
+	 */
+	const queryMessage = (userId: string, state: ActionMessageState) => {
 		dispatch({
 			type: 'actionMessageList/queryMessage',
-			payload: { userId, state: ActionMessageState.Unread }
+			payload: { userId, state }
 		});
-	}, []);
+	};
 
 	/**
 	 * 登出Click
@@ -50,10 +61,7 @@ const WebHeader: FC<WebHeaderProp> = () => {
 				type: 'actionMessageList/updateReadState',
 				payload: id
 			});
-			dispatch({
-				type: 'actionMessageList/queryMessage',
-				payload: { userId, state: ActionMessageState.Unread }
-			});
+			queryMessage(userId!, ActionMessageState.Unread);
 		},
 		1000,
 		{ leading: true, trailing: false }
@@ -64,13 +72,22 @@ const WebHeader: FC<WebHeaderProp> = () => {
 	 */
 	const onReadAllClick = debounce(
 		(userId: string) => {
-			dispatch({
-				type: 'actionMessageList/updateAllReadState',
-				payload: userId
-			});
-			dispatch({
-				type: 'actionMessageList/queryMessage',
-				payload: { userId, state: ActionMessageState.Unread }
+			Modal.confirm({
+				onOk() {
+					dispatch({
+						type: 'actionMessageList/updateAllReadState',
+						payload: userId
+					});
+					dispatch({
+						type: 'actionMessageList/queryMessage',
+						payload: { userId, state: ActionMessageState.Unread }
+					});
+				},
+				title: '确认读取',
+				content: '确认读取全部消息？',
+				centered: true,
+				okText: '是',
+				cancelText: '否'
 			});
 		},
 		1000,
@@ -80,9 +97,7 @@ const WebHeader: FC<WebHeaderProp> = () => {
 	/**
 	 * 去消息列表页
 	 */
-	const onDisplayClick = ({ id }: ActionMessage) => {
-		console.log(id);
-	};
+	const onDisplayClick = () => dispatch(routerRedux.push('/message'));
 
 	return (
 		<WebHeaderRoot>
@@ -107,7 +122,7 @@ const WebHeader: FC<WebHeaderProp> = () => {
 										onDisplayClick={onDisplayClick}
 									/>
 								}
-								trigger="click"
+								trigger="hover"
 								placement="bottomRight"
 								overlayClassName="over-right-popover-padding">
 								<Badge count={data.length}>

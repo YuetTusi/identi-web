@@ -30,6 +30,8 @@ const getIcon = (url: string): JSX.Element | null => {
 		case '/default':
 			// return <SolutionOutlined />;
 			return null;
+		case '/message':
+			return null;
 		case '/permission':
 			return <SettingOutlined />;
 		case '/permission/law-case':
