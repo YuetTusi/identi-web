@@ -4,12 +4,10 @@ import { v4 as newId, V4Options } from 'uuid';
 import { encode, decode } from 'js-base64';
 import { ResourceItem } from '@/model/app-menu';
 import { DictCategory } from '@/schema/dict';
+import { ActionMessage } from '@/schema/action-message';
 import { request } from './request';
 
 const { Option } = Select;
-
-const BASE_URL =
-	process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://192.168.1.12:7001/';
 
 const helper = {
 	/**
@@ -99,7 +97,30 @@ const helper = {
 			console.log(error);
 			return [];
 		}
+	},
+	/**
+	 * 增加操作消息
+	 * @param actionMessage 消息
+	 * @returns {Promise<boolean>} 成功/失败
+	 */
+	async addActionMessage(actionMessage: ActionMessage) {
+		try {
+			const { code, data } = await request<number>({
+				url: 'message',
+				method: 'POST',
+				data: {
+					form: actionMessage
+				}
+			});
+			if (code === 0 && data > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (error) {
+			return false;
+		}
 	}
 };
 
-export { helper, BASE_URL };
+export { helper };

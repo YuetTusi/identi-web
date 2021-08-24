@@ -17,9 +17,9 @@ const LoadingBox = styled.div`
 /**
  * 加载中
  */
-const Loading: FC<{ tip?: string }> = (props) => (
+const Loading: FC<{ tip?: string }> = ({ tip }) => (
 	<LoadingBox>
-		<Spin tip={props.tip ?? '正在加载页面'} />
+		<Spin tip={tip ?? '正在加载页面'} />
 	</LoadingBox>
 );
 

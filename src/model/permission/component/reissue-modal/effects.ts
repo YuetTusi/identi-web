@@ -4,6 +4,9 @@ import message from 'antd/lib/message';
 import { request, RequestResult } from '@/utility/request';
 import { CaseRec } from '@/schema/case-rec';
 import { LawCase } from '@/schema/law-case';
+import { ActionMessage, ActionMessageState } from '@/schema/action-message';
+import { helper } from '@/utility/helper';
+import dayjs from 'dayjs';
 
 const defaultPageSize = 10;
 
@@ -29,6 +32,15 @@ export default {
             });
             if (code === 0 && data) {
                 message.success('处理成功');
+                const msg = new ActionMessage();
+                msg.id = helper.newId();
+                msg.case_id = lawCase.id;
+                msg.user_id = lawCase.identi_id;
+                msg.read = ActionMessageState.Unread;
+                msg.content = `案件「${lawCase.case_name}」待鉴定`;
+                msg.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+                msg.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+                yield put({ type: 'actionMessageList/add', payload: msg }); //Note:向鉴定人发送消息
                 yield put({ type: 'setVisible', payload: false });
                 yield put({ type: 'setData', payload: undefined });
             } else {

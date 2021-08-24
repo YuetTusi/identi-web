@@ -17,6 +17,7 @@ import { request } from '@/utility/request';
 import { helper } from '@/utility/helper';
 import { CaseState, LawCase } from '@/schema/law-case';
 import { CaseRec } from '@/schema/case-rec';
+import { ActionMessage, ActionMessageState } from '@/schema/action-message';
 import { LawCase4Table } from '@/view/default/props';
 import { ListView } from '@/component/styled/widget';
 import IdentiForm from '../component/identi-form';
@@ -156,6 +157,17 @@ const Begin: FC<BeginProp> = (props) => {
 							message.success(
 								action === '0' ? '驳回成功' : '鉴定结果已提交，请等待审核'
 							);
+							const msg = new ActionMessage();
+							msg.id = helper.newId();
+							msg.case_id = lawCase!.id;
+							msg.user_id = lawCase!.check_id;
+							msg.read = ActionMessageState.Unread;
+							msg.content = `案件「${lawCase!.case_name}」由 ${
+								lawCase?.identi_username ?? ''
+							}${action === '0' ? '驳回，待处理' : '鉴定完成，待审核'}`;
+							msg.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+							msg.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+							dispatch({ type: 'actionMessageList/add', payload: msg }); //Note:向审核人发送消息
 							dispatch(routerRedux.push('/default'));
 						} else {
 							console.log(error);

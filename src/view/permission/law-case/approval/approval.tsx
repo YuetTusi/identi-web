@@ -7,18 +7,20 @@ import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
-import { BorderBox, LabelBox, StrongBox } from '@/component/styled/container';
-import { ListView } from '@/component/styled/widget';
-import AttachmentList from '@/component/attachment/attachment-list';
 import { useLastRec } from '@/hook';
+import { helper } from '@/utility/helper';
 import { request } from '@/utility/request';
+import { ListView } from '@/component/styled/widget';
+import { BorderBox, LabelBox, StrongBox } from '@/component/styled/container';
+import AttachmentList from '@/component/attachment/attachment-list';
 import { CaseState, LawCase } from '@/schema/law-case';
+import { ActionMessage, ActionMessageState } from '@/schema/action-message';
 import CaseDesc from './case-desc';
 import DisapproveModal from '../component/disapprove-modal';
 import { LawCase4Table } from '../props';
 import { ApprovalProp } from './props';
 
-const {Group}=Button;
+const { Group } = Button;
 
 /**
  * 审核页
@@ -63,6 +65,15 @@ const Approval: FC<ApprovalProp> = (props) => {
 					});
 					if (code === 0 && data > 0) {
 						message.success('审核完成');
+						const msg = new ActionMessage();
+						msg.id = helper.newId();
+						msg.case_id = lawCase!.id;
+						msg.user_id = lawCase!.identi_id;
+						msg.read = ActionMessageState.Unread;
+						msg.content = `案件「${lawCase!.case_name}」审核通过`;
+						msg.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+						msg.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+						dispatch({ type: 'actionMessageList/add', payload: msg }); //Note:向鉴定人发送消息
 						dispatch(routerRedux.push('/permission/law-case'));
 					} else {
 						console.log(error);

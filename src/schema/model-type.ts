@@ -12,6 +12,7 @@ import { RoleStoreState } from "@/model/permission/role";
 import { UserStoreState } from "@/model/permission/user";
 import { SettingStoreState } from "@/model/profile/setting";
 import { AttachmentModalStoreState } from "@/model/component/attachment-modal";
+import { ActionMessageListStoreState } from "@/model/component/action-message-list";
 
 /**
  * 经DvaConnect注入的组件
@@ -28,6 +29,7 @@ interface StoreComponent<MatchParam = any> extends RouteComponentProps<MatchPara
  */
 interface StateTree {
     attachmentModal: AttachmentModalStoreState,
+    actionMessageList: ActionMessageListStoreState,
     appMenu: AppMenuStoreState,
     auth: AuthStoreState,
     default: DefaultStoreState,

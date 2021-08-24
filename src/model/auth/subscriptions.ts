@@ -6,13 +6,13 @@ export default {
 
     /**
      * 读取登录用户数据
-     * @param param0 
      */
     readCurrentAuth({ dispatch }: SubscriptionAPI) {
 
         const uid = helper.getUId();
 
         if (uid !== null) {
+            console.log(uid);
             request({ url: `login/${uid}` }).then((res: any) => {
                 if (res.success) {
                     const { uid, username, role } = res.data;

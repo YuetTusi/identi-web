@@ -6,6 +6,7 @@ const WebHeaderRoot = styled.div`
 	display: flex;
 	flex-direction: column;
 	background-color: ${(props) => props.theme.widget};
+
 	.first-row {
 		flex: 1;
 		display: flex;

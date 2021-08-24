@@ -40,7 +40,7 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			key: 'create_time',
 			align: 'center',
 			width: 150,
-			render(value: any) {
+			render: (value: any) => {
 				return dayjs(value).format('YYYY-MM-DD HH:mm:ss');
 			}
 		},
@@ -50,7 +50,7 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			key: 'update_time',
 			align: 'center',
 			width: 150,
-			render(value: any) {
+			render: (value: any) => {
 				return dayjs(value).format('YYYY-MM-DD HH:mm:ss');
 			}
 		},
@@ -60,7 +60,7 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			key: 'id',
 			align: 'center',
 			width: 60,
-			render(value: string, record: User) {
+			render: (value: string, record: User) => {
 				if (record.username === 'admin') {
 					return <span style={{ cursor: 'not-allowed' }}>角色</span>;
 				} else {
@@ -74,13 +74,9 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			key: 'id',
 			align: 'center',
 			width: 90,
-			render(value: string, record: User) {
-				if (record.username === 'admin') {
-					return <span style={{ cursor: 'not-allowed' }}>重置密码</span>;
-				} else {
-					return <a onClick={() => onActionClick(record, ActionType.RESET)}>重置密码</a>;
-				}
-			}
+			render: (value: string, record: User) => (
+				<a onClick={() => onActionClick(record, ActionType.RESET)}>重置密码</a>
+			)
 		},
 		{
 			title: '编辑',
@@ -88,7 +84,7 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			key: 'id',
 			align: 'center',
 			width: 60,
-			render(value: string, record: User) {
+			render: (value: string, record: User) => {
 				if (record.username === 'admin') {
 					return <span style={{ cursor: 'not-allowed' }}>编辑</span>;
 				} else {
@@ -102,7 +98,7 @@ const getColumns = (dispatch: Dispatch, onActionClick: (data: User, type: Action
 			key: 'id',
 			align: 'center',
 			width: 60,
-			render(value: string, record: User) {
+			render: (value: string, record: User) => {
 				if (record.username === 'admin') {
 					return <span style={{ cursor: 'not-allowed' }}>删除</span>;
 				} else {

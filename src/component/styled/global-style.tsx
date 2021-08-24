@@ -25,6 +25,12 @@ const GlobalStyle = createGlobalStyle`
             }
         }
     }
+
+    .over-right-popover-padding {
+		.ant-popover-inner-content {
+				padding: 0 !important;
+			}
+	}
 `;
 
 export { GlobalStyle };

@@ -4,6 +4,7 @@ import immer from 'dva-immer';
 import { createRouter } from './router';
 import { registerModel } from './utility/register-model';
 import AttachmentModalModel from '@/model/component/attachment-modal';
+import actionMessageListModel from '@/model/component/action-message-list';
 import authModel from '@/model/auth';
 import appMenuModel from '@/model/app-menu';
 import resourceModel from '@/model/permission/resource';
@@ -22,6 +23,7 @@ import 'antd/dist/antd.less';
 const app = dva({ history: createHistory() });
 
 registerModel(app, AttachmentModalModel);
+registerModel(app, actionMessageListModel);
 registerModel(app, authModel);
 registerModel(app, appMenuModel);
 registerModel(app, resourceModel);
