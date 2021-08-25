@@ -2,7 +2,9 @@ import dayjs from 'dayjs';
 import React, { FC } from 'react';
 import { useSelector } from 'dva';
 import Button from 'antd/lib/button';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import CheckCircleFilled from '@ant-design/icons/CheckCircleFilled';
+import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import Empty from 'antd/lib/empty';
 import { helper } from '@/utility/helper';
 import { StateTree } from '@/schema/model-type';
@@ -21,7 +23,6 @@ const ActionMessageList: FC<ActionMessageListProp> = ({
 	onReadAllClick,
 	onDisplayClick
 }) => {
-
 	const { data } = useSelector<StateTree, ActionMessageListStoreState>(
 		(state) => state.actionMessageList
 	);
@@ -54,8 +55,14 @@ const ActionMessageList: FC<ActionMessageListProp> = ({
 					</div>
 					<div className="button-panel">
 						<Group>
-							<Button onClick={() => onReadAllClick(uid!)}>全部已读</Button>
-							<Button onClick={() => onDisplayClick()}>查看全部</Button>
+							<Button onClick={() => onDisplayClick()}>
+								<SearchOutlined />
+								<span>查看全部</span>
+							</Button>
+							<Button onClick={() => onReadAllClick(uid!)}>
+								<CheckCircleOutlined />
+								<span>全部已读</span>
+							</Button>
 						</Group>
 					</div>
 				</>

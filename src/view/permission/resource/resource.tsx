@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
@@ -8,9 +8,12 @@ import { StateTree } from '@/schema/model-type';
 import { ResourceStoreState } from '@/model/permission/resource';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import { TablePanel } from '@/component/styled/widget';
+import EditSeqModal from './components/edit-seq-modal';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
-import { FormValue, Prop } from './props';
+import { FormValue as EditSeqFormValue } from './components/edit-seq-modal/props';
+import { Prop, FormValue } from './props';
+import { Resource as ResourceEntity } from '@/schema/resource';
 
 const defaultPageSize = 10;
 const { useForm } = Form;
@@ -21,12 +24,19 @@ const { useForm } = Form;
  */
 const Resource: FC<Prop> = (props) => {
 	const dispatch = useDispatch();
+	const [editData, setEditData] = useState<ResourceEntity>();
+	const [editSeqModalVisible, setEditSeqModalVisible] = useState<boolean>(false);
 	const [formRef] = useForm<FormValue>();
 	const resource = useSelector<StateTree, ResourceStoreState>((state) => state.resource);
 
 	useEffect(() => {
 		queryResource(1, defaultPageSize, {});
 	}, []);
+
+	const editDataHandle = (data: ResourceEntity) => {
+		setEditData(data);
+		setEditSeqModalVisible(true);
+	};
 
 	/**
 	 * 表格查询
@@ -60,6 +70,19 @@ const Resource: FC<Prop> = (props) => {
 		queryResource(pageIndex, pageSize ?? defaultPageSize, formValue);
 	};
 
+	const onSaveClick = (id: string, seq: number) => {
+		dispatch({
+			type: 'resource/updateSeq',
+			payload: {
+				id,
+				seq
+			}
+		});
+		setEditSeqModalVisible(false);
+	};
+
+	const onCancelClick = () => setEditSeqModalVisible(false);
+
 	return (
 		<>
 			<StrongBox>
@@ -79,7 +102,7 @@ const Resource: FC<Prop> = (props) => {
 							current: resource.pageIndex,
 							total: resource.total
 						}}
-						columns={getColumns(dispatch)}
+						columns={getColumns(dispatch, editDataHandle)}
 						dataSource={resource.data}
 						loading={resource.loading}
 						bordered={false}
@@ -87,6 +110,12 @@ const Resource: FC<Prop> = (props) => {
 					/>
 				</TablePanel>
 			</TableBox>
+			<EditSeqModal
+				data={editData!}
+				onOk={onSaveClick}
+				onCancel={onCancelClick}
+				visible={editSeqModalVisible}
+			/>
 		</>
 	);
 };

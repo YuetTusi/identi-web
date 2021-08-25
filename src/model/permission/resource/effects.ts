@@ -46,5 +46,30 @@ export default {
         } finally {
             yield put({ type: 'setLoading', payload: false });
         }
+    },
+    /**
+     * 更新顺序
+     * @param {string} payload.id  
+     * @param {number} payload.seq
+     */
+    *updateSeq({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
+        message.destroy();
+        const { id, seq } = payload as { id: string, seq: number };
+        try {
+            const { code, data }: RequestResult<number> = yield call(request, {
+                url: `resource/${id}/seq`, method: 'PUT', data: { form: { seq } }
+            });
+            if (code === 0 && data > 0) {
+                message.success('顺序更新成功');
+                yield put({
+                    type: 'queryResource',
+                    payload: { pageIndex: 1, pageSize: defaultPageSize, condition: { id: '' } }
+                });
+            } else {
+                message.success('顺序更新失败');
+            }
+        } catch (error) {
+            message.success('顺序更新失败');
+        }
     }
 };

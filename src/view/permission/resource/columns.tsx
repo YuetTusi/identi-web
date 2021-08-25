@@ -1,9 +1,12 @@
+import React from 'react';
 import { Dispatch } from 'dva';
 import dayjs from 'dayjs';
 import { ColumnsType } from 'antd/lib/table';
 import { Resource } from '@/schema/resource';
 
-const getColumns = (dispatch: Dispatch) => {
+const getColumns = (dispatch: Dispatch, ...args: any[]) => {
+	const [handle] = args;
+
 	const columns: ColumnsType<Resource> = [
 		{
 			title: '名称',
@@ -58,6 +61,16 @@ const getColumns = (dispatch: Dispatch) => {
 				return dayjs(value).format('YYYY-MM-DD HH:mm:ss');
 			}
 		},
+		{
+			title: '顺序',
+			dataIndex: 'seq',
+			key: 'seq',
+			align: 'center',
+			width: 60,
+			render(value: number, record) {
+				return <a onClick={() => handle(record)}>顺序</a>;
+			}
+		}
 		// {
 		// 	title: 'id',
 		// 	dataIndex: 'id',
