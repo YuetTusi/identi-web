@@ -8,6 +8,7 @@ import Popover from 'antd/lib/popover';
 import Modal from 'antd/lib/modal';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import MailOutlined from '@ant-design/icons/lib/icons/MailOutlined';
+import { polling } from '@/utility/polling';
 import { helper } from '@/utility/helper';
 import { StateTree } from '@/schema/model-type';
 import { ActionMessage, ActionMessageState } from '@/schema/action-message';
@@ -17,18 +18,23 @@ import { WebHeaderRoot } from './styled/layout-box';
 import ActionMessageList from '../action-message-list';
 import { WebHeaderProp } from './props';
 
-const userId = helper.getUId();
-
 const WebHeader: FC<WebHeaderProp> = () => {
 	const dispatch = useDispatch();
 	const { pathname } = useLocation();
 	const { data } = useSelector<StateTree, ActionMessageListStoreState>(
 		(state) => state.actionMessageList
 	);
-	// const [unreadCount, setUnreadCount] = useState<number>(0);
 
 	useEffect(() => {
-		queryMessage(userId!, ActionMessageState.Unread);
+		polling(() => {
+			const userId = helper.getUId();
+			if (userId === null) {
+				return true;
+			} else {
+				queryMessage(userId, ActionMessageState.Unread);
+				return false;
+			}
+		});
 	}, [pathname]);
 
 	/**
@@ -57,6 +63,7 @@ const WebHeader: FC<WebHeaderProp> = () => {
 	 */
 	const onMessageClick = debounce(
 		({ id }: ActionMessage) => {
+			const userId = helper.getUId();
 			dispatch({
 				type: 'actionMessageList/updateReadState',
 				payload: id
