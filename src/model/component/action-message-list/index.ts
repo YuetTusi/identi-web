@@ -9,14 +9,19 @@ interface ActionMessageListStoreState {
     /**
      * 消息数据
      */
-    data: ActionMessage[]
+    data: ActionMessage[],
+    /**
+     * 加载中
+     */
+    loading: boolean
 }
 
 let model: Model = {
 
     namespace: 'actionMessageList',
     state: {
-        data: []
+        data: [],
+        loading: false
     },
     reducers,
     effects,

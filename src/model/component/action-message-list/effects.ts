@@ -17,7 +17,7 @@ export default {
     *queryMessage({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
         const { userId, state = '0' } = payload;
-
+        yield put({ type: 'setLoading', payload: true });
         try {
             const { code, data }: RequestResult<ActionMessage[]> = yield call(request, {
                 url: `message/user/${userId}?read=${state}`,
@@ -30,6 +30,8 @@ export default {
             }
         } catch (error) {
             console.log(error);
+        } finally {
+            yield put({ type: 'setLoading', payload: false });
         }
     },
     /**
@@ -39,8 +41,7 @@ export default {
     *add({ payload }: AnyAction, { fork }: EffectsCommandMap) {
 
         try {
-            const success: boolean = yield fork([helper, 'addActionMessage'], payload);
-            console.log(`添加操作消息${success ? '成功' : '失败'}`);
+            yield fork([helper, 'addActionMessage'], payload);
         } catch (error) {
             console.log(error);
         }
@@ -75,6 +76,7 @@ export default {
      */
     *updateReadState({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
         const userId = helper.getUId();
+        yield put({ type: 'setLoading', payload: true });
         try {
             const { code, data }: RequestResult<number> = yield call(request, {
                 url: `message/${payload}/read`,
@@ -89,6 +91,8 @@ export default {
             }
         } catch (error) {
             console.log(error);
+        } finally {
+            yield put({ type: 'setLoading', payload: false });
         }
     },
     /**
@@ -98,6 +102,7 @@ export default {
     *updateAllReadState({ payload }: AnyAction, { call, put }: EffectsCommandMap) {
 
         message.destroy();
+        yield put({ type: 'setLoading', payload: true });
         try {
             const { code, data }: RequestResult<number> = yield call(request, {
                 url: `message/user/${payload}`,
@@ -120,6 +125,8 @@ export default {
             }
         } catch (error) {
             console.log(error);
+        } finally {
+            yield put({ type: 'setLoading', payload: false });
         }
     }
 };

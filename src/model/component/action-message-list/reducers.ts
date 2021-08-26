@@ -11,5 +11,14 @@ export default {
 
         state.data = payload;
         return state;
+    },
+
+    /**
+     * 设置加载中
+     * @param {boolean} payload 是否加载
+     */
+    setLoading(state: ActionMessageListStoreState, { payload }: AnyAction) {
+        state.loading = payload;
+        return state;
     }
 };

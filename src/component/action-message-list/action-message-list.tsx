@@ -4,6 +4,7 @@ import { useSelector } from 'dva';
 import Button from 'antd/lib/button';
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import CheckCircleFilled from '@ant-design/icons/CheckCircleFilled';
+import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import Empty from 'antd/lib/empty';
 import { helper } from '@/utility/helper';
@@ -23,7 +24,7 @@ const ActionMessageList: FC<ActionMessageListProp> = ({
 	onReadAllClick,
 	onDisplayClick
 }) => {
-	const { data } = useSelector<StateTree, ActionMessageListStoreState>(
+	const { data, loading } = useSelector<StateTree, ActionMessageListStoreState>(
 		(state) => state.actionMessageList
 	);
 
@@ -60,7 +61,7 @@ const ActionMessageList: FC<ActionMessageListProp> = ({
 								<span>查看全部</span>
 							</Button>
 							<Button onClick={() => onReadAllClick(uid!)}>
-								<CheckCircleOutlined />
+								{loading ? <LoadingOutlined /> : <CheckCircleOutlined />}
 								<span>全部已读</span>
 							</Button>
 						</Group>
