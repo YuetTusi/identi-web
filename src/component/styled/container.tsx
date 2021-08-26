@@ -156,6 +156,12 @@ const StrongBox = styled.div<{
 	font-weight: bold;
 	color: ${(props) => props.theme.text};
 	background-color: ${(props) => props.theme.strong};
+	a {
+		color: #222;
+		&:hover {
+			color: ${(props) => color(props.theme.widget).darken(0.2).toString()};
+		}
+	}
 `;
 
 /**

@@ -20,16 +20,7 @@ const WebHeaderRoot = styled.div`
 			font-weight: lighter;
 		}
 		.fn {
-			margin-right: 1rem;
-			a {
-				font-weight: bold;
-				color: #000000d9;
-				border-radius: 2px;
-				padding: 2px 10px;
-				display: inline-block;
-				background-color: ${(props) => props.theme.strong};
-				border: 1px solid ${(props) => color(props.theme.strong).darken(0.2).toString()};
-			}
+			margin-right: 4px;
 		}
 	}
 	.second-row {

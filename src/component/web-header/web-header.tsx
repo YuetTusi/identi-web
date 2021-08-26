@@ -14,6 +14,7 @@ import { StateTree } from '@/schema/model-type';
 import { ActionMessage, ActionMessageState } from '@/schema/action-message';
 import Authority from '@/component/authority';
 import { ActionMessageListStoreState } from '@/model/component/action-message-list';
+import { StrongBox } from '../styled/container';
 import { WebHeaderRoot } from './styled/layout-box';
 import ActionMessageList from '../action-message-list';
 import { WebHeaderProp } from './props';
@@ -111,7 +112,9 @@ const WebHeader: FC<WebHeaderProp> = () => {
 			<div className="first-row">
 				<div className="caption">案件鉴定管理</div>
 				<div className="fn">
-					<a onClick={onLogoutClick}>退出系统</a>
+					<StrongBox>
+						<a onClick={onLogoutClick}>退出系统</a>
+					</StrongBox>
 				</div>
 			</div>
 			<div className="second-row">

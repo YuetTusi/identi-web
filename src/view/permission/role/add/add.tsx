@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import throttle from 'lodash/throttle';
 import React, { FC } from 'react';
 import { routerRedux, useDispatch } from 'dva';
 import { Link } from 'dva/router';
@@ -17,6 +18,22 @@ import { SearchBox } from '../styled/layout';
 
 const { Item, useForm } = Form;
 
+/**
+ * 验证角色是否存在
+ * @param name 角色名
+ */
+const validRoleNameExist = throttle((name: string): Promise<void> => {
+	return new Promise((resolve, reject) => {
+		request<number>({ url: `role/count/${name}`, method: 'GET' }).then(({ data }) => {
+			if (data === 0) {
+				resolve();
+			} else {
+				reject(new Error(`角色名称${name}已存在`));
+			}
+		});
+	});
+}, 500);
+
 const Add: FC<{}> = () => {
 	const dispatch = useDispatch();
 	const [addFormRef] = useForm();
@@ -24,7 +41,6 @@ const Add: FC<{}> = () => {
 	const onFormSubmit = async () => {
 		try {
 			const values = await addFormRef.validateFields();
-
 			const { code, data, error } = await request<boolean>({
 				url: 'role',
 				method: 'POST',
@@ -32,7 +48,7 @@ const Add: FC<{}> = () => {
 					...values,
 					id: helper.newId(),
 					create_time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-                    update_time: dayjs().format('YYYY-MM-DD HH:mm:ss')
+					update_time: dayjs().format('YYYY-MM-DD HH:mm:ss')
 				}
 			});
 			message.destroy();
@@ -44,8 +60,8 @@ const Add: FC<{}> = () => {
 				message.error('角色添加失败');
 			}
 		} catch (error) {
-			console.log(error.stack);
-			message.error('角色添加失败');
+			console.clear();
+			console.log(error);
 		}
 	};
 
@@ -75,7 +91,15 @@ const Add: FC<{}> = () => {
 					<Item
 						name="name"
 						label="角色名称"
-						rules={[{ required: true, message: '请填写角色名称' }]}>
+						rules={[
+							{ required: true, message: '请填写角色名称' },
+							() => ({
+								validator(_, value) {
+									return validRoleNameExist(value);
+								},
+								message: '角色名称已存在'
+							})
+						]}>
 						<Input />
 					</Item>
 					<Item name="desc" label="角色描述">
