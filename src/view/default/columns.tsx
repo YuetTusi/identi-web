@@ -108,6 +108,28 @@ const getColumns = (dispatch: Dispatch) => {
 			}
 		},
 		{
+			title: '添加设备',
+			dataIndex: 'id',
+			key: 'id',
+			align: 'center',
+			width: 80,
+			render(value: string, { state }: LawCase4Table) {
+				switch (state) {
+					case CaseState.ToBeIdenti:
+						return (
+							<a
+								onClick={() =>
+									dispatch(routerRedux.push(`/default/${value}/device/add`))
+								}>
+								添加设备
+							</a>
+						);
+					default:
+						return <span style={{ cursor: 'not-allowed' }}>添加设备</span>;
+				}
+			}
+		},
+		{
 			title: '处理',
 			dataIndex: 'id',
 			key: 'id',
@@ -116,7 +138,14 @@ const getColumns = (dispatch: Dispatch) => {
 			render(value: string, { state }: LawCase4Table) {
 				switch (state) {
 					case CaseState.ToBeIdenti:
-						return <a onClick={() => dispatch(routerRedux.push(`/default/begin/${value}`))}>处理</a>;
+						return (
+							<a
+								onClick={() =>
+									dispatch(routerRedux.push(`/default/begin/${value}`))
+								}>
+								处理
+							</a>
+						);
 					default:
 						return <span style={{ cursor: 'not-allowed' }}>处理</span>;
 				}

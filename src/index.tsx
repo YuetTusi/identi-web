@@ -14,6 +14,7 @@ import lawCaseModel from '@/model/permission/law-case';
 import issueModalModel from '@/model/permission/component/issue-modal';
 import reissueModalModel from '@/model/permission/component/reissue-modal';
 import disapproveModelModel from '@/model/permission/component/disapprove-modal';
+import deviceModel from '@/model/device';
 import settingModel from '@/model/profile/setting';
 import defaultModal from '@/model/default';
 import messageModel from '@/model/message';
@@ -37,6 +38,7 @@ registerModel(app, disapproveModelModel);
 registerModel(app, defaultModal);
 registerModel(app, messageModel);
 registerModel(app, settingModel);
+registerModel(app, deviceModel);
 
 app.use(immer());
 app.router(createRouter);

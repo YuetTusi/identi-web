@@ -8,7 +8,6 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
 import SaveOutlined from '@ant-design/icons/SaveOutlined';
-import Upload from 'antd/lib/upload';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 import Select from 'antd/lib/select';

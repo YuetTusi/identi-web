@@ -6,5 +6,13 @@ export enum DictCategory {
     /**
      * 网安部门案件类别
      */
-    CaseType = 'case-type'
+    CaseType = 'case-type',
+    /**
+     * 民族
+     */
+    Ethnicity = 'ethnicity',
+    /**
+     * 证件类型
+     */
+    CertificateType = 'certificate-type'
 }

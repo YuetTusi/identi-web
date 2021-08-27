@@ -54,6 +54,21 @@ const createRouter = (api?: RouterAPI) => {
 							}}
 						/>
 						<Route
+							path="/default/:id/device/add"
+							render={() => {
+								const Next = lazy<FC<any>>(
+									() => import('@/view/default/device/add')
+								);
+								return (
+									<Suspense fallback={<Loading />}>
+										<RootPanel>
+											<Next />
+										</RootPanel>
+									</Suspense>
+								);
+							}}
+						/>
+						<Route
 							path="/message"
 							exact={true}
 							render={() => {

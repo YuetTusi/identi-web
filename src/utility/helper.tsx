@@ -76,14 +76,17 @@ const helper = {
 		nameField: string = 'name',
 		valueField: string = 'value'
 	) {
+		if (this.isNullOrUndefined(data) || data.length === 0) {
+			return [];
+		}
 		let options = data.map((item) => (
-			<Option value={item[valueField]} key={`K_${item[valueField]}`}>
+			<Option value={item[valueField]} key={`${item[nameField]}_${item[valueField]}`}>
 				{item[nameField]}
 			</Option>
 		));
 		if (hasEmptyOption) {
 			options = [
-				<Option value="" key="K_0">
+				<Option value="" key={`${data[0][nameField]}_${data[0][valueField]}_0`}>
 					---
 				</Option>,
 				...options
@@ -142,7 +145,6 @@ const helper = {
 	 */
 	createWebWorker(code: string) {
 		if (code) {
-			console.log(code);
 			var blob = new Blob([code]); //源码创建Blob对象
 			var worker = new Worker(window.URL.createObjectURL(blob));
 			return worker;
