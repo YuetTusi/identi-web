@@ -11,13 +11,13 @@ import Modal from 'antd/lib/modal';
 import { helper } from '@/utility/helper';
 import { StateTree } from '@/schema/model-type';
 import { MessageStoreState } from '@/model/message';
+import { ActionMessageListStoreState } from '@/model/component/action-message-list';
 import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import { TablePanel } from '@/component/styled/widget';
 import SearchForm from './search-form';
 import { SearchBox } from './styled';
 import { getColumns } from './columns';
 import { MessageProp, FormValue } from './props';
-import { ActionMessageListStoreState } from '@/model/component/action-message-list';
 
 const { useForm } = Form;
 const defaultPageSize = 10;

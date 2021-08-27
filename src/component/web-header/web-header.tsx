@@ -21,22 +21,16 @@ import { WebHeaderProp } from './props';
 
 const WebHeader: FC<WebHeaderProp> = () => {
 	const dispatch = useDispatch();
-	const { pathname } = useLocation();
 	const { data } = useSelector<StateTree, ActionMessageListStoreState>(
 		(state) => state.actionMessageList
 	);
 
 	useEffect(() => {
-		polling(() => {
-			const userId = helper.getUId();
-			if (userId === null) {
-				return true;
-			} else {
-				queryMessage(userId, ActionMessageState.Unread);
-				return false;
-			}
-		});
-	}, [pathname]);
+		const userId = helper.getUId();
+		if (userId !== null) {
+			queryMessage(userId, ActionMessageState.Unread);
+		}
+	}, []);
 
 	/**
 	 * 查询消息

@@ -134,6 +134,21 @@ const helper = {
 		} catch (error) {
 			return false;
 		}
+	},
+	/**
+	 * 创建线程
+	 * @param code 线程脚本源码
+	 * @returns 线程对象
+	 */
+	createWebWorker(code: string) {
+		if (code) {
+			console.log(code);
+			var blob = new Blob([code]); //源码创建Blob对象
+			var worker = new Worker(window.URL.createObjectURL(blob));
+			return worker;
+		} else {
+			throw Error('Worker code is null');
+		}
 	}
 };
 
