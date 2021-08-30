@@ -22,8 +22,8 @@ import { Suspect } from '@/schema/suspect';
 import { request } from '@/utility/request';
 import { helper } from '@/utility/helper';
 import { BorderBox, StrongBox } from '@/component/styled/container';
-import { LawCase4Table } from '../props';
-import { SearchBox } from './styled';
+import { LawCase4Table } from '../../props';
+import { SearchBox } from '../styled';
 
 const { useForm, Item } = Form;
 const { Option } = Select;

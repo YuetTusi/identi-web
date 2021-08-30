@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { Dispatch } from 'dva';
 import { routerRedux } from 'dva/router';
 import dayjs from 'dayjs';
@@ -118,9 +118,10 @@ const getColumns = (dispatch: Dispatch) => {
 					case CaseState.ToBeIdenti:
 						return (
 							<a
-								onClick={() =>
-									dispatch(routerRedux.push(`/default/${value}/device/add`))
-								}>
+								onClick={(event: MouseEvent<HTMLAnchorElement>) => {
+									event.stopPropagation();
+									dispatch(routerRedux.push(`/default/${value}/device/add`));
+								}}>
 								添加设备
 							</a>
 						);
@@ -140,9 +141,10 @@ const getColumns = (dispatch: Dispatch) => {
 					case CaseState.ToBeIdenti:
 						return (
 							<a
-								onClick={() =>
-									dispatch(routerRedux.push(`/default/begin/${value}`))
-								}>
+								onClick={(event: MouseEvent<HTMLAnchorElement>) => {
+									event.stopPropagation();
+									dispatch(routerRedux.push(`/default/begin/${value}`));
+								}}>
 								处理
 							</a>
 						);

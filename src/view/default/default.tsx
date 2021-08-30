@@ -10,8 +10,10 @@ import { LawCase } from '@/schema/law-case';
 import { StateTree } from '@/schema/model-type';
 import { DefaultStoreState } from '@/model/default';
 import SearchForm from './search-form';
+import List from './device';
 import { Prop, LawCase4Table } from './props';
 import { getColumns } from './columns';
+import { Suspect } from '@/schema/suspect';
 
 const defaultPageSize = 10;
 
@@ -54,6 +56,15 @@ const Default: FC<Prop> = () => {
 	 */
 	const onSearchFormSubmit = async (form: LawCase) => queryTable(1, defaultPageSize, form);
 
+	const expandedRowRender = (
+		record: LawCase4Table,
+		index: number,
+		indent: number,
+		expanded: boolean
+	) => {
+		return <List visible={expanded} lawCase={record} />;
+	};
+
 	return (
 		<TablePanel>
 			<StrongBox>
@@ -67,6 +78,7 @@ const Default: FC<Prop> = () => {
 			</BorderBox>
 			<TableBox>
 				<Table<LawCase4Table>
+					expandable={{ expandedRowRender, expandRowByClick: true }}
 					pagination={{
 						onChange: onPageChange,
 						current: defaultState.pageIndex,

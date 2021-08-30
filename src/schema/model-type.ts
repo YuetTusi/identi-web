@@ -14,7 +14,6 @@ import { SettingStoreState } from "@/model/profile/setting";
 import { AttachmentModalStoreState } from "@/model/component/attachment-modal";
 import { ActionMessageListStoreState } from "@/model/component/action-message-list";
 import { MessageStoreState } from '@/model/message';
-import { DeviceStoreState } from '@/model/device';
 
 /**
  * 经DvaConnect注入的组件
@@ -44,7 +43,6 @@ interface StateTree {
     user: UserStoreState,
     setting: SettingStoreState,
     message: MessageStoreState,
-    device: DeviceStoreState,
     [modelName: string]: any
 }
 
