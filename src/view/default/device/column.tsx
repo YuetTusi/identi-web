@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
+import { Dispatch } from 'redux';
 import React from 'react';
-import { Dispatch } from 'dva';
+import { routerRedux } from 'dva';
 import message from 'antd/lib/message';
 // import { routerRedux } from 'dva/router';
 import { ColumnsType } from 'antd/lib/table';
@@ -10,7 +11,7 @@ import { request, RequestResult } from '@/utility/request';
 
 const defaultPageSize = 10;
 
-const getColumns = (...handle: any[]) => {
+const getColumns = (dispatch: Dispatch, ...handle: any[]) => {
 	const [queryByPage] = handle;
 	const columns: ColumnsType<Suspect> = [
 		{
@@ -50,8 +51,17 @@ const getColumns = (...handle: any[]) => {
 			key: 'id',
 			align: 'center',
 			width: 60,
-			render: (value: string) => {
-				return <a>编辑</a>;
+			render: (value: string, { law_case_id }: Suspect) => {
+				return (
+					<a
+						onClick={() =>
+							dispatch(
+								routerRedux.push(`/default/${law_case_id}/device/edit/${value}`)
+							)
+						}>
+						编辑
+					</a>
+				);
 			}
 		},
 		{
@@ -81,7 +91,6 @@ const getColumns = (...handle: any[]) => {
 									} catch (error) {
 										console.log(error);
 									}
-									
 								},
 								title: '删除设备',
 								content: `确认删除「${phone_name}」？`,

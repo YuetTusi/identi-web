@@ -6,6 +6,7 @@ import { ListProp, Page } from './props';
 import { InnerTableBox } from './styled';
 import { Suspect } from '@/schema/suspect';
 import { request, RequestResult } from '@/utility/request';
+import { useDispatch } from 'dva';
 
 const defaultPageSize = 10;
 
@@ -13,7 +14,7 @@ const defaultPageSize = 10;
  * 设备表格
  */
 const List: FC<ListProp> = ({ visible, lawCase }) => {
-
+	const dispatch = useDispatch();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [page, setPage] = useState<Page>({ pageIndex: 1, pageSize: defaultPageSize, total: 0 });
 	const [data, setData] = useState<Suspect[]>([]);
@@ -87,7 +88,7 @@ const List: FC<ListProp> = ({ visible, lawCase }) => {
 					pageSize: page.pageSize,
 					total: page.total
 				}}
-				columns={getColumns(queryByPage)}
+				columns={getColumns(dispatch, queryByPage)}
 				dataSource={data}
 				rowKey={(row) => row.id}
 				loading={loading}

@@ -69,6 +69,21 @@ const createRouter = (api?: RouterAPI) => {
 							}}
 						/>
 						<Route
+							path="/default/:id/device/edit/:did"
+							render={() => {
+								const Next = lazy<FC<any>>(
+									() => import('@/view/default/device/edit')
+								);
+								return (
+									<Suspense fallback={<Loading />}>
+										<RootPanel>
+											<Next />
+										</RootPanel>
+									</Suspense>
+								);
+							}}
+						/>
+						<Route
 							path="/message"
 							exact={true}
 							render={() => {

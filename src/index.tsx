@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import { createHashHistory as createHistory } from 'history';
 import dva from 'dva';
 import immer from 'dva-immer';
@@ -20,6 +22,8 @@ import messageModel from '@/model/message';
 import '@ztree/ztree_v3/js/jquery.ztree.all.min';
 import '@ztree/ztree_v3/css/metroStyle/metroStyle.css';
 import 'antd/dist/antd.less';
+
+dayjs.locale('zh-cn');
 
 const app = dva({ history: createHistory() });
 
