@@ -2,6 +2,9 @@ import dayjs from 'dayjs';
 import React, { FC, useEffect, useState, MouseEvent } from 'react';
 import { useParams, routerRedux, useDispatch } from 'dva';
 import { Link } from 'dva/router';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Divider from 'antd/lib/divider';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
@@ -66,7 +69,9 @@ const Edit: FC<{}> = () => {
 					setData(data);
 					editFormRef.setFieldsValue({
 						...data,
-						date: dayjs(data.date!) as any
+						date: dayjs(
+							helper.isNullOrUndefined(data.date) ? undefined : data.date
+						) as any
 					});
 				}
 			} catch (error) {
@@ -221,109 +226,190 @@ const Edit: FC<{}> = () => {
 			</LabelBox>
 			<BorderBox marginTop="10px">
 				<Form form={editFormRef} layout="vertical">
-					<Item
-						name="phone_name"
-						label="手机名称"
-						rules={[{ required: true, message: '请填写手机名称' }]}>
-						<Input />
-					</Item>
-					<Item
-						name="owner_name"
-						label="持有人"
-						rules={[{ required: true, message: '请填写持有人' }]}>
-						<Input />
-					</Item>
-					<Item name="case_id" label="案件编号">
-						<Input />
-					</Item>
-					<Item
-						name="case_name"
-						label="案件名称"
-						rules={[{ required: true, message: '请填写案件名称' }]}>
-						<Input />
-					</Item>
-					<Item name="case_type_code" label="案件类型">
-						<Select onChange={(value, option: any) => (caseTypeText = option.children)}>
-							{helper.bindOptions(caseTypeData, true, 'name', 'value')}
-						</Select>
-					</Item>
-					<Item name="ab" label="案别代码">
-						<Input />
-					</Item>
-					<Item name="ab_name" label="案别名称">
-						<Input />
-					</Item>
-					<Item name="object_id" label="人员编号">
-						<Input />
-					</Item>
-					<Item name="bm" label="别名">
-						<Input />
-					</Item>
-					<Item name="identity_id_type_code" label="证件类型">
-						<Select
-							onChange={(value, option: any) =>
-								(identityIdTypeText = option.children)
-							}>
-							{helper.bindOptions(certificateTypeData)}
-						</Select>
-					</Item>
-					<Item name="identity_id" label="证件号码">
-						<Input />
-					</Item>
-					<Item name="hjdz" label="户籍地址">
-						<Input />
-					</Item>
-					<Item name="dz" label="现地址">
-						<Input />
-					</Item>
-					<Item name="gzdw" label="工作单位">
-						<Input />
-					</Item>
-					<Item name="guojia_code" label="国家编码">
-						<Input />
-					</Item>
-					<Item name="guojia" label="国家">
-						<Input />
-					</Item>
-					<Item name="minzu_code" label="民族">
-						<Select onChange={(value, option: any) => (minzuText = option.children)}>
-							{helper.bindOptions(ethnicityData)}
-						</Select>
-					</Item>
-					<Item name="phone" label="手机号码">
-						<Input />
-					</Item>
-					<Item name="desc" label="描述">
-						<Input />
-					</Item>
-					<Item name="date" label="采集日期">
-						<DatePicker size="small" />
-					</Item>
-					<Item name="flag" label="采集类型">
-						<Select>
-							<Option value="">---</Option>
-							<Option value="01">嫌疑人</Option>
-							<Option value="02">社会人员</Option>
-						</Select>
-					</Item>
-					<Item name="officer_id" label="采集人员编号">
-						<Input />
-					</Item>
-					<Item name="officer_name" label="采集人员姓名">
-						<Input />
-					</Item>
-					<Item name="dept" label="采集人员单位代码">
-						<Input />
-					</Item>
-					<Item name="dept_name" label="采集人员单位名称">
-						<Input />
-					</Item>
-					<Item name="str_phone_path" label="手机绝对路径">
-						<Input />
-					</Item>
-					<Item name="note" label="备注">
-						<Input />
-					</Item>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item
+								name="phone_name"
+								label="手机名称"
+								rules={[{ required: true, message: '请填写手机名称' }]}>
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item
+								name="owner_name"
+								label="持有人"
+								rules={[{ required: true, message: '请填写持有人' }]}>
+								<Input />
+							</Item>
+						</Col>
+						<Col span={12} />
+					</Row>
+					<Divider />
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item
+								name="case_name"
+								label="案件名称"
+								rules={[{ required: true, message: '请填写案件名称' }]}>
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="case_id" label="案件编号">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="case_type_code" label="案件类型">
+								<Select
+									onChange={(value, option: any) =>
+										(caseTypeText = option.children)
+									}>
+									{helper.bindOptions(caseTypeData, true, 'name', 'value')}
+								</Select>
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="ab" label="案别代码">
+								<Input />
+							</Item>
+						</Col>
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="ab_name" label="案别名称">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="object_id" label="人员编号">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="bm" label="别名">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6} />
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="identity_id_type_code" label="证件类型">
+								<Select
+									onChange={(value, option: any) =>
+										(identityIdTypeText = option.children)
+									}>
+									{helper.bindOptions(certificateTypeData)}
+								</Select>
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="identity_id" label="证件号码">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="hjdz" label="户籍地址">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="dz" label="现地址">
+								<Input />
+							</Item>
+						</Col>
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="gzdw" label="工作单位">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="guojia_code" label="国家编码">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="guojia" label="国家">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="minzu_code" label="民族">
+								<Select
+									onChange={(value, option: any) =>
+										(minzuText = option.children)
+									}>
+									{helper.bindOptions(ethnicityData)}
+								</Select>
+							</Item>
+						</Col>
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="phone" label="手机号码">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="desc" label="描述">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={12} />
+					</Row>
+					<Divider />
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="date" label="采集日期">
+								<DatePicker size="small" style={{ width: '100%' }} />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="flag" label="采集类型">
+								<Select>
+									<Option value="">---</Option>
+									<Option value="01">嫌疑人</Option>
+									<Option value="02">社会人员</Option>
+								</Select>
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="officer_id" label="采集人员编号">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="officer_name" label="采集人员姓名">
+								<Input />
+							</Item>
+						</Col>
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="dept" label="采集人员单位代码">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="dept_name" label="采集人员单位名称">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="str_phone_path" label="手机绝对路径">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="note" label="备注">
+								<Input />
+							</Item>
+						</Col>
+					</Row>
 				</Form>
 			</BorderBox>
 		</>

@@ -11,9 +11,10 @@ const baseURL: string = process.env.NODE_ENV === 'development' ? devBaseURL : pr
 /**
  * 上传
  */
-const AttachmentUpload: FC<AttachmentUploadProp> = ({ action, multiple, onChange }) => (
+const AttachmentUpload: FC<AttachmentUploadProp> = ({ action, multiple, onChange, onRemove }) => (
 	<Upload
 		onChange={onChange}
+		onRemove={onRemove}
 		action={baseURL + action}
 		headers={{ Authorization: sessionStorage.getItem('user_token')! }}
 		maxCount={5}
@@ -27,7 +28,8 @@ const AttachmentUpload: FC<AttachmentUploadProp> = ({ action, multiple, onChange
 
 AttachmentUpload.defaultProps = {
 	multiple: false,
-	onChange: () => {}
+	onChange: () => {},
+	onRemove: () => {}
 };
 
 export default AttachmentUpload;

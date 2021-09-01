@@ -3,6 +3,9 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { routerRedux, useDispatch } from 'dva';
 import { Link, useParams } from 'dva/router';
 import zhCN from 'antd/es/date-picker/locale/zh_CN';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Divider from 'antd/lib/divider';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import SaveOutlined from '@ant-design/icons/SaveOutlined';
@@ -18,12 +21,12 @@ import { ListView } from '@/component/styled/widget';
 import AttachmentModal from '@/component/attachment/attachment-modal';
 import AttachmentUpload from '@/component/attachment/attachment-upload';
 import { useDict } from '@/hook';
+import { request } from '@/utility/request';
+import { helper } from '@/utility/helper';
 import { DictCategory } from '@/schema/dict';
 import { LawCase } from '@/schema/law-case';
 import { Suspect } from '@/schema/suspect';
 import { Attachment } from '@/schema/attachment';
-import { request } from '@/utility/request';
-import { helper } from '@/utility/helper';
 import { LawCase4Table } from '../../props';
 import { SearchBox } from '../styled';
 
@@ -83,15 +86,9 @@ const Add: FC<{}> = () => {
 		const now = dayjs().format('YYYY-MM-DD HH:mm:ss');
 		try {
 			const values = await addFormRef.validateFields();
-			console.clear();
-			console.log(values);
-			console.log(tempAttachList.current);
-
-			// await request({
-			// 	url: '/case-attach/multi',
-			// 	method: 'POST',
-			// 	data: { form: tempAttachList.current }
-			// });
+			// console.clear();
+			// console.log(values);
+			// console.log(tempAttachList.current);
 
 			const { code, data } = await request<{ success: boolean }>({
 				url: 'device',
@@ -151,17 +148,14 @@ const Add: FC<{}> = () => {
 				<legend>附件</legend>
 				<ListView marginBottom="10px">
 					<li>
-						{/* <Button>
-							<UploadOutlined />
-							<span>上传</span>
-						</Button> */}
 						<AttachmentUpload
 							onChange={(info) => {
 								const { response, status } = info.file;
 								message.destroy();
-								const hide = message.loading('正在上传，请不要离开此页面...');
-								setLoading(true);
 								switch (status) {
+									case 'uploading':
+										setLoading(true);
+										break;
 									case 'done':
 										const { filename, hashname } = response;
 										const next = new Attachment();
@@ -172,12 +166,8 @@ const Add: FC<{}> = () => {
 										next.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
 										tempAttachList.current =
 											tempAttachList.current.concat(next);
-										// dispatch({
-										// 	type: 'attachmentModal/add',
-										// 	payload: { form: next }
-										// });
 										setLoading(false);
-										hide();
+										message.success('上传成功');
 										break;
 									case 'error':
 										message.error('上传失败');
@@ -185,8 +175,17 @@ const Add: FC<{}> = () => {
 										break;
 									case 'removed':
 										setLoading(false);
-										hide();
 										break;
+								}
+							}}
+							onRemove={(file) => {
+								if (file.status === 'uploading') {
+									return false;
+								} else {
+									const { hashname } = file.response;
+									tempAttachList.current = tempAttachList.current.filter(
+										(item) => item.hash_name !== hashname
+									);
 								}
 							}}
 							action="attachment/upload"
@@ -197,109 +196,191 @@ const Add: FC<{}> = () => {
 			<BorderBox marginTop="10px">
 				<AttachmentModal />
 				<Form form={addFormRef} layout="vertical">
-					<Item
-						name="phone_name"
-						label="手机名称"
-						rules={[{ required: true, message: '请填写手机名称' }]}>
-						<Input />
-					</Item>
-					<Item
-						name="owner_name"
-						label="持有人"
-						rules={[{ required: true, message: '请填写持有人' }]}>
-						<Input />
-					</Item>
-					<Item name="case_id" label="案件编号">
-						<Input />
-					</Item>
-					<Item
-						name="case_name"
-						label="案件名称"
-						rules={[{ required: true, message: '请填写案件名称' }]}>
-						<Input />
-					</Item>
-					<Item name="case_type_code" label="案件类型">
-						<Select onChange={(value, option: any) => (caseTypeText = option.children)}>
-							{helper.bindOptions(caseTypeData, true, 'name', 'value')}
-						</Select>
-					</Item>
-					<Item name="ab" label="案别代码">
-						<Input />
-					</Item>
-					<Item name="ab_name" label="案别名称">
-						<Input />
-					</Item>
-					<Item name="object_id" label="人员编号">
-						<Input />
-					</Item>
-					<Item name="bm" label="别名">
-						<Input />
-					</Item>
-					<Item name="identity_id_type_code" label="证件类型">
-						<Select
-							onChange={(value, option: any) =>
-								(identityIdTypeText = option.children)
-							}>
-							{helper.bindOptions(certificateTypeData)}
-						</Select>
-					</Item>
-					<Item name="identity_id" label="证件号码">
-						<Input />
-					</Item>
-					<Item name="hjdz" label="户籍地址">
-						<Input />
-					</Item>
-					<Item name="dz" label="现地址">
-						<Input />
-					</Item>
-					<Item name="gzdw" label="工作单位">
-						<Input />
-					</Item>
-					<Item name="guojia_code" label="国家编码">
-						<Input />
-					</Item>
-					<Item name="guojia" label="国家">
-						<Input />
-					</Item>
-					<Item name="minzu_code" label="民族">
-						<Select onChange={(value, option: any) => (minzuText = option.children)}>
-							{helper.bindOptions(ethnicityData)}
-						</Select>
-					</Item>
-					<Item name="phone" label="手机号码">
-						<Input />
-					</Item>
-					<Item name="desc" label="描述">
-						<Input />
-					</Item>
-					<Item name="date" label="采集日期">
-						<DatePicker locale={zhCN} />
-					</Item>
-					<Item name="flag" label="采集类型">
-						<Select>
-							<Option value="">---</Option>
-							<Option value="01">嫌疑人</Option>
-							<Option value="02">社会人员</Option>
-						</Select>
-					</Item>
-					<Item name="officer_id" label="采集人员编号">
-						<Input />
-					</Item>
-					<Item name="officer_name" label="采集人员姓名">
-						<Input />
-					</Item>
-					<Item name="dept" label="采集人员单位代码">
-						<Input />
-					</Item>
-					<Item name="dept_name" label="采集人员单位名称">
-						<Input />
-					</Item>
-					<Item name="str_phone_path" label="手机绝对路径">
-						<Input />
-					</Item>
-					<Item name="note" label="备注">
-						<Input />
-					</Item>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item
+								name="phone_name"
+								label="手机名称"
+								rules={[{ required: true, message: '请填写手机名称' }]}>
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item
+								name="owner_name"
+								label="持有人"
+								rules={[{ required: true, message: '请填写持有人' }]}>
+								<Input />
+							</Item>
+						</Col>
+						<Col span={12} />
+					</Row>
+					<Divider />
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item
+								name="case_name"
+								label="案件名称"
+								rules={[{ required: true, message: '请填写案件名称' }]}>
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="case_id" label="案件编号">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="case_type_code" label="案件类型">
+								<Select
+									onChange={(value, option: any) =>
+										(caseTypeText = option.children)
+									}>
+									{helper.bindOptions(caseTypeData, true, 'name', 'value')}
+								</Select>
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="ab" label="案别代码">
+								<Input />
+							</Item>
+						</Col>
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="ab_name" label="案别名称">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="object_id" label="人员编号">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="bm" label="别名">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}></Col>
+					</Row>
+					<Divider />
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="identity_id_type_code" label="证件类型">
+								<Select
+									onChange={(value, option: any) =>
+										(identityIdTypeText = option.children)
+									}>
+									{helper.bindOptions(certificateTypeData)}
+								</Select>
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="identity_id" label="证件号码">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="hjdz" label="户籍地址">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="dz" label="现地址">
+								<Input />
+							</Item>
+						</Col>
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="gzdw" label="工作单位">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="guojia_code" label="国家编码">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="guojia" label="国家">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="minzu_code" label="民族">
+								<Select
+									onChange={(value, option: any) =>
+										(minzuText = option.children)
+									}>
+									{helper.bindOptions(ethnicityData)}
+								</Select>
+							</Item>
+						</Col>
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="phone" label="手机号码">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="desc" label="描述">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={12}></Col>
+					</Row>
+					<Divider />
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="date" label="采集日期" initialValue={dayjs() as any}>
+								<DatePicker locale={zhCN} style={{ width: '100%' }} />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="flag" label="采集类型">
+								<Select>
+									<Option value="">---</Option>
+									<Option value="01">嫌疑人</Option>
+									<Option value="02">社会人员</Option>
+								</Select>
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="officer_id" label="采集人员编号">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="officer_name" label="采集人员姓名">
+								<Input />
+							</Item>
+						</Col>
+					</Row>
+					<Row gutter={[20, 0]}>
+						<Col span={6}>
+							<Item name="dept" label="采集人员单位代码">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="dept_name" label="采集人员单位名称">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="str_phone_path" label="手机绝对路径">
+								<Input />
+							</Item>
+						</Col>
+						<Col span={6}>
+							<Item name="note" label="备注">
+								<Input />
+							</Item>
+						</Col>
+					</Row>
 				</Form>
 			</BorderBox>
 		</>
