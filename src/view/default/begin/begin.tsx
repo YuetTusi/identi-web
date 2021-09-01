@@ -12,7 +12,7 @@ import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
 import { BorderBox, LabelBox, StrongBox } from '@/component/styled/container';
 import AttachmentList from '@/component/attachment/attachment-list';
-import { useLastRec } from '@/hook';
+import { useCaseAttach, useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { helper } from '@/utility/helper';
 import { CaseState, LawCase } from '@/schema/law-case';
@@ -34,6 +34,7 @@ const { Group } = Radio;
 const Begin: FC<BeginProp> = (props) => {
 	const dispatch = useDispatch();
 	const { id } = useParams<{ id: string }>(); //案件id
+	const attachment = useCaseAttach(id);
 	const [lawCase, setLawCase] = useState<LawCase4Table>();
 	const [action, setAction] = useState<string>('1');
 	const rec = useLastRec(id);
@@ -217,7 +218,7 @@ const Begin: FC<BeginProp> = (props) => {
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>附件</legend>
-				<AttachmentList caseId={id} />
+				<AttachmentList data={attachment} />
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>说明信息</legend>

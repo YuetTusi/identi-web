@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import React, { FC, useEffect, useState, MouseEvent } from 'react';
 import { useParams, routerRedux, useDispatch } from 'dva';
+import { Link } from 'dva/router';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
@@ -14,10 +15,13 @@ import message from 'antd/lib/message';
 import { useDict } from '@/hook';
 import { request } from '@/utility/request';
 import { helper } from '@/utility/helper';
-import { BorderBox, StrongBox } from '@/component/styled/container';
 import { Suspect } from '@/schema/suspect';
 import { DictCategory } from '@/schema/dict';
-import { Link } from 'dva/router';
+import { BorderBox, LabelBox, StrongBox } from '@/component/styled/container';
+import { ListView } from '@/component/styled/widget';
+import AttachmentTable from '@/component/attachment/attachment-table';
+import AttachmentUpload from '@/component/attachment/attachment-upload';
+import { Attachment } from '@/schema/attachment';
 import { SearchBox } from '../styled';
 
 const { Item, useForm } = Form;
@@ -36,6 +40,7 @@ const Edit: FC<{}> = () => {
 	const { did } = useParams<{ did: string; id: string }>();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [data, setData] = useState<Suspect | null>(null);
+	const [attachment, setAttachment] = useState<Attachment[]>([]);
 	const [editFormRef] = useForm<Suspect>();
 	const caseTypeData = useDict(DictCategory.CaseType);
 	const certificateTypeData = useDict(DictCategory.CertificateType);
@@ -45,10 +50,14 @@ const Edit: FC<{}> = () => {
 		(async () => {
 			setLoading(true);
 			try {
-				const { code, data } = await request<Suspect | null>({
-					url: `device/${did}`,
-					method: 'GET'
-				});
+				const [attach, { code, data }] = await Promise.all([
+					helper.getDeviceAttachment(did),
+					request<Suspect | null>({
+						url: `device/${did}`,
+						method: 'GET'
+					})
+				]);
+				setAttachment(attach);
 				if (code === 0 && data !== null) {
 					minzuText = data.minzu ?? '';
 					caseTypeText = data.case_type ?? '';
@@ -67,6 +76,48 @@ const Edit: FC<{}> = () => {
 			}
 		})();
 	}, [did]);
+
+	useEffect(() => {
+		dispatch({ type: 'attachmentTable/setData', payload: attachment });
+		return () => {
+			dispatch({ type: 'attachmentTable/setData', payload: [] });
+		};
+	}, [attachment]);
+
+	/**
+	 * 查询设备附件
+	 * @param id 设备id
+	 */
+	const fetchAttachment = async (id: string) => {
+		const next = await helper.getDeviceAttachment(id);
+		setAttachment(next);
+	};
+
+	/**
+	 * 删除附件
+	 * @param data 附件
+	 */
+	const onDel = async (attachment: Attachment) => {
+		try {
+			const { code, data, error } = await request<number>({
+				url: 'case-attach',
+				method: 'DELETE',
+				data: { form: attachment }
+			});
+			if (code === 0 && data > 0) {
+				message.success('附件删除成功');
+				fetchAttachment(did);
+			} else if (code === 1) {
+				message.error('附件删除失败');
+			} else {
+				console.log('code:', code);
+				console.log('data:', data);
+				console.log('error:', error);
+			}
+		} catch (error) {
+			message.error('附件删除失败');
+		}
+	};
 
 	/**
 	 * 保存Click
@@ -124,6 +175,50 @@ const Edit: FC<{}> = () => {
 					</div>
 				</SearchBox>
 			</BorderBox>
+			<LabelBox marginTop="10px">
+				<legend>附件</legend>
+				<ListView marginBottom="10px">
+					<li>
+						<AttachmentUpload
+							onChange={async (info) => {
+								const { response, status } = info.file;
+								switch (status) {
+									case 'uploading':
+										setLoading(true);
+										break;
+									case 'done':
+										const { filename, hashname } = response;
+										const next = new Attachment();
+										next.id = helper.newId();
+										next.suspect_id = did;
+										next.file_name = filename;
+										next.hash_name = hashname;
+										next.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+										next.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+										const success = await helper.addAttachRec(next);
+										if (success) {
+											fetchAttachment(did);
+											message.success('上传成功');
+										}
+										setLoading(false);
+										break;
+									case 'error':
+										message.error('上传失败');
+										setLoading(false);
+										break;
+									case 'removed':
+										setLoading(false);
+										break;
+								}
+							}}
+							action="attachment/upload"
+						/>
+					</li>
+					<li>
+						<AttachmentTable onDel={onDel} />
+					</li>
+				</ListView>
+			</LabelBox>
 			<BorderBox marginTop="10px">
 				<Form form={editFormRef} layout="vertical">
 					<Item

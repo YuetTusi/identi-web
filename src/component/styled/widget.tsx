@@ -68,27 +68,22 @@ const AttachList = styled.ol<{
 		margin: 0;
 		padding: 8px 8px;
 		cursor: pointer;
+
+		a {
+			display: inline-block;
+			cursor: pointer;
+		}
+		i {
+			padding-left: 10px;
+			&:hover {
+				color: red;
+			}
+		}
 		&:nth-child(even) {
 			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
 		}
 		&:last-child {
 			border-bottom: none;
-		}
-		&:hover {
-			a {
-				color: ${(props) => color(props.theme.strong).darken(0.2).toString()};
-				i {
-					display: inline-block;
-				}
-			}
-		}
-		a {
-			display: inline-block;
-			width: 100%;
-			i {
-				display: none;
-				margin-left: 1rem;
-			}
 		}
 	}
 `;

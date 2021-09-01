@@ -7,7 +7,7 @@ import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
-import { useLastRec } from '@/hook';
+import { useCaseAttach, useLastRec } from '@/hook';
 import { helper } from '@/utility/helper';
 import { request } from '@/utility/request';
 import { ListView } from '@/component/styled/widget';
@@ -28,6 +28,7 @@ const { Group } = Button;
 const Approval: FC<ApprovalProp> = (props) => {
 	const { id } = useParams<{ id: string }>();
 	const dispatch = useDispatch();
+	const attachment = useCaseAttach(id);
 	const lastRec = useLastRec(id);
 	const [lawCase, setLawCase] = useState<LawCase4Table>();
 
@@ -117,7 +118,7 @@ const Approval: FC<ApprovalProp> = (props) => {
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>附件</legend>
-				<AttachmentList caseId={id} />
+				<AttachmentList data={attachment} />
 			</LabelBox>
 
 			<LabelBox marginTop="10px">

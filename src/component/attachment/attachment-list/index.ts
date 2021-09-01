@@ -1,3 +1,4 @@
-import { AttachmentList } from './attachment-list';
+import { AttachmentList, List } from './attachment-list';
 
+export { List };
 export default AttachmentList;

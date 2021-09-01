@@ -5,7 +5,8 @@ import dva from 'dva';
 import immer from 'dva-immer';
 import { createRouter } from './router';
 import { registerModel } from './utility/register-model';
-import AttachmentModalModel from '@/model/component/attachment-modal';
+import attachmentModalModel from '@/model/component/attachment-modal';
+import attachmentTableModel from '@/model/component/attachment-table';
 import actionMessageListModel from '@/model/component/action-message-list';
 import authModel from '@/model/auth';
 import appMenuModel from '@/model/app-menu';
@@ -27,7 +28,8 @@ dayjs.locale('zh-cn');
 
 const app = dva({ history: createHistory() });
 
-registerModel(app, AttachmentModalModel);
+registerModel(app, attachmentModalModel);
+registerModel(app, attachmentTableModel);
 registerModel(app, actionMessageListModel);
 registerModel(app, authModel);
 registerModel(app, appMenuModel);

@@ -5,6 +5,7 @@ import { encode, decode } from 'js-base64';
 import { ResourceItem } from '@/model/app-menu';
 import { DictCategory } from '@/schema/dict';
 import { ActionMessage } from '@/schema/action-message';
+import { Attachment } from '@/schema/attachment';
 import { request } from './request';
 
 const { Option } = Select;
@@ -136,6 +137,62 @@ const helper = {
 			}
 		} catch (error) {
 			return false;
+		}
+	},
+	/**
+	 * 增加附件记录
+	 * @return Promise<boolean> true添加成功
+	 */
+	async addAttachRec(attach: Attachment) {
+		try {
+			const { code, data } = await request<number>({
+				url: 'case-attach',
+				method: 'POST',
+				data: { form: attach }
+			});
+			return code === 0 && data > 0;
+		} catch (error) {
+			return false;
+		}
+	},
+	/**
+	 * 查询案件附件
+	 * @param id 案件id
+	 */
+	async getCaseAttachment(id: string) {
+		try {
+			const { code, data } = await request<Attachment[]>({
+				url: `case-attach/case/${id}`,
+				method: 'GET'
+			});
+			if (code === 0) {
+				return data;
+			} else {
+				return [];
+			}
+		} catch (error) {
+			console.log(error);
+			return [];
+		}
+	},
+	/**
+	 * 查询设备附件
+	 * @param id 案件id
+	 */
+	async getDeviceAttachment(id: string) {
+		try {
+			const { code, data } = await request<Attachment[]>({
+				url: `case-attach/device/${id}`,
+				method: 'GET'
+			});
+			if (code === 0) {
+				return data;
+			} else {
+				return [];
+			}
+		} catch (error) {
+			console.log(error);
+			return [];
 		}
 	},
 	/**

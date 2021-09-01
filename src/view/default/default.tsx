@@ -9,11 +9,10 @@ import { BorderBox, StrongBox, TableBox } from '@/component/styled/container';
 import { LawCase } from '@/schema/law-case';
 import { StateTree } from '@/schema/model-type';
 import { DefaultStoreState } from '@/model/default';
-import SearchForm from './search-form';
 import List from './device';
-import { Prop, LawCase4Table } from './props';
+import SearchForm from './search-form';
 import { getColumns } from './columns';
-import { Suspect } from '@/schema/suspect';
+import { Prop, LawCase4Table } from './props';
 
 const defaultPageSize = 10;
 

@@ -4,7 +4,7 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import message from 'antd/lib/message';
 import { LabelBox, StrongBox } from '@/component/styled/container';
-import { useLastRec } from '@/hook';
+import { useCaseAttach, useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { LawCase } from '@/schema/law-case';
 import CaseDesc from './case-desc';
@@ -18,6 +18,7 @@ import AttachmentList from '@/component/attachment/attachment-list';
 const Detail: FC<DetailProp> = (props) => {
 	const { id } = useParams<{ id: string }>();
 	const lastRec = useLastRec(id);
+	const attachment = useCaseAttach(id);
 	const [lawCase, setLawCase] = useState<LawCase4Table>();
 
 	useEffect(() => {
@@ -55,7 +56,7 @@ const Detail: FC<DetailProp> = (props) => {
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>附件</legend>
-				<AttachmentList caseId={id} />
+				<AttachmentList data={attachment} />
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>说明信息</legend>

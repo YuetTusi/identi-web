@@ -12,6 +12,7 @@ import { RoleStoreState } from "@/model/permission/role";
 import { UserStoreState } from "@/model/permission/user";
 import { SettingStoreState } from "@/model/profile/setting";
 import { AttachmentModalStoreState } from "@/model/component/attachment-modal";
+import { AttachmentTableStoreState } from "@/model/component/attachment-table";
 import { ActionMessageListStoreState } from "@/model/component/action-message-list";
 import { MessageStoreState } from '@/model/message';
 
@@ -30,6 +31,7 @@ interface StoreComponent<MatchParam = any> extends RouteComponentProps<MatchPara
  */
 interface StateTree {
     attachmentModal: AttachmentModalStoreState,
+    attachmentTablel: AttachmentTableStoreState,
     actionMessageList: ActionMessageListStoreState,
     appMenu: AppMenuStoreState,
     auth: AuthStoreState,

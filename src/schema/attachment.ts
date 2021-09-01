@@ -10,6 +10,10 @@ class Attachment extends BaseEntity {
      */
     case_id?: string;
     /**
+     * 设备id
+     */
+    suspect_id?: string;
+    /**
      * 原文件名
      */
     file_name?: string;

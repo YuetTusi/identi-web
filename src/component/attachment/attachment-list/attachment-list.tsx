@@ -1,8 +1,9 @@
 import React, { FC, memo } from 'react';
 import DownloadOutlined from '@ant-design/icons/DownloadOutlined';
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import Empty from 'antd/lib/empty';
+import Modal from 'antd/lib/modal';
 import webConfig from '@/config/web.json';
-import { useAttachList } from '@/hook';
 import { Attachment } from '@/schema/attachment';
 import { AttachList } from '@/component/styled/widget';
 
@@ -15,8 +16,26 @@ const List: FC<{ data: Attachment[] }> = ({ data }) => (
 			<li key={id}>
 				<a href={`${baseURL}attachment/download?id=${id}`} download={true} target="_blank">
 					<label>{file_name}</label>
-					<i>
+				</a>
+				<a href={`${baseURL}attachment/download?id=${id}`} download={true} target="_blank">
+					<i title="下载附件">
 						<DownloadOutlined />
+					</i>
+				</a>
+				<a
+					onClick={() =>
+						Modal.confirm({
+							onOk() {
+								console.log(id);
+							},
+							okText: '是',
+							cancelText: '否',
+							title: '删除附件',
+							content: `确认删除「${file_name}」？`
+						})
+					}>
+					<i title="删除附件">
+						<DeleteOutlined />
 					</i>
 				</a>
 			</li>
@@ -27,18 +46,21 @@ const List: FC<{ data: Attachment[] }> = ({ data }) => (
 /**
  * 附件列表
  */
-const AttachmentList: FC<{ caseId: string }> = memo(({ caseId }) => {
-	const list = useAttachList(caseId);
-
+const AttachmentList: FC<{ data: Attachment[]; canDel?: boolean }> = memo(({ data }) => {
 	return (
 		<AttachList>
-			{list.length === 0 ? (
+			{data.length === 0 ? (
 				<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无附件" />
 			) : (
-				<List data={list} />
+				<List data={data} />
 			)}
 		</AttachList>
 	);
 });
+
+AttachmentList.defaultProps = {
+	data: [],
+	canDel: false
+};
 
 export { AttachmentList, List };
