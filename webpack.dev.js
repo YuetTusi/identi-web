@@ -1,5 +1,6 @@
 const path = require('path');
 const { ProvidePlugin } = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const theme = require('./src/theme/blue.json');
@@ -77,6 +78,14 @@ let config = {
 		]
 	},
 	plugins: [
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.join(__dirname, './html'),
+					to: path.join(__dirname, './dist')
+				}
+			]
+		}),
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, './template/default.html')
 		}),

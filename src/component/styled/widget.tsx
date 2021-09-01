@@ -66,18 +66,22 @@ const AttachList = styled.ol<{
 	& > li {
 		list-style-type: none;
 		margin: 0;
-		padding: 8px 8px;
 		cursor: pointer;
 
 		a {
 			display: inline-block;
 			cursor: pointer;
+			padding: 8px 8px;
+			width: 100%;
+			&:hover {
+				i {
+					display: inline-block;
+				}
+			}
 		}
 		i {
+			display: none;
 			padding-left: 10px;
-			&:hover {
-				color: red;
-			}
 		}
 		&:nth-child(even) {
 			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};

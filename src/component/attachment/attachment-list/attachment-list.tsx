@@ -16,26 +16,8 @@ const List: FC<{ data: Attachment[] }> = ({ data }) => (
 			<li key={id}>
 				<a href={`${baseURL}attachment/download?id=${id}`} download={true} target="_blank">
 					<label>{file_name}</label>
-				</a>
-				<a href={`${baseURL}attachment/download?id=${id}`} download={true} target="_blank">
 					<i title="下载附件">
 						<DownloadOutlined />
-					</i>
-				</a>
-				<a
-					onClick={() =>
-						Modal.confirm({
-							onOk() {
-								console.log(id);
-							},
-							okText: '是',
-							cancelText: '否',
-							title: '删除附件',
-							content: `确认删除「${file_name}」？`
-						})
-					}>
-					<i title="删除附件">
-						<DeleteOutlined />
 					</i>
 				</a>
 			</li>

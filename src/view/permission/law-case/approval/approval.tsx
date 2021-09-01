@@ -13,12 +13,14 @@ import { request } from '@/utility/request';
 import { ListView } from '@/component/styled/widget';
 import { BorderBox, LabelBox, StrongBox } from '@/component/styled/container';
 import AttachmentList from '@/component/attachment/attachment-list';
+import DeviceFold from '@/component/device-fold';
 import { CaseState, LawCase } from '@/schema/law-case';
 import { ActionMessage, ActionMessageState } from '@/schema/action-message';
-import CaseDesc from './case-desc';
 import DisapproveModal from '../component/disapprove-modal';
+import CaseDesc from './case-desc';
 import { LawCase4Table } from '../props';
 import { ApprovalProp } from './props';
+
 
 const { Group } = Button;
 
@@ -120,7 +122,10 @@ const Approval: FC<ApprovalProp> = (props) => {
 				<legend>附件</legend>
 				<AttachmentList data={attachment} />
 			</LabelBox>
-
+			<LabelBox marginTop="10px">
+				<legend>设备</legend>
+				<DeviceFold caseId={id} />
+			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>审核</legend>
 				<ListView>

@@ -1,3 +1,4 @@
+import camelCase from 'lodash/camelCase';
 import React from 'react';
 import Select from 'antd/lib/select';
 import { v4 as newId, V4Options } from 'uuid';
@@ -34,6 +35,27 @@ const helper = {
 		} else {
 			return false;
 		}
+	},
+	/**
+	 * 对象转为URL参数
+	 * @param val 任意值
+	 * @param toCamel 是否转为驼峰命名
+	 */
+	toUrlParam(val: any, toCamel: boolean = false) {
+		if (Object.prototype.toString.call(val) !== '[object Object]') {
+			throw new TypeError('不是对象');
+		}
+		let params: string[] = [];
+
+		for (let [k, v] of Object.entries(val)) {
+			let nextV = this.isNullOrUndefined(v) ? '' : v;
+			if (toCamel) {
+				params = params.concat([`${camelCase(k)}=${nextV}`]);
+			} else {
+				params = params.concat([`${k}=${nextV}`]);
+			}
+		}
+		return params.join('&');
 	},
 	/**
 	 * 生成UUID

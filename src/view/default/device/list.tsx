@@ -88,7 +88,7 @@ const List: FC<ListProp> = ({ visible, lawCase }) => {
 					pageSize: page.pageSize,
 					total: page.total
 				}}
-				columns={getColumns(dispatch, queryByPage)}
+				columns={getColumns(dispatch, lawCase, queryByPage)}
 				dataSource={data}
 				rowKey={(row) => row.id}
 				loading={loading}

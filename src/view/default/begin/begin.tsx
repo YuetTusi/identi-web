@@ -23,6 +23,7 @@ import { ListView } from '@/component/styled/widget';
 import IdentiForm from '../component/identi-form';
 import RejectForm from '../component/reject-form';
 import { BeginProp, FormValue } from './props';
+import DeviceFold from '@/component/device-fold';
 
 const { Group } = Radio;
 
@@ -34,7 +35,7 @@ const { Group } = Radio;
 const Begin: FC<BeginProp> = (props) => {
 	const dispatch = useDispatch();
 	const { id } = useParams<{ id: string }>(); //案件id
-	const attachment = useCaseAttach(id);
+	const caseAttach = useCaseAttach(id);
 	const [lawCase, setLawCase] = useState<LawCase4Table>();
 	const [action, setAction] = useState<string>('1');
 	const rec = useLastRec(id);
@@ -218,7 +219,11 @@ const Begin: FC<BeginProp> = (props) => {
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>附件</legend>
-				<AttachmentList data={attachment} />
+				<AttachmentList data={caseAttach} />
+			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>设备</legend>
+				<DeviceFold caseId={id} />
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>说明信息</legend>

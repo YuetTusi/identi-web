@@ -4,13 +4,14 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import message from 'antd/lib/message';
 import { LabelBox, StrongBox } from '@/component/styled/container';
+import AttachmentList from '@/component/attachment/attachment-list';
+import DeviceFold from '@/component/device-fold';
 import { useCaseAttach, useLastRec } from '@/hook';
 import { request } from '@/utility/request';
 import { LawCase } from '@/schema/law-case';
 import CaseDesc from './case-desc';
 import Record from './record';
 import { DetailProp, LawCase4Table } from './props';
-import AttachmentList from '@/component/attachment/attachment-list';
 
 /**
  * 案件详情页
@@ -57,6 +58,10 @@ const Detail: FC<DetailProp> = (props) => {
 			<LabelBox marginTop="10px">
 				<legend>附件</legend>
 				<AttachmentList data={attachment} />
+			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>设备</legend>
+				<DeviceFold caseId={id} />
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>说明信息</legend>
