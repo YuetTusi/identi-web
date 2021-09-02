@@ -32,7 +32,6 @@ const { Option } = Select;
 
 let minzuText = '';
 let caseTypeText = '';
-let guojiaText = '';
 let identityIdTypeText = '';
 
 /**
@@ -64,7 +63,6 @@ const Edit: FC<{}> = () => {
 				if (code === 0 && data !== null) {
 					minzuText = data.minzu ?? '';
 					caseTypeText = data.case_type ?? '';
-					guojiaText = data.guojia ?? '';
 					identityIdTypeText = data.identity_id_type ?? '';
 					setData(data);
 					editFormRef.setFieldsValue({
@@ -140,7 +138,6 @@ const Edit: FC<{}> = () => {
 						...values,
 						minzu: minzuText,
 						case_type: caseTypeText,
-						guojia: guojiaText,
 						identity_id_type: identityIdTypeText
 					}
 				}

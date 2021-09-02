@@ -34,7 +34,6 @@ const { useForm, Item } = Form;
 const { Option } = Select;
 let minzuText = '未知';
 let caseTypeText = '';
-let guojiaText = '';
 let identityIdTypeText = '';
 
 /**
@@ -101,7 +100,6 @@ const Add: FC<{}> = () => {
 						minzu: minzuText,
 						identity_id_type: identityIdTypeText,
 						case_type: caseTypeText,
-						guojia: guojiaText,
 						create_time: now,
 						update_time: now
 					},

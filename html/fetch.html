@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>采集设备</title>
+		<link
+			href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped table-sm">
+						<thead>
+							<tr>
+								<th>参数名</th>
+								<th>值</th>
+							</tr>
+						</thead>
+						<tbody id="content"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script>
+			const { search } = location;
+			const temp = document.createDocumentFragment();
+			const $target = document.getElementById('content');
+
+			const p = new URLSearchParams(search);
+			for (let [k, v] of p.entries()) {
+				const $row = document.createElement('tr');
+				const $key = document.createElement('td');
+				$key.innerText = k;
+				$row.appendChild($key);
+				const $val = document.createElement('td');
+				$val.innerText = v;
+				$row.appendChild($val);
+				temp.appendChild($row);
+			}
+			$target.appendChild(temp);
+		</script>
+	</body>
 </html>

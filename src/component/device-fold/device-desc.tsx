@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import Divider from 'antd/lib/divider';
 import Descriptions from 'antd/lib/descriptions';
 import { useDeviceAttach } from '@/hook';
-import AttachmentList from '../attachment/attachment-list';
 import { Suspect } from '@/schema/suspect';
+import AttachmentList from '../attachment/attachment-list';
 
 const { Item } = Descriptions;
 
@@ -76,7 +76,7 @@ const DeviceDesc: FC<{ data: Suspect }> = ({ data }) => {
 				<Item label="手机绝对路径">{str_phone_path ?? ''}</Item>
 				<Item label="备注">{note ?? ''}</Item>
 			</Descriptions>
-			<Divider orientation="left">附件</Divider>
+			<Divider orientation="left" plain={true}>附件</Divider>
 			<AttachmentList data={attach} />
 		</>
 	);
