@@ -2,13 +2,15 @@ import React, { FC, useEffect, useState } from 'react';
 import Empty from 'antd/lib/empty';
 import Collapse from 'antd/lib/collapse';
 import { request } from '@/utility/request';
-import { helper } from '@/utility/helper';
 import { DeviceDesc } from './device-desc';
 import { DeviceFoldProp } from './props';
 import { Suspect } from '@/schema/suspect';
 
 const { Panel } = Collapse;
 
+/**
+ * 设备折叠展示
+ */
 const DeviceFold: FC<DeviceFoldProp> = ({ caseId }) => {
 	const [devices, setDevices] = useState<Suspect[]>([]);
 
@@ -21,7 +23,6 @@ const DeviceFold: FC<DeviceFoldProp> = ({ caseId }) => {
 				});
 				if (code === 0) {
 					setDevices(data);
-					console.log(data);
 				}
 			})();
 		}

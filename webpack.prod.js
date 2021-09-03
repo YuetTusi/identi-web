@@ -1,7 +1,7 @@
 const path = require('path');
-const { ProvidePlugin } = require('webpack');
-const { IgnorePlugin } = require('webpack');
+const { IgnorePlugin, ProvidePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -85,6 +85,14 @@ let config = {
 	},
 	plugins: [
 		new CleanWebpackPlugin({ verbose: false }),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.join(__dirname, './html'),
+					to: path.join(__dirname, './dist')
+				}
+			]
+		}),
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, './template/default.html')
 		}),

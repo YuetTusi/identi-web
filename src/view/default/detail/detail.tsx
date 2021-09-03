@@ -4,7 +4,9 @@ import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import message from 'antd/lib/message';
 import { LabelBox, StrongBox } from '@/component/styled/container';
-import { useLastRec } from '@/hook';
+import AttachmentList from '@/component/attachment/attachment-list';
+import DeviceFold from '@/component/device-fold';
+import { useLastRec, useCaseAttach } from '@/hook';
 import { request } from '@/utility/request';
 import { LawCase } from '@/schema/law-case';
 import CaseDesc from './case-desc';
@@ -19,6 +21,8 @@ const Detail: FC<DetailProp> = (props) => {
 	const { id } = useParams<{ id: string }>();
 	const lastRec = useLastRec(id);
 	const [lawCase, setLawCase] = useState<LawCase4Table>();
+
+	const caseAttach = useCaseAttach(id);
 
 	useEffect(() => {
 		message.destroy();
@@ -52,6 +56,14 @@ const Detail: FC<DetailProp> = (props) => {
 			<LabelBox marginTop="10px">
 				<legend>案件信息</legend>
 				<CaseDesc data={lawCase} />
+			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>附件</legend>
+				<AttachmentList data={caseAttach} />
+			</LabelBox>
+			<LabelBox marginTop="10px">
+				<legend>设备</legend>
+				<DeviceFold caseId={id} />
 			</LabelBox>
 			<LabelBox marginTop="10px">
 				<legend>说明信息</legend>
