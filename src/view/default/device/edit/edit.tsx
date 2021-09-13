@@ -189,14 +189,15 @@ const Edit: FC<{}> = () => {
 										setLoading(true);
 										break;
 									case 'done':
+										const now = dayjs().format('YYYY-MM-DD HH:mm:ss');
 										const { filename, hashname } = response;
 										const next = new Attachment();
 										next.id = helper.newId();
 										next.suspect_id = did;
 										next.file_name = filename;
 										next.hash_name = hashname;
-										next.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
-										next.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+										next.create_time = now;
+										next.update_time = now;
 										const success = await helper.addAttachRec(next);
 										if (success) {
 											fetchAttachment(did);

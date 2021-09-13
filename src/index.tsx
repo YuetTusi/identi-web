@@ -1,8 +1,10 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { createHashHistory as createHistory } from 'history';
 import dva from 'dva';
-import immer from 'dva-immer';
+import immer, { enableES5 } from 'dva-immer';
 import { createRouter } from './router';
 import { registerModel } from './utility/register-model';
 import attachmentModalModel from '@/model/component/attachment-modal';
@@ -24,6 +26,7 @@ import '@ztree/ztree_v3/js/jquery.ztree.all.min';
 import '@ztree/ztree_v3/css/metroStyle/metroStyle.css';
 import 'antd/dist/antd.less';
 
+enableES5();
 dayjs.locale('zh-cn');
 
 const app = dva({ history: createHistory() });

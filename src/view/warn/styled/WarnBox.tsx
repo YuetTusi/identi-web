@@ -1,4 +1,3 @@
-import color from 'color';
 import styled from 'styled-components';
 
 const WarnBox = styled.div`

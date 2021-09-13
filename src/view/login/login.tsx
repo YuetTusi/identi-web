@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import debounce from 'lodash/debounce';
-import { Base64 } from 'js-base64';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
@@ -23,36 +22,38 @@ const Login: FC<LoginProp> = ({ dispatch }) => {
 				url: '/login',
 				method: 'post',
 				data: { username, password }
-			}).then((res: any) => {
-				message.destroy();
-				if (res.success) {
-					const { uid, role, token } = res.data;
-
-					if (role.length === 0) {
-						message.warn('此用户无权限访问');
-					} else {
-						message.success('登录成功');
-						//TODO:可将角色、用户等数据存入model
-						sessionStorage.setItem('user_token', token);
-						sessionStorage.setItem('role', Base64.encode(JSON.stringify(role)));
-						sessionStorage.setItem('username', username);
-						helper.setUId(uid);
-
-						dispatch({
-							type: 'auth/setAuth',
-							payload: { uid, role, username: username }
-						});
-						dispatch({
-							type: 'appMenu/queryMenuByUserId',
-							payload: { id: uid }
-						});
-						dispatch(routerRedux.push('/default'));
-					}
-				} else {
+			})
+				.then((res: any) => {
 					message.destroy();
-					message.warn('用户或密码不正确');
-				}
-			});
+					if (res.success) {
+						const { uid, role, token } = res.data;
+
+						if (role.length === 0) {
+							message.warn('此用户无权限访问');
+						} else {
+							message.success('登录成功');
+							//TODO:可将角色、用户等数据存入model
+							sessionStorage.setItem('username', username);
+							sessionStorage.setItem('user_token', token);
+							sessionStorage.setItem('role', btoa(JSON.stringify(role)));
+							helper.setUId(uid);
+
+							dispatch({
+								type: 'auth/setAuth',
+								payload: { uid, role, username: username }
+							});
+							dispatch({
+								type: 'appMenu/queryMenuByUserId',
+								payload: { id: uid }
+							});
+							dispatch(routerRedux.push('/default'));
+						}
+					} else {
+						message.destroy();
+						message.warn('用户或密码不正确');
+					}
+				})
+				.catch((err) => console.log(err));
 		},
 		500,
 		{ leading: true, trailing: false }

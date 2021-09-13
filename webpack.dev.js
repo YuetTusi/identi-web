@@ -2,8 +2,11 @@ const path = require('path');
 const { ProvidePlugin } = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const theme = require('./src/theme/blue.json');
+
+const devPort = 8085;
 
 let config = {
 	mode: 'development',
@@ -27,7 +30,7 @@ let config = {
 	devServer: {
 		contentBase: path.join(__dirname, './dist'),
 		host: '0.0.0.0',
-		port: 8085,
+		port: devPort,
 		compress: true,
 		overlay: { error: true }
 	},
@@ -36,10 +39,23 @@ let config = {
 			{
 				test: /\.(ts|tsx)$/,
 				use: {
-					loader: 'ts-loader'
+					loader: 'babel-loader',
+					options: {
+						presets: [
+							[
+								'@babel/preset-env',
+								{
+									useBuiltIns: 'usage',
+									corejs: { version: '3' }
+								}
+							],
+							'@babel/preset-react',
+							'@babel/preset-typescript'
+						],
+						plugins: [['@babel/plugin-transform-runtime', { corejs: '3' }]]
+					}
 				},
-				include: path.join(__dirname, './src'),
-				exclude: /node_modules/
+				include: [path.join(__dirname, './src')]
 			},
 			{
 				test: /\.css$/,
@@ -93,7 +109,13 @@ let config = {
 			$: 'jQuery',
 			jQuery: 'jQuery'
 		}),
-		new AntdDayjsWebpackPlugin()
+		new AntdDayjsWebpackPlugin(),
+		new FriendlyErrorsWebpackPlugin({
+			clearConsole: true,
+			compilationSuccessInfo: {
+				messages: [`开发服务器已启动在本地${devPort}端口`]
+			}
+		})
 	]
 };
 

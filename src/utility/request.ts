@@ -8,7 +8,10 @@ const instance = setInterceptor(
     axios.create({
         baseURL,
         timeout: 3000,
-        // headers: { 'Content-Type': 'application/json;charset=utf8' }
+        headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+        } //IE浏览器禁用页面缓存
         // withCredentials: true
     })
 );

@@ -2,7 +2,6 @@ import camelCase from 'lodash/camelCase';
 import React from 'react';
 import Select from 'antd/lib/select';
 import { v4 as newId, V4Options } from 'uuid';
-import { encode, decode } from 'js-base64';
 import { ResourceItem } from '@/model/app-menu';
 import { DictCategory } from '@/schema/dict';
 import { ActionMessage } from '@/schema/action-message';
@@ -69,14 +68,14 @@ const helper = {
 	 * @param id 用户id
 	 */
 	setUId(id: string) {
-		sessionStorage.setItem('uid', encode(id));
+		sessionStorage.setItem('uid', btoa(id));
 	},
 	/**
 	 * 当前登录用户id
 	 */
 	getUId() {
 		const base64 = sessionStorage.getItem('uid');
-		return base64 === null ? null : decode(base64);
+		return base64 === null ? null : atob(base64);
 	},
 	/**
 	 * 验证传入路径是否存在于当菜单中
@@ -207,6 +206,7 @@ const helper = {
 				url: `case-attach/device/${id}`,
 				method: 'GET'
 			});
+			console.log(code,data);
 			if (code === 0) {
 				return data;
 			} else {

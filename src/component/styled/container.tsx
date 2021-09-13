@@ -1,5 +1,5 @@
 //页面布局
-import color from 'color';
+import tinycolor2 from 'tinycolor2';
 import styled from 'styled-components';
 
 /**
@@ -32,7 +32,7 @@ const MainBox = styled.div`
  */
 const LeftBox = styled.div`
 	flex: none;
-	border-right: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border-right: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(10).toString()};
 `;
 
 /**
@@ -49,7 +49,7 @@ const ContentBox = styled.div`
  */
 const FooterBox = styled.div`
 	width: auto;
-	border-top: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border-top: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(10).toString()};
 	& > div {
 		padding-top: 20px;
 		text-align: center;
@@ -77,7 +77,7 @@ const BaseBox = styled.div<{
  * 表格盒子,可自定义外距
  */
 const TableBox = styled(BaseBox)`
-	border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(10).toString()};
 	border-radius: ${(props) => props.theme.radius};
 	background-color: #fff;
 `;
@@ -93,7 +93,7 @@ const BorderBox = styled(TableBox)`
  * 滚动盒子,自定义最大高度，默认150px
  */
 const ScrollBox = styled.div<{ width?: string; maxHeight?: string }>`
-	border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(10).toString()};
 	border-radius: ${(props) => props.theme.radius};
 	background-color: #fff;
 	padding: 0;
@@ -118,7 +118,7 @@ const LabelBox = styled.fieldset<{
 	margin-left: ${(props) => props.marginLeft ?? 0};
 	margin-right: ${(props) => props.marginRight ?? 0};
 	padding: 10px;
-	border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(10).toString()};
 	border-radius: ${(props) => props.theme.radius};
 	background-color: #fff;
 
@@ -126,12 +126,12 @@ const LabelBox = styled.fieldset<{
 		display: block;
 		width: auto;
 		margin-bottom: 0;
-		padding: 2px 5px;
+		padding: 2px 10px;
 		background-color: #fff;
 		font-size: 14px;
 		font-weight: bold;
 		color: ${(props) => props.theme.text};
-		border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+		border: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(10).toString()};
 		border-radius: ${(props) => props.theme.radius};
 	}
 `;
@@ -151,7 +151,7 @@ const StrongBox = styled.div<{
 	margin-left: ${(props) => props.marginLeft ?? 0};
 	margin-right: ${(props) => props.marginRight ?? 0};
 	padding: 5px 10px;
-	border: 1px solid ${(props) => color(props.theme.strong).darken(0.2).toString()};
+	border: 1px solid ${(props) => tinycolor2(props.theme.strong).darken(20).toString()};
 	border-radius: ${(props) => props.theme.radius};
 	font-weight: bold;
 	color: ${(props) => props.theme.text};
@@ -159,7 +159,7 @@ const StrongBox = styled.div<{
 	a {
 		color: #222;
 		&:hover {
-			color: ${(props) => color(props.theme.widget).darken(0.2).toString()};
+			color: ${(props) => tinycolor2(props.theme.widget).darken(20).toString()};
 		}
 	}
 `;

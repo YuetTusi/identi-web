@@ -8,37 +8,49 @@ let messageWorker: Worker | null = null;
 
 export default {
 
+    loadMenu({ dispatch }: SubscriptionAPI) {
+
+        const uid = sessionStorage.getItem('uid');
+        dispatch({
+            type: 'queryMenuByUserId',
+            payload: { id: uid }
+        });
+    },
     /**
      * 启动任务定时拉取消息
      */
     startFetchMessageTask({ dispatch, history }: SubscriptionAPI) {
 
-        history.listen(({ pathname }: Location) => {
+        const isIE = /trident/i.test(navigator.userAgent);
 
-            switch (pathname) {
-                case '/':
-                case '/login':
-                    if (messageWorker !== null) {
-                        messageWorker.terminate();
-                        messageWorker = null;
-                    }
-                    break;
-                default:
-                    if (messageWorker === null) {
-                        messageWorker = helper.createWebWorker(fetchMessageTask);
-                        messageWorker.onmessage = ({ data }: MessageEvent<any>) => {
-                            switch (data) {
-                                case 'read-message':
-                                    dispatch({
-                                        type: 'actionMessageList/queryMessage',
-                                        payload: { userId: helper.getUId(), state: ActionMessageState.Unread }
-                                    });
-                                    break;
+        if (!isIE) {
+            history.listen(({ pathname }: Location) => {
+
+                switch (pathname) {
+                    case '/':
+                    case '/login':
+                        if (messageWorker !== null) {
+                            messageWorker.terminate();
+                            messageWorker = null;
+                        }
+                        break;
+                    default:
+                        if (messageWorker === null) {
+                            messageWorker = helper.createWebWorker(fetchMessageTask);
+                            messageWorker.onmessage = ({ data }: MessageEvent<any>) => {
+                                switch (data) {
+                                    case 'read-message':
+                                        dispatch({
+                                            type: 'actionMessageList/queryMessage',
+                                            payload: { userId: helper.getUId(), state: ActionMessageState.Unread }
+                                        });
+                                        break;
+                                }
                             }
                         }
-                    }
-                    break;
-            }
-        });
+                        break;
+                }
+            });
+        }
     }
 }

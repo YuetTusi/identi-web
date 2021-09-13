@@ -1,4 +1,4 @@
-import color from 'color';
+import tinycolor2 from 'tinycolor2';
 import styled from 'styled-components';
 
 const WebHeaderRoot = styled.div`
@@ -29,8 +29,8 @@ const WebHeaderRoot = styled.div`
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		border-top: 2px solid ${(props) => color(props.theme.strong).darken(0.2).toString()};
-		border-bottom: 2px solid ${(props) => color(props.theme.strong).darken(0.2).toString()};
+		border-top: 2px solid ${(props) => tinycolor2(props.theme.strong).darken(0.2).toString()};
+		border-bottom: 2px solid ${(props) => tinycolor2(props.theme.strong).darken(0.2).toString()};
 		background-color: ${(props) => props.theme.widget};
 
 		.left {

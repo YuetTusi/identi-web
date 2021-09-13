@@ -19,7 +19,11 @@ export default {
         const { condition, pageIndex, pageSize = defaultPageSize } = payload;
         yield put({ type: 'setLoading', payload: true });
         try {
-            const { code, data }: RequestResult<{ data: Resource[], total: number }> = yield call(request, { url: 'resource/list', method: 'POST', data: { condition, pageIndex, pageSize } });
+            const { code, data }: RequestResult<{ data: Resource[], total: number }> = yield call(request, {
+                url: 'resource/list',
+                method: 'POST',
+                data: { condition, pageIndex, pageSize }
+            });
 
             if (code === 0) {
                 yield put({ type: 'setData', payload: data.data });

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import color from 'color';
+import tinycolor2 from 'tinycolor2';
 
 /**
  * 表格
@@ -7,7 +7,7 @@ import color from 'color';
 const TablePanel = styled.div`
 	.az-table-row {
 		&:nth-child(even) {
-			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
+			background-color: ${(props) => tinycolor2(props.theme.text).lighten(50).toString()};
 		}
 	}
 `;
@@ -27,7 +27,7 @@ const ListView = styled.ol<{
 	margin-right: ${(props) => props.marginRight ?? 0};
 	padding: 0;
 	background-color: #fff;
-	border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(10).toString()};
 	border-radius: ${(props) => props.theme.radius};
 
 	& > li {
@@ -35,7 +35,7 @@ const ListView = styled.ol<{
 		margin: 0;
 		padding: 8px 8px;
 		&:nth-child(even) {
-			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
+			background-color: ${(props) => tinycolor2(props.theme.text).lighten(50).toString()};
 		}
 		&:last-child {
 			border-bottom: none;
@@ -60,7 +60,7 @@ const AttachList = styled.ol<{
 	margin-right: ${(props) => props.marginRight ?? 0};
 	padding: 0;
 	background-color: #fff;
-	border: 1px solid ${(props) => color(props.theme.text).fade(0.6).toString()};
+	border: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(10).toString()};
 	border-radius: ${(props) => props.theme.radius};
 
 	& > li {
@@ -84,7 +84,7 @@ const AttachList = styled.ol<{
 			padding-left: 10px;
 		}
 		&:nth-child(even) {
-			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
+			background-color: ${(props) => tinycolor2(props.theme.text).lighten(50).toString()};
 		}
 		&:last-child {
 			border-bottom: none;

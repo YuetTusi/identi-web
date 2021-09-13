@@ -1,4 +1,4 @@
-import color from 'color';
+import tinycolor2 from 'tinycolor2';
 import styled from 'styled-components';
 
 const MessageListRoot = styled.div`
@@ -30,7 +30,7 @@ const MessageListRoot = styled.div`
 		margin: 0;
 		padding: 10px 20px;
 		list-style-type: none;
-		border-bottom: 1px solid ${(props) => color(props.theme.text).fade(0.9).toString()};
+		border-bottom: 1px solid ${(props) => tinycolor2(props.theme.text).lighten(50).toString()};
 
 		a {
 			display: block;
@@ -55,7 +55,7 @@ const MessageListRoot = styled.div`
 		}
 
 		:hover {
-			background-color: ${(props) => color(props.theme.text).fade(0.9).toString()};
+			background-color: ${(props) => tinycolor2(props.theme.text).lighten(50).toString()};
 			em {
 				display: inline-block;
 			}
