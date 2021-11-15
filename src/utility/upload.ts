@@ -1,3 +1,4 @@
+import { SessionStorageKeys } from '@/utility/helper';
 const baseUrl = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://192.168.1.12:7001/';
 
 /**
@@ -10,7 +11,7 @@ function upload(url: string,
     onSuccess: (body: any, xhr: XMLHttpRequest) => void,
     onError: (event: ProgressEvent) => void,
     onProgress?: (event: ProgressEvent) => void) {
-    const token = sessionStorage.getItem('user_token');
+    const token = sessionStorage.getItem(SessionStorageKeys.UserToken);
     const xhr = new XMLHttpRequest();
     xhr.open('POST', baseUrl + url, true);
     if (token !== null) {

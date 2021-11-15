@@ -15,7 +15,7 @@ let config = {
 		path: path.join(__dirname, './dist'),
 		filename: 'bundle.js'
 	},
-	target: 'web', //调试IE11，使用['web','es5']配置，不能使用热更新
+	target: 'web', //调试IE11，使用 ['web','es5'] 配置，不能使用热更新
 	cache: {
 		name: 'dev-cache',
 		type: 'filesystem',

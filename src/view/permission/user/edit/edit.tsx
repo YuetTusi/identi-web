@@ -80,7 +80,7 @@ const Edit: FC<EditProp> = (props) => {
 			if (code === 0 && data > 0) {
 				message.success('编辑成功');
 				editFormRef.resetFields();
-				window.location.hash = '/permission/user';
+				location.hash = '/permission/user';
 			} else {
 				message.error('编辑失败');
 			}

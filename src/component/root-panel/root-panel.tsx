@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React, { PropsWithChildren } from 'react';
 import { connect } from 'dva';
 import { withRouter } from 'dva/router';
@@ -13,7 +14,10 @@ import {
 } from '../styled/container';
 import WebHeader from '../web-header';
 import { helper } from '@/utility/helper';
+import { SessionStorageKeys } from '@/utility/helper';
 import { RootPanelProp } from './props';
+
+const thisYear = dayjs().year();
 
 /**
  * 视图根组件
@@ -22,7 +26,7 @@ import { RootPanelProp } from './props';
 const RootPanel = (props: PropsWithChildren<RootPanelProp>) => {
 	const { appMenu } = props;
 	const { path } = props.match;
-	const notLogin = sessionStorage.getItem('user_token') === null;
+	const notLogin = sessionStorage.getItem(SessionStorageKeys.UserToken) === null;
 	let allow = true;
 
 	if (appMenu.data.length !== 0) {
@@ -47,7 +51,7 @@ const RootPanel = (props: PropsWithChildren<RootPanelProp>) => {
 						<ContentBox>{props.children}</ContentBox>
 					</MainBox>
 					<FooterBox>
-						<div>&copy;2021 安证网信（北京）信息科技有限公司</div>
+						<div>&copy;{thisYear} 安证网信（北京）信息科技有限公司</div>
 					</FooterBox>
 				</RootContainer>
 			);

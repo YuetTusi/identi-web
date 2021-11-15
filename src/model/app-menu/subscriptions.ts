@@ -1,6 +1,7 @@
 import { Location } from 'history';
 import { SubscriptionAPI } from "dva";
 import { helper } from "@/utility/helper";
+import { SessionStorageKeys } from '@/utility/helper';
 import { ActionMessageState } from "@/schema/action-message";
 import { fetchMessageTask } from '@/worker/loop-task';
 
@@ -10,7 +11,7 @@ export default {
 
     loadMenu({ dispatch }: SubscriptionAPI) {
 
-        const uid = sessionStorage.getItem('uid');
+        const uid = sessionStorage.getItem(SessionStorageKeys.UId);
         dispatch({
             type: 'queryMenuByUserId',
             payload: { id: uid }

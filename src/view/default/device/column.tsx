@@ -58,7 +58,7 @@ const getColumns = (dispatch: Dispatch, lawCase: LawCase, ...args: any[]) => {
 					<a
 						onClick={() => {
 							const param = helper.toUrlParam(record, true);
-							window.open(`/fetch.html?${param}`);
+							open(`/fetch.html?${param}`);
 						}}>
 						采集
 					</a>

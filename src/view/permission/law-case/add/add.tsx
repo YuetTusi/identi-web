@@ -56,7 +56,7 @@ const validCaseNameExist = throttle((case_name: string): Promise<void> => {
 	});
 }, 500);
 
-const Add: FC<AddProp> = (props) => {
+const Add: FC<AddProp> = () => {
 	const dispatch = useDispatch();
 	const [addFormRef] = useForm<LawCase>();
 	const userList = useUserList();

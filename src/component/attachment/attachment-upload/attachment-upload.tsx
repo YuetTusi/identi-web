@@ -3,6 +3,7 @@ import Button from 'antd/lib/button';
 import Upload from 'antd/lib/upload';
 import UploadOutlined from '@ant-design/icons/UploadOutlined';
 import webConfig from '@/config/web.json';
+import { SessionStorageKeys } from '@/utility/helper';
 import { AttachmentUploadProp } from './props';
 
 const { devBaseURL, prodBaseURL } = webConfig;
@@ -16,7 +17,7 @@ const AttachmentUpload: FC<AttachmentUploadProp> = ({ action, multiple, onChange
 		onChange={onChange}
 		onRemove={onRemove}
 		action={baseURL + action}
-		headers={{ Authorization: sessionStorage.getItem('user_token')! }}
+		headers={{ Authorization: sessionStorage.getItem(SessionStorageKeys.UserToken)! }}
 		maxCount={5}
 		multiple={multiple}>
 		<Button type="primary">

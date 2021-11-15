@@ -40,7 +40,7 @@ const bindUserList = (data: User[]) => {
  * 案件编辑页
  * 路由参数id传案件PrimaryKey
  */
-const Edit: FC<EditProp> = (props) => {
+const Edit: FC<EditProp> = () => {
 	const dispatch = useDispatch();
 	const { id } = useParams<{ id: string }>();
 	const editCaseRef = useRef<LawCase>();

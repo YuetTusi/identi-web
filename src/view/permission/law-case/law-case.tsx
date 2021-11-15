@@ -21,6 +21,9 @@ import { LawCase4Table } from './props';
 
 const defaultPageSize = 10;
 
+/**
+ * 案件
+ */
 const LawCase: FC<{}> = () => {
 	const dispatch = useDispatch();
 	const [formRef] = useForm<LawCaseEntity>();

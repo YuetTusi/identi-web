@@ -10,6 +10,21 @@ import { request } from './request';
 
 const { Option } = Select;
 
+enum SessionStorageKeys {
+	/**
+	 * 用户Token
+	 */
+	UserToken = 'user_token',
+	/**
+	 * 当前用户名
+	 */
+	UserName = 'username',
+	/**
+	 * 当前用户id
+	 */
+	UId = 'uid'
+}
+
 const helper = {
 	/**
 	 * 是否是null或undefined
@@ -74,7 +89,7 @@ const helper = {
 	 * 当前登录用户id
 	 */
 	getUId() {
-		const base64 = sessionStorage.getItem('uid');
+		const base64 = sessionStorage.getItem(SessionStorageKeys.UId);
 		return base64 === null ? null : atob(base64);
 	},
 	/**
@@ -206,7 +221,7 @@ const helper = {
 				url: `case-attach/device/${id}`,
 				method: 'GET'
 			});
-			console.log(code,data);
+			console.log(code, data);
 			if (code === 0) {
 				return data;
 			} else {
@@ -225,7 +240,7 @@ const helper = {
 	createWebWorker(code: string) {
 		if (code) {
 			var blob = new Blob([code]); //源码创建Blob对象
-			var worker = new Worker(window.URL.createObjectURL(blob));
+			var worker = new Worker(URL.createObjectURL(blob));
 			return worker;
 		} else {
 			throw Error('Worker code is null');
@@ -233,4 +248,4 @@ const helper = {
 	}
 };
 
-export { helper };
+export { helper, SessionStorageKeys };

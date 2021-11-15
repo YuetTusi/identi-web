@@ -5,17 +5,12 @@ import Menu from 'antd/lib/menu';
 import { StateTree } from '@/schema/model-type';
 import { AppMenuStoreState, ResourceItem } from '@/model/app-menu';
 import BorderOutlined from '@ant-design/icons/BorderOutlined';
-// import TableOutlined from '@ant-design/icons/TableOutlined';
 import BookOutlined from '@ant-design/icons/BookOutlined';
-// import SolutionOutlined from '@ant-design/icons/SolutionOutlined';
 import SettingOutlined from '@ant-design/icons/SettingOutlined';
-// import UserOutlined from '@ant-design/icons/UserOutlined';
-// import TeamOutlined from '@ant-design/icons/TeamOutlined';
-// import PartitionOutlined from '@ant-design/icons/PartitionOutlined';
 import IdcardOutlined from '@ant-design/icons/IdcardOutlined';
-// import ToolOutlined from '@ant-design/icons/ToolOutlined';
 
 const { SubMenu, Item } = Menu;
+const defaultOpenTabs = ['/', '/permission', '/profile'];
 
 interface AppMenuProp {}
 
@@ -28,28 +23,22 @@ const getIcon = (url: string): JSX.Element | null => {
 		case '/':
 			return <BookOutlined />;
 		case '/default':
-			// return <SolutionOutlined />;
 			return null;
 		case '/message':
 			return null;
 		case '/permission':
 			return <SettingOutlined />;
 		case '/permission/law-case':
-			// return <TableOutlined />;
 			return null;
 		case '/permission/user':
-			// return <UserOutlined />;
 			return null;
 		case '/permission/role':
-			// return <TeamOutlined />;
 			return null;
 		case '/permission/resource':
-			// return <PartitionOutlined />;
 			return null;
 		case '/profile':
 			return <IdcardOutlined />;
 		case '/profile/setting':
-			// return <ToolOutlined />;
 			return null;
 		default:
 			return <BorderOutlined />;
@@ -85,8 +74,8 @@ const AppMenu: FC<AppMenuProp> = () => {
 		<div>
 			<Menu
 				selectedKeys={[pathname]}
-				defaultOpenKeys={['/', '/permission', '/profile']}
-				style={{ width: '200px' }}
+				defaultOpenKeys={defaultOpenTabs}
+				style={{ width: '180px' }}
 				mode="inline">
 				{renderMenu()}
 			</Menu>

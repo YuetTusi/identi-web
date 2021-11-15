@@ -9,6 +9,7 @@ import Modal from 'antd/lib/modal';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import MailOutlined from '@ant-design/icons/lib/icons/MailOutlined';
 import { helper } from '@/utility/helper';
+import { SessionStorageKeys } from '@/utility/helper';
 import { StateTree } from '@/schema/model-type';
 import { ActionMessage, ActionMessageState } from '@/schema/action-message';
 import Authority from '@/component/authority';
@@ -145,7 +146,9 @@ const WebHeader: FC<WebHeaderProp> = () => {
 								<UserOutlined />
 							</i>
 							<div>
-								<span>{sessionStorage.getItem('username') ?? ''}</span>
+								<span>
+									{sessionStorage.getItem(SessionStorageKeys.UserName) ?? ''}
+								</span>
 							</div>
 						</div>
 					</Authority>

@@ -16,7 +16,7 @@ import { DetailProp, LawCase4Table } from './props';
 /**
  * 案件详情页
  */
-const Detail: FC<DetailProp> = (props) => {
+const Detail: FC<DetailProp> = () => {
 	const { id } = useParams<{ id: string }>();
 	const lastRec = useLastRec(id);
 	const attachment = useCaseAttach(id);

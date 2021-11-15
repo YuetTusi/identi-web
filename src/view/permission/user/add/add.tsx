@@ -70,7 +70,7 @@ const Add: FC<AddProp> = (props) => {
 				if (code === 0 && data > 0) {
 					message.success('添加成功');
 					form.resetFields();
-					window.location.hash = '/permission/user';
+					location.hash = '/permission/user';
 				} else {
 					message.error('添加失败');
 				}
