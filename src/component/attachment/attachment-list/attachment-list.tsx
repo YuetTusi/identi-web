@@ -1,8 +1,6 @@
 import React, { FC, memo } from 'react';
 import DownloadOutlined from '@ant-design/icons/DownloadOutlined';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import Empty from 'antd/lib/empty';
-import Modal from 'antd/lib/modal';
 import webConfig from '@/config/web.json';
 import { Attachment } from '@/schema/attachment';
 import { AttachList } from '@/component/styled/widget';
@@ -13,7 +11,7 @@ const baseURL: string =
 const List: FC<{ data: Attachment[] }> = ({ data }) => (
 	<>
 		{data.map(({ id, file_name }) => (
-			<li key={id}>
+			<li key={`K_${id}`}>
 				<a href={`${baseURL}attachment/download?id=${id}`} download={true} target="_blank">
 					<label>{file_name}</label>
 					<i title="下载附件">

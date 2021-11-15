@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce';
 import React, { FC, MouseEvent, useEffect } from 'react';
-import { useDispatch, useLocation, useSelector } from 'dva';
+import { useDispatch, useSelector } from 'dva';
 import { routerRedux } from 'dva/router';
 import Badge from 'antd/lib/badge';
 import Button from 'antd/lib/button';
@@ -8,7 +8,6 @@ import Popover from 'antd/lib/popover';
 import Modal from 'antd/lib/modal';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import MailOutlined from '@ant-design/icons/lib/icons/MailOutlined';
-import { polling } from '@/utility/polling';
 import { helper } from '@/utility/helper';
 import { StateTree } from '@/schema/model-type';
 import { ActionMessage, ActionMessageState } from '@/schema/action-message';
@@ -19,6 +18,9 @@ import { WebHeaderRoot } from './styled/layout-box';
 import ActionMessageList from '../action-message-list';
 import { WebHeaderProp } from './props';
 
+/**
+ * 站点头部
+ */
 const WebHeader: FC<WebHeaderProp> = () => {
 	const dispatch = useDispatch();
 	const { data } = useSelector<StateTree, ActionMessageListStoreState>(

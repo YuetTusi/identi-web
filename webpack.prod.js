@@ -41,7 +41,7 @@ let config = {
 	module: {
 		rules: [
 			{
-				test: /\.(ts|tsx)$/,
+				test: /\.tsx?$/,
 				use: {
 					loader: 'babel-loader',
 					options: {
@@ -82,14 +82,14 @@ let config = {
 				]
 			},
 			{
-				test: /\.(png|jpg|jpeg|gif|ico)$/,
+				test: /\.(png|jpe?g|gif|ico)$/,
 				type: 'asset/resource',
 				generator: {
 					filename: 'images/[name]_[hash:8][ext]'
 				}
 			},
 			{
-				test: /\.(woff|woff2|ttf|otf|eot|svg)$/,
+				test: /\.(woff2?|ttf|otf|eot|svg)$/,
 				type: 'asset/resource',
 				generator: {
 					filename: 'fonts/[name]_[hash:8][ext]'
@@ -116,10 +116,7 @@ let config = {
 		}),
 		new AntdDayjsWebpackPlugin(),
 		new FriendlyErrorsWebpackPlugin({
-			clearConsole: true,
-			compilationSuccessInfo: {
-				messages: [`开发服务器已启动在本地${devPort}端口`]
-			}
+			clearConsole: true
 		})
 	]
 };

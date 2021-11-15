@@ -1,4 +1,4 @@
-const minute = 3;
+const minute: number = 3;
 
 const fetchMessageTask = `
 self.setInterval(() => {

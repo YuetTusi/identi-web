@@ -7,8 +7,6 @@ import { StateTree } from '@/schema/model-type';
 
 /**
  * 权限控制
- * @param props
- * @returns
  */
 const Authority: FC<AuthorityProp> = ({ k, children }) => {
 	const { data } = useSelector<StateTree, AppMenuStoreState>((state) => state.appMenu);

@@ -18,7 +18,6 @@ import { RootPanelProp } from './props';
 /**
  * 视图根组件
  * 用于验证登录，若用户token不存在则提示
- * @returns
  */
 const RootPanel = (props: PropsWithChildren<RootPanelProp>) => {
 	const { appMenu } = props;
