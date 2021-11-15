@@ -20,10 +20,10 @@ const getColumns = (dispatch: Dispatch) => {
 			key: 'identi_username'
 		},
 		{
-			title: '消息状态',
+			title: '状态',
 			dataIndex: 'read',
 			key: 'read',
-			width: 80,
+			width: 70,
 			align: 'center',
 			render(value: ActionMessageState) {
 				switch (value) {

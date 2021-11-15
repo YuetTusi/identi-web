@@ -20,7 +20,7 @@ const SearchForm: FC<SearchFormProp> = ({ formRef, onSearchFormSubmit }) => {
 
 	return (
 		<Form form={formRef} layout="inline">
-			<Item name="read" label="消息状态" initialValue={''}>
+			<Item name="read" label="状态" initialValue={''}>
 				<Select style={{ width: '70px' }}>
 					<Option value={''}>全部</Option>
 					<Option value={ActionMessageState.Unread}>

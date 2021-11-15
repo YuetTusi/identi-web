@@ -15,7 +15,7 @@ let config = {
 		path: path.join(__dirname, './dist'),
 		filename: 'bundle.js'
 	},
-	target: 'web',
+	target: 'web', //调试IE11，使用['web','es5']配置，不能使用热更新
 	cache: {
 		name: 'dev-cache',
 		type: 'filesystem',
@@ -28,11 +28,15 @@ let config = {
 		extensions: ['.tsx', '.ts', '.js', '.json']
 	},
 	devServer: {
-		contentBase: path.join(__dirname, './dist'),
+		static: {
+			directory: path.join(__dirname, './dist')
+		},
 		host: '0.0.0.0',
 		port: devPort,
 		compress: true,
-		overlay: { error: true }
+		client: {
+			overlay: { errors: true }
+		}
 	},
 	module: {
 		rules: [
