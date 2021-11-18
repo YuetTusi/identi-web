@@ -289,6 +289,21 @@ const createRouter = (api?: RouterAPI) => {
 							}}
 						/>
 						<Route
+							path="/permission/dict"
+							render={() => {
+								const Next = lazy<FC<any>>(
+									() => import('@/view/permission/dict')
+								);
+								return (
+									<Suspense fallback={<Loading />}>
+										<RootPanel>
+											<Next />
+										</RootPanel>
+									</Suspense>
+								);
+							}}
+						/>
+						<Route
 							path="/profile"
 							exact={true}
 							render={() => {

@@ -16,3 +16,26 @@ export enum DictCategory {
      */
     CertificateType = 'certificate-type'
 }
+
+export class Dict {
+    /**
+     * 主键
+     */
+    public id: string = '';
+    /**
+     * 名称
+     */
+    public name: string = '';
+    /**
+     * 值
+     */
+    public value: string = '';
+    /**
+     * 顺序
+     */
+    public seq?: number;
+    /**
+     * 分类
+     */
+    public category: string = '';
+}

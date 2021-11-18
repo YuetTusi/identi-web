@@ -8,6 +8,7 @@ import { IssueModalStoreState } from "@/model/permission/component/issue-modal";
 import { ReissueModalStoreState } from "@/model/permission/component/reissue-modal";
 import { LawCaseStoreState } from "@/model/permission/law-case";
 import { ResourceStoreState } from "@/model/permission/resource";
+import { DictStoreState } from '@/model/permission/dict';
 import { RoleStoreState } from "@/model/permission/role";
 import { UserStoreState } from "@/model/permission/user";
 import { SettingStoreState } from "@/model/profile/setting";
@@ -41,6 +42,7 @@ interface StateTree {
     reissueModal: ReissueModalStoreState,
     lawCase: LawCaseStoreState,
     resource: ResourceStoreState,
+    dict: DictStoreState,
     role: RoleStoreState,
     user: UserStoreState,
     setting: SettingStoreState,

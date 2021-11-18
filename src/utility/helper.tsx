@@ -139,7 +139,7 @@ const helper = {
 	async getDict(category: DictCategory) {
 		try {
 			const { code, data } = await request<{ name: string; value: string }[]>({
-				url: `dict/${category}`,
+				url: `dict/category/${category}`,
 				method: 'GET'
 			});
 			if (code === 0) {

@@ -22,22 +22,17 @@ const getIcon = (url: string): JSX.Element | null => {
 	switch (url) {
 		case '/':
 			return <BookOutlined />;
-		case '/default':
-			return null;
-		case '/message':
-			return null;
 		case '/permission':
 			return <SettingOutlined />;
-		case '/permission/law-case':
-			return null;
-		case '/permission/user':
-			return null;
-		case '/permission/role':
-			return null;
-		case '/permission/resource':
-			return null;
 		case '/profile':
 			return <IdcardOutlined />;
+		case '/default':
+		case '/message':
+		case '/permission/law-case':
+		case '/permission/user':
+		case '/permission/role':
+		case '/permission/resource':
+		case '/permission/dict':
 		case '/profile/setting':
 			return null;
 		default:

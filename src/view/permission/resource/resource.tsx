@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'dva';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
@@ -11,7 +11,6 @@ import { TablePanel } from '@/component/styled/widget';
 import EditSeqModal from './components/edit-seq-modal';
 import SearchForm from './search-form';
 import { getColumns } from './columns';
-import { FormValue as EditSeqFormValue } from './components/edit-seq-modal/props';
 import { Prop, FormValue } from './props';
 import { Resource as ResourceEntity } from '@/schema/resource';
 
