@@ -11,13 +11,13 @@ import { request } from '@/utility/request';
 import { LawCase } from '@/schema/law-case';
 import CaseDesc from './case-desc';
 import Record from './record';
-import { DetailProp } from './props';
 import { LawCase4Table } from '../props';
+import { DetailProp } from './props';
 
 /**
  * 案件详情页
  */
-const Detail: FC<DetailProp> = (props) => {
+const Detail: FC<DetailProp> = () => {
 	const { id } = useParams<{ id: string }>();
 	const lastRec = useLastRec(id);
 	const [lawCase, setLawCase] = useState<LawCase4Table>();

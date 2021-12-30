@@ -42,9 +42,12 @@ const LawCase: FC<{}> = () => {
 			payload: { pageIndex, pageSize, condition }
 		});
 
+	/**
+	 * 翻页Change
+	 * @param pageIndex 当前页
+	 */
 	const onPageChange = (pageIndex: number) => {
 		const formValue = formRef.getFieldsValue();
-		console.log(formValue);
 		queryTable(pageIndex, defaultPageSize, formValue);
 	};
 

@@ -8,6 +8,9 @@ import { WarnBox } from './styled/WarnBox';
 
 const { Group } = Button;
 
+/**
+ * 403无权限
+ */
 const NotAllow = () => {
 	const dispatch = useDispatch();
 	return (
@@ -19,7 +22,7 @@ const NotAllow = () => {
 				</h1>
 			</div>
 			<div>
-				<h4>抱歉，您暂无权限访问；若想使用此功能请联系管理员</h4>
+				<h4>抱歉，您暂无权限访问页面或使用此功能，请联系管理员</h4>
 			</div>
 			<hr />
 			<div className="button-box">

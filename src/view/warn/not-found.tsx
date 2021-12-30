@@ -8,6 +8,9 @@ import { WarnBox } from './styled/WarnBox';
 
 const { Group } = Button;
 
+/**
+ * 404 无页面
+ */
 const NotFound = () => {
 	const dispatch = useDispatch();
 	return <WarnBox>

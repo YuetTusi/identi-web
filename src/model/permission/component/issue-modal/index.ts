@@ -1,5 +1,4 @@
 import { Model } from 'dva';
-import { LawCase } from '@/schema/law-case';
 import reducers from './reducers';
 import effects from './effects';
 import { LawCase4Table } from '@/view/permission/law-case/props';

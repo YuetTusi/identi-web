@@ -31,22 +31,73 @@ interface StoreComponent<MatchParam = any> extends RouteComponentProps<MatchPara
  * 状态树
  */
 interface StateTree {
+    /**
+     * 附件弹框Model
+     */
     attachmentModal: AttachmentModalStoreState,
+    /**
+     * 附件列表Model
+     */
     attachmentTablel: AttachmentTableStoreState,
+    /**
+     * 消息Model
+     */
     actionMessageList: ActionMessageListStoreState,
+    /**
+     * 菜单Model
+     */
     appMenu: AppMenuStoreState,
+    /**
+     * 鉴权Model
+     */
     auth: AuthStoreState,
+    /**
+     * 案件Model
+     */
     default: DefaultStoreState,
+    /**
+     * 审核Model
+     */
     disapproveModal: DisapproveModalStoreState,
+    /**
+     * 下发鉴定Model
+     */
     issueModal: IssueModalStoreState,
+    /**
+     * 重新鉴定Model
+     */
     reissueModal: ReissueModalStoreState,
+    /**
+     * 案件管理Model
+     */
     lawCase: LawCaseStoreState,
+    /**
+     * 资源查看Model
+     */
     resource: ResourceStoreState,
+    /**
+     * 字典Model
+     */
     dict: DictStoreState,
+    /**
+     * 角色Model
+     */
     role: RoleStoreState,
+    /**
+     * 用户Model
+     */
     user: UserStoreState,
+    /**
+     * 个人设置Model
+     */
     setting: SettingStoreState,
+    /**
+     * 消息Model
+     */
     message: MessageStoreState,
+    /**
+     * DvaModel
+     */
     [modelName: string]: any
 }
 

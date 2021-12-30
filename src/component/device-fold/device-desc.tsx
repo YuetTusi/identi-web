@@ -1,8 +1,10 @@
+import dayjs from 'dayjs';
 import React, { FC } from 'react';
 import Divider from 'antd/lib/divider';
 import Descriptions from 'antd/lib/descriptions';
 import { useDeviceAttach } from '@/hook';
 import { Suspect } from '@/schema/suspect';
+import { helper } from '@/utility/helper';
 import AttachmentList from '../attachment/attachment-list';
 
 const { Item } = Descriptions;
@@ -67,7 +69,7 @@ const DeviceDesc: FC<{ data: Suspect }> = ({ data }) => {
 				<Item label="民族代码">{minzu_code ?? ''}</Item>
 				<Item label="手机号码">{phone ?? ''}</Item>
 				<Item label="描述">{desc ?? ''}</Item>
-				<Item label="采集日期">{date ?? ''}</Item>
+				<Item label="采集日期">{helper.isNullOrUndefined(date) ? '' : dayjs(date).format('YYYY-MM-DD HH:mm:ss')}</Item>
 				<Item label="采集类型">{flag ?? ''}</Item>
 				<Item label="采集人员编号">{officer_id ?? ''}</Item>
 				<Item label="采集人员姓名">{officer_name ?? ''}</Item>
@@ -76,7 +78,9 @@ const DeviceDesc: FC<{ data: Suspect }> = ({ data }) => {
 				<Item label="手机绝对路径">{str_phone_path ?? ''}</Item>
 				<Item label="备注">{note ?? ''}</Item>
 			</Descriptions>
-			<Divider orientation="left" plain={true}>附件</Divider>
+			<Divider orientation="left" plain={true}>
+				附件
+			</Divider>
 			<AttachmentList data={attach} />
 		</>
 	);

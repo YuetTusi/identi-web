@@ -221,7 +221,7 @@ const helper = {
 				url: `case-attach/device/${id}`,
 				method: 'GET'
 			});
-			console.log(code, data);
+
 			if (code === 0) {
 				return data;
 			} else {

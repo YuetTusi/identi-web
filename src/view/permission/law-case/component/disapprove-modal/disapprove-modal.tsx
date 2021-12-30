@@ -25,6 +25,10 @@ const DisapproveModal: FC<Partial<DisapproveModalProp>> = () => {
 	const { data, visible } = useSelector<StateTree, DisapproveModalStoreState>(
 		(state) => state.disapproveModal
 	);
+
+	/**
+	 * 关闭弹框
+	 */
 	const onCancel = () => {
 		form.resetFields();
 		dispatch({ type: 'disapproveModal/setVisible', payload: false });

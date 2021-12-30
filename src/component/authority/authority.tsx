@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
-import { helper } from '@/utility/helper';
-import { AuthorityProp } from './props';
 import { useSelector } from 'dva';
+import { helper } from '@/utility/helper';
 import { AppMenuStoreState } from '@/model/app-menu';
 import { StateTree } from '@/schema/model-type';
+import { AuthorityProp } from './props';
 
 /**
  * 权限控制
@@ -14,7 +14,7 @@ const Authority: FC<AuthorityProp> = ({ k, children }) => {
 
 	useEffect(() => setVisible(helper.hasRoute(data, k)), [data, k]);
 
-	return <div style={{ display: visible ? 'block' : 'none' }}>{children}</div>;
+	return visible ? <div>{children}</div> : null;
 };
 
 export default Authority;

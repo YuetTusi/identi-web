@@ -15,6 +15,9 @@ import { LoginProp } from './props';
 const { Item } = Form;
 const { Password } = Input;
 
+/**
+ * 登录
+ */
 const Login: FC<LoginProp> = ({ dispatch }) => {
 	const onLoginFormFinish = debounce(
 		({ username, password }: any) => {

@@ -20,6 +20,9 @@ import { Prop } from './props';
 const defaultPageSize = 10;
 let roleId: string = '';
 
+/**
+ * 角色管理
+ */
 const Role: FC<Prop> = () => {
 	const dispatch = useDispatch();
 	const role = useSelector<StateTree, RoleStoreState>((state) => state.role);

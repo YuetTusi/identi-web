@@ -2,14 +2,13 @@ import React, { FC, memo } from 'react';
 import Empty from 'antd/lib/empty';
 import Tag from 'antd/lib/tag';
 import { ListView } from '@/component/styled/widget';
-import { LawCase4Table } from '../props';
 import { CaseState } from '@/schema/law-case';
+import { LawCase4Table } from '../props';
 
 /**
  * 状态标签
  */
-const StateTag: FC<{ state: CaseState }> = (props) => {
-	const { state } = props;
+const StateTag: FC<{ state: CaseState }> = ({ state }) => {
 	switch (state) {
 		case CaseState.NotIdenti:
 			return <Tag style={{ margin: 0 }}>未鉴定</Tag>;
@@ -45,8 +44,7 @@ const StateTag: FC<{ state: CaseState }> = (props) => {
 /**
  * 案件信息展示
  */
-const CaseDesc: FC<{ data?: LawCase4Table }> = (props) => {
-	const { data } = props;
+const CaseDesc: FC<{ data?: LawCase4Table }> = ({ data }) => {
 	if (data) {
 		return (
 			<ListView>

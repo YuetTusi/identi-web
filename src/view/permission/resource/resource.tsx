@@ -69,6 +69,11 @@ const Resource: FC<Prop> = (props) => {
 		queryResource(pageIndex, pageSize ?? defaultPageSize, formValue);
 	};
 
+	/**
+	 * 保存Click
+	 * @param id 资源id
+	 * @param seq 顺序
+	 */
 	const onSaveClick = (id: string, seq: number) => {
 		dispatch({
 			type: 'resource/updateSeq',
@@ -80,6 +85,9 @@ const Resource: FC<Prop> = (props) => {
 		setEditSeqModalVisible(false);
 	};
 
+	/**
+	 * 关闭弹框
+	 */
 	const onCancelClick = () => setEditSeqModalVisible(false);
 
 	return (

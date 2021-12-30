@@ -41,7 +41,7 @@ let config = {
 	module: {
 		rules: [
 			{
-				test: /\.(ts|tsx)$/,
+				test: /\.tsx?$/,
 				use: {
 					loader: 'babel-loader',
 					options: {
@@ -82,14 +82,14 @@ let config = {
 				]
 			},
 			{
-				test: /\.(png|jpg|jpeg|gif|ico)$/,
+				test: /\.(png|jpe?g|gif|ico)$/,
 				type: 'asset/resource',
 				generator: {
 					filename: 'images/[hash:16][ext]'
 				}
 			},
 			{
-				test: /\.(woff|woff2|ttf|otf|eot|svg)$/,
+				test: /\.(woff2?|ttf|otf|eot|svg)$/,
 				type: 'asset/resource',
 				generator: {
 					filename: 'fonts/[hash:16][ext]'

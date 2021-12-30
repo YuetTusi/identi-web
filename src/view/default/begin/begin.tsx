@@ -22,17 +22,15 @@ import { LawCase4Table } from '@/view/default/props';
 import { ListView } from '@/component/styled/widget';
 import IdentiForm from '../component/identi-form';
 import RejectForm from '../component/reject-form';
-import { BeginProp, FormValue } from './props';
 import DeviceFold from '@/component/device-fold';
+import { BeginProp, FormValue } from './props';
 
 const { Group } = Radio;
 
 /**
  * 鉴定页
- * @param props
- * @returns
  */
-const Begin: FC<BeginProp> = (props) => {
+const Begin: FC<BeginProp> = () => {
 	const dispatch = useDispatch();
 	const { id } = useParams<{ id: string }>(); //案件id
 	const caseAttach = useCaseAttach(id);

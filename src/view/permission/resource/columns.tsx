@@ -34,7 +34,7 @@ const getColumns = (dispatch: Dispatch, ...args: any[]) => {
 			title: '顺序',
 			dataIndex: 'seq',
 			key: 'seq',
-			width: 50
+			width: 60
 		},
 		{
 			title: '上级资源',

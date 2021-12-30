@@ -57,9 +57,7 @@ const mapToTree = (data: LevelResource[], current: Resource[]): any => {
 	}
 };
 
-const ResourceModal: FC<ResourceModalProp> = (props) => {
-	const { visible, id, onCancel, onOk } = props;
-
+const ResourceModal: FC<ResourceModalProp> = ({ visible, id, onCancel, onOk }) => {
 	useEffect(() => {
 		(async (roleId) => {
 			if (roleId !== '' && visible) {
