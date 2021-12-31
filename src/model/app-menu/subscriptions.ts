@@ -37,7 +37,7 @@ export default {
                         break;
                     default:
                         if (messageWorker === null) {
-                            messageWorker = helper.createWebWorker(fetchMessageTask);
+                            messageWorker = helper.createWorker(fetchMessageTask);
                             messageWorker.onmessage = ({ data }: MessageEvent<any>) => {
                                 switch (data) {
                                     case 'read-message':

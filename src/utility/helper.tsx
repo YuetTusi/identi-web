@@ -162,9 +162,7 @@ const helper = {
 			const { code, data } = await request<number>({
 				url: 'message',
 				method: 'POST',
-				data: {
-					form: actionMessage
-				}
+				data: { form: actionMessage }
 			});
 			if (code === 0 && data > 0) {
 				return true;
@@ -237,11 +235,9 @@ const helper = {
 	 * @param code 线程脚本源码
 	 * @returns 线程对象
 	 */
-	createWebWorker(code: string) {
+	createWorker(code: string) {
 		if (code) {
-			var blob = new Blob([code]); //源码创建Blob对象
-			var worker = new Worker(URL.createObjectURL(blob));
-			return worker;
+			return new Worker(URL.createObjectURL(new Blob([code])));
 		} else {
 			throw Error('Worker code is null');
 		}
